@@ -1,0 +1,118 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Sheet{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  course_code String
+  name String
+  term String
+  type String
+  year Int
+  price Int
+  num_page Int
+  description String
+  date DateTime @default(now())
+  sellerId String @db.ObjectId
+  seller   Seller   @relation(fields: [sellerId], references: [id])
+  owner Owner[]
+  list List[]
+  slug String
+  // img
+  // file.png
+}
+
+model Owner{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+
+  sheetId String @db.ObjectId
+  sheet   Sheet   @relation(fields: [sheetId], references: [id])
+
+}
+
+model User{
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  username String
+  email String
+  password String
+  owner Owner[]
+  favorite FevoriteList[]
+  sellerId String @db.ObjectId
+  seller   Seller   @relation(fields: [sellerId], references: [id])
+
+}
+
+model Seller{
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  pen_name String
+  full_name String
+  id_number String
+  phone String
+  bank_name  String
+  bank_id String
+  address   String
+  sheet Sheet[]
+  user User[]
+}
+
+model FevoriteList{
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+  list List[]
+}
+
+model List{
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  sheetId String @db.ObjectId
+  sheet   Sheet   @relation(fields: [sheetId], references: [id])
+  favoriteId String @db.ObjectId
+  favorite   FevoriteList   @relation(fields: [favoriteId], references: [id])
+}
+
+model PdfFile {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  filename    String
+  contentType String
+  metadata    PdfMetadata[]
+
+  // GridFS-specific fields
+  chunks      Chunk[]
+}
+
+model Chunk {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  data        Bytes
+  pdfFileId   String  @db.ObjectId
+  pdfFile     PdfFile   @relation(fields: [pdfFileId], references: [id])
+}
+
+
+model PdfMetadata {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  filename String
+  fileSize Int
+  mimeType String
+  pdfFileId String @db.ObjectId
+  pdfFile  PdfFile? @relation(fields: [pdfFileId], references: [id]) // Add references argument here
+
+}
+
+model Post{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  description String
+  date DateTime @default(now())
+}
+
