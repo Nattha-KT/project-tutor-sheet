@@ -1,7 +1,6 @@
 // pages/api/upload.ts
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { NextResponse } from "next/server"
-import { GridFsStorage } from 'multer-gridfs-storage';
+import { NextApiRequest, NextApiResponse } from 'next';
+import GridFsStorage from 'multer-gridfs-storage';
 import crypto from 'crypto';
 import path from 'path';
 import multer from 'multer';
@@ -11,28 +10,18 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import  createReadStream  from 'gridfs-stream';
 import { Db } from 'mongodb';
-import {Grid} from 'gridfs-stream';
-
-    const app = express();
-
-    // Middleware
-    app.use(bodyParser.json());
-    app.set('view engine', 'ejs');
+import Grid from 'gridfs-stream';
+import { NextResponse } from "next/server"
 
 
-const mongoURI = "mongodb+srv://NatthaKT:080245@cluster0.iitgtbj.mongodb.net/testDb?retryWrites=true&w=majority";
 
-// Create mongo connection
-
-const conn: mongoose.Connection = mongoose.createConnection(mongoURI);
-
+const conn = mongoose.createConnection(process.env.DATABASE_URL || '');
 
 // Init gfs
-let gfs: ReturnType<typeof createReadStream> ;
+let gfs: any;
 
 conn.once('open', () => {
-  // Init stream
-  gfs = new Grid(conn.db, mongoose.mongo);
+  gfs = Grid(conn.db, mongoose.mongo);
   gfs.collection('uploads');
 });
 
@@ -57,11 +46,43 @@ const storage = new GridFsStorage({
   });
   
   const upload = multer({ storage });
+  console.log("Console Storage=> ",storage)
 
+  export const POST = async (req: Request, res: Response)=>{
+    try{
+       
+      upload.single('file')(req as any , res as any , (err: any) => {
+        //       // const buffer = Buffer.from(req);
+              console.log(JSON.stringify(req));
+              if (err) {
+                return NextResponse.json({message:"Error",err},{status:500});
+              }
+              return  NextResponse.json({message:"Upload Success",req},{status:200});
+            });
+        return NextResponse.json({message:"Upload Success",req},{status:200});
+        }catch(err){
+            return   NextResponse.json({message:"Error",err},{status:500});
+        }
+    
+    }
 
+    // export const POST = async (req: NextApiRequest, res: NextApiResponse) => {
+    //   try {
+    //     upload.single('file')(req as any, res as any, (err: any) => {
+    //       // const buffer = Buffer.from(req);
+    //       console.log(JSON.stringify(req));
+    //       if (err) {
+    //         return res.status(500).json({ message: 'Error', err });
+    //       }
+    //       return res.status(200).json({ message: 'Upload Success' });
+    //     });
+    //   } catch (err) {
+    //     return res.status(500).json({ message: 'Error', err });
+    //   }
+    // };
+  
 
-  app.post('/upload', upload.single('file'), (req, res) => {
-    // res.json({ file: req.file });
-    res.redirect('/');
-  });
+  
+
+ 
 
