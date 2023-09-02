@@ -37,20 +37,54 @@ model Owner{
 
   sheetId String @db.ObjectId
   sheet   Sheet   @relation(fields: [sheetId], references: [id])
-
 }
 
 model User{
   id    String @id @default(auto()) @map("_id") @db.ObjectId
-  username String
-  email String
-  password String
+  name          String?
+  image         String?
+  email String     @unique
+  emailVerified DateTime?
+  password String?
+  hashedPassword String?
+  
   owner Owner[]
   favorite FevoriteList[]
-  sellerId String @db.ObjectId
-  seller   Seller   @relation(fields: [sellerId], references: [id])
+  accounts Account[]
+  sessions      Session[]
+
+  sellerId String? @db.ObjectId
+  seller   Seller?   @relation(fields: [sellerId], references: [id])
 
 }
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique
+  userId       String   @db.ObjectId
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
 
 model Seller{
   id    String @id @default(auto()) @map("_id") @db.ObjectId
@@ -81,31 +115,9 @@ model List{
   favorite   FevoriteList   @relation(fields: [favoriteId], references: [id])
 }
 
-model PdfFile {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
-  filename    String
-  contentType String
-  metadata    PdfMetadata[]
-
-  // GridFS-specific fields
-  chunks      Chunk[]
-}
-
-model Chunk {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
-  data        Bytes
-  pdfFileId   String  @db.ObjectId
-  pdfFile     PdfFile   @relation(fields: [pdfFileId], references: [id])
-}
-
-
-model PdfMetadata {
-  id       String   @id @default(auto()) @map("_id") @db.ObjectId
-  filename String
-  fileSize Int
-  mimeType String
-  pdfFileId String @db.ObjectId
-  pdfFile  PdfFile? @relation(fields: [pdfFileId], references: [id]) // Add references argument here
+model filePdf{
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  url   String
 
 }
 
