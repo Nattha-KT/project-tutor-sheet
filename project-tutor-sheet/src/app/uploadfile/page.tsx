@@ -119,11 +119,18 @@ const UploadImageToStorage = () => {
   return (
     <div className="container mt-5 px-20">
       <div className="col-lg-8 offset-lg-2">
+      <span className="sr-only">Choose profile photo</span>
         <Input
           type="file"
           placeholder="Select file to upload"
           accept="image/png"
           onChange={(files) => handleSelectedFile(files.target.files)}
+          className='block w-full text-sm text-slate-500
+          file:mr-4 file:py-2 file:px-4
+          file:rounded-full file:border-0
+          file:text-sm file:font-semibold
+          file:bg-violet-50 file:text-violet-700
+          hover:file:bg-violet-100'
         />
 
         <div className="mt-5 w-4/5 ">
@@ -142,7 +149,7 @@ const UploadImageToStorage = () => {
                   <Button
                     type="primary"
                     onClick={() => handleRemoveFile(index)}
-                    className='bg-yellow-400'
+                    className='bg-yellow-400 hover:bg-yellow-200'
                     disabled={(buttonDelete || isUploading)}
                   >
                     Delete
