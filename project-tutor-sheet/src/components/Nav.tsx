@@ -12,14 +12,14 @@ function Nav() {
     
     <div className="navbar bg-gray-50 drop-shadow-lg border rounded-b-lg px-32">
   <div className="flex-1">
-    <a className="btn btn-ghost normal-case text-xl hover:bg-slate-100">
+    <a className="btn btn-ghost normal-case text-xl hover:bg-slate-100"  href={"/"} >
     <Image  src={"/tutor-sheet-black.svg"} alt={'My Image'} width={200} height={100}/>
     </a>
   </div>
   
   <div className=" flex justify-end flex-1 px-2">
   <div className="flex items-stretch">
-      <a className="btn btn-ghost rounded-btn thai-font btn-nav">ซื้อชีท</a>
+      <a className="btn btn-ghost rounded-btn thai-font btn-nav" href={"/seller"}>ซื้อชีท</a>
       <a className="btn btn-ghost rounded-btn thai-font btn-nav">ขายชีท</a>
       <a className="btn btn-ghost rounded-btn thai-font btn-nav">คำถาม</a>
     </div>

@@ -20,7 +20,7 @@ export default function RootLayout({
       <body>
         <ProviderWrapper>
           <Navbar/>
-          <div className="container mx-auto">{children}</div>
+          <div className="container mx-auto min-h-screen">{children}</div>
         </ProviderWrapper>
       </body>
     </html>
