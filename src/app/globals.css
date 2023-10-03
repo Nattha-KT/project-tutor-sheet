@@ -37,7 +37,7 @@ body {
       max-width: 100%; 
       margin: 0;
       padding: 0;
-      background-color: rgb(252, 252, 252);
+      background-color: #F6F8FB  ; /*rgb(252, 252, 252) /*
       /* overflow-x: hidden;  */
   }
 }

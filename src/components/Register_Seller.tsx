@@ -33,19 +33,6 @@ type Banks = {
     return (await res).json();
   };
 
-  const AdSellerToUser = async (seller:Seller) => {
-    const res = fetch("http://localhost:3000/api/seller",{
-      method: "POST",
-      body: JSON.stringify(seller),
-      // @ts-ignore
-      "Content-Type":"application/json",
-    });
-    // console.log(res);
-    
-    return (await res).json();
-  };
-
-
 
 export default  function Register_Seller({ banks }: { banks: Banks[] }){
 

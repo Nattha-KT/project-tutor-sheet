@@ -32,7 +32,7 @@ export default function Login() {
 
 return (
     <div className="flex items-center justify-center min-h-screen">
-        <div className="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
+        <div className="relative flex flex-col m-6 space-y-8 bg-white shadow-xl rounded-2xl md:flex-row md:space-y-0">
         {/* left side */}
         <div className="flex flex-col  px-8  py-2 md:p-14">
                 <div className='flex justify-start mb-4'>

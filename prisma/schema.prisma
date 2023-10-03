@@ -133,6 +133,13 @@ model Post{
   date DateTime @default(now())
 }
 
+model Faq{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  answer String
+  date DateTime @default(now())
+}
+
 model Bank{
   id String @id @default(auto()) @map("_id") @db.ObjectId
   name String

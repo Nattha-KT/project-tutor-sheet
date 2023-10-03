@@ -8,9 +8,9 @@ function Nav() {
 
   return (
     
-    <div className="navbar py-0 bg-gray-50 drop-shadow-md border rounded-b-2xl px-32">
+    <div className="navbar py-0 bg-white drop-shadow-md border rounded-b-2xl px-32">
   <div className="flex-1">
-    <a className="btn btn-ghost normal-case text-xl hover:bg-slate-100 border-2 border-neutral-400"  href={"/"} >
+    <a className="btn btn-ghost normal-case text-xl hover:bg-slate-100 border-2 border-neutral-100"  href={"/"} >
     <Image  src={"/tutor-sheet-black.svg"} alt={'My Image'} width={200} height={100}/>
     </a>
   </div>
@@ -20,7 +20,7 @@ function Nav() {
       <a className="btn btn-ghost rounded-btn  btn-nav" href={"/"}>หน้าหลัก</a>
       <a className="btn btn-ghost rounded-btn  btn-nav" >ซื้อชีท</a>
       <a className="btn btn-ghost rounded-btn  btn-nav" href={"/seller"}>ขายชีท</a>
-      <a className="btn btn-ghost rounded-btn  btn-nav">คำถาม</a>
+      <a className="btn btn-ghost rounded-btn  btn-nav" href={"/faq"}>คำถาม</a>
     </div>
 
     <div className="dropdown dropdown-bottom dropdown-end">
@@ -43,12 +43,6 @@ function Nav() {
     <SignInButton/>
   </div>
 </div>
-
-
-
-
-    
-
 
   )
 }
