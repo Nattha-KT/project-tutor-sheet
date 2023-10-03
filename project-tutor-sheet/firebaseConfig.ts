@@ -2,11 +2,22 @@
 import { initializeApp,getApps  } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import {getStorage} from "firebase/storage";
+import { getFirestore } from 'firebase/firestore';
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+let app: any;
+let firestore: any;
+let storage: any;
+let analytics:any;
+
+
+if (typeof window !== 'undefined') {
+
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -18,7 +29,10 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+ app = initializeApp(firebaseConfig);
+ firestore = getFirestore(app);
+ analytics = getAnalytics(app);
+ storage = getStorage(app);
+}
 
-export const storage = getStorage();
+export { app, firestore, storage };

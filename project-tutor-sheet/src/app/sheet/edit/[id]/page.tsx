@@ -8,13 +8,12 @@ import { useRef } from "react";
 import { useRouter } from "next/navigation";
 import { revalidateTag } from 'next/cache'
 
-
-
 type Sheet = {
     title : string,
     description : string,
     id: string,
 };
+
 const UpdateSheet = async (data:Sheet) => {
   const res = fetch(`http://localhost:3000/api/blog/${data.id}`,{
     method: "PUT",

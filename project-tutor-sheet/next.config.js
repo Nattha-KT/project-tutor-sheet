@@ -3,10 +3,10 @@
 
 const nextConfig = {
     experimental: {
-      serverActions: true,
+      // serverActions: true,
     },
     images: {
-      domains: ["images.unsplash.com", "lh3.googleusercontent.com"],
+      domains: ["images.unsplash.com", "lh3.googleusercontent.com","platform-lookaside.fbsbx.com"],
     },
   };
 

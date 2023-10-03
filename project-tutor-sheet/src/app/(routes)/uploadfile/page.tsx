@@ -1,11 +1,9 @@
 'use client'
 import { Button, Card, Input, List, message, Image, Progress } from 'antd'
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
-import React, { useState } from 'react'
-import { storage } from '../../../firebaseConfig'
+import React, { useState ,useEffect} from 'react'
+import { storage } from '../../../../firebaseConfig'
 import { number } from 'prop-types'
-
-
 
 const UploadImageToStorage = () => {
   // const [imageFile, setImageFile] = useState<File>()
@@ -17,25 +15,16 @@ const UploadImageToStorage = () => {
   const [progressUpload, setProgressUpload] = useState<number[]>([])
 
 
-  
+  useEffect(() => {
+    // Code that depends on the window object can be placed here
+    // This code will only be executed on the client side
+    import('@firebase/analytics').then((firebaseAnalytics) => {
+      const analytics = firebaseAnalytics.getAnalytics();
+      // Use the analytics object as needed here
+    });
+  }, []);
 
-  const handleSelectedFile = (files: FileList | null) => {
-    if (files && files[0]?.size < 10000000) {
-      const selectedFile = files[0];
-      // setImageFile(selectedFile);
 
-      if (imageFileList) {
-        setImageFileList([...imageFileList, selectedFile]);
-        setButtonUpload(true);
-      } else {
-        setButtonUpload(false);
-      }
-      
-      // console.log(imageFileList)
-    } else {
-      message.error('File size to large')
-    }
-  }
 
   const handleUploadFile = async() => {
 
@@ -95,6 +84,24 @@ const UploadImageToStorage = () => {
     } finally {
       setIsUploading(false);
       setButtonDelete(true);
+    }
+  }
+
+  const handleSelectedFile = (files: FileList | null) => {
+    if (files && files[0]?.size < 100000000) {
+      const selectedFile = files[0];
+      // setImageFile(selectedFile);
+
+      if (imageFileList) {
+        setImageFileList([...imageFileList, selectedFile]);
+        setButtonUpload(true);
+      } else {
+        setButtonUpload(false);
+      }
+      
+      // console.log(imageFileList)
+    } else {
+      message.error('File size to large')
     }
   }
 

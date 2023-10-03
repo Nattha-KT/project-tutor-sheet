@@ -37,7 +37,7 @@ body {
       max-width: 100%; 
       margin: 0;
       padding: 0;
-      background-color: rgb(243 244 246);
+      background-color: rgb(252, 252, 252);
       /* overflow-x: hidden;  */
   }
 }
@@ -60,3 +60,24 @@ textarea:focus, input:focus{
 }
 
 /* -----------------------------------------------------------------------------------------------*/
+
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.loading-spinner {
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,27 +1,26 @@
-"use client";
-import Link from 'next/link'
 import React, { useEffect } from 'react'
 import Image from 'next/image';
 import { useSession, signIn, signOut } from "next-auth/react";
+import SignInButton from './SignInButton';
 
 
 function Nav() {
-  const { data: session } = useSession();
 
   return (
     
-    <div className="navbar bg-gray-50 drop-shadow-lg border rounded-b-lg px-32">
+    <div className="navbar py-0 bg-gray-50 drop-shadow-md border rounded-b-2xl px-32">
   <div className="flex-1">
-    <a className="btn btn-ghost normal-case text-xl hover:bg-slate-100"  href={"/"} >
+    <a className="btn btn-ghost normal-case text-xl hover:bg-slate-100 border-2 border-neutral-400"  href={"/"} >
     <Image  src={"/tutor-sheet-black.svg"} alt={'My Image'} width={200} height={100}/>
     </a>
   </div>
   
   <div className=" flex justify-end flex-1 px-2">
-  <div className="flex items-stretch">
-      <a className="btn btn-ghost rounded-btn thai-font btn-nav" href={"/seller"}>ซื้อชีท</a>
-      <a className="btn btn-ghost rounded-btn thai-font btn-nav">ขายชีท</a>
-      <a className="btn btn-ghost rounded-btn thai-font btn-nav">คำถาม</a>
+    <div className="flex items-stretch">
+      <a className="btn btn-ghost rounded-btn  btn-nav" href={"/"}>หน้าหลัก</a>
+      <a className="btn btn-ghost rounded-btn  btn-nav" >ซื้อชีท</a>
+      <a className="btn btn-ghost rounded-btn  btn-nav" href={"/seller"}>ขายชีท</a>
+      <a className="btn btn-ghost rounded-btn  btn-nav">คำถาม</a>
     </div>
 
     <div className="dropdown dropdown-bottom dropdown-end">
@@ -41,25 +40,7 @@ function Nav() {
         </div>
       </div>
     </div>
-    {session?.user ? (
-      <div className="dropdown  dropdown-bottom dropdown-end ml-3">
-      <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-        <div className="w-10 rounded-full">
-          <Image  src={session?.user.image || ""} alt={'My Image'} width={300} height={200}/>
-        </div>
-      </label>
-      <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-44">
-        <li>
-          <a className="justify-between">
-          Favorite sheet 💖
-          </a>
-        </li>
-        <li><a>Settings</a></li>
-        <li><a onClick={() => signOut()}>Logout</a></li>
-      </ul>
-    </div>
-    ):( <Link  type="button" href={"/login"} className="btn-nav thai-font drop-shadow-lg  bg-slate-800 text-white p-2 rounded-lg ml-3 hover:text-black hover:border hover:border-gray-300">
-      Sign in</Link>)}
+    <SignInButton/>
   </div>
 </div>
 

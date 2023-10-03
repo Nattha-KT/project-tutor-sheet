@@ -1,4 +1,3 @@
-'use client'
 
 import { error } from "console";
 import Link from "next/link";
@@ -8,7 +7,7 @@ import { useState, useEffect, cache } from "react";
 
 async function fetchBlog(){
   const res = await fetch("http://localhost:3000/api/blog",{
-    cache:"no-store",
+    cache:"no-store", // bypass its cache when making the HTTP request to the specified URL.
      next: {
        tags: ["blog"]
     }
@@ -34,6 +33,7 @@ export default async function Display() {
 //     fetchPosts();
 //   }
 //    },[]);
+
 const posts = await fetchBlog();
 
   return (

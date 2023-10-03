@@ -47,15 +47,22 @@ model User{
   emailVerified DateTime?
   password String?
   hashedPassword String?
+
+  role Role @default(USER)
   
   owner Owner[]
   favorite FevoriteList[]
   accounts Account[]
   sessions      Session[]
 
-  sellerId String? @db.ObjectId
-  seller   Seller?   @relation(fields: [sellerId], references: [id])
+  sid String? @db.ObjectId 
+  seller   Seller?   @relation(fields: [sid], references: [id])
+}
 
+enum Role {
+  ADMIN
+  USER
+  SELLER
 }
 
 model Account {
@@ -90,7 +97,6 @@ model Seller{
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   pen_name String
   full_name String
-  id_number String
   phone String
   bank_name  String
   bank_id String
@@ -118,7 +124,6 @@ model List{
 model filePdf{
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   url   String
-
 }
 
 model Post{
@@ -126,5 +131,10 @@ model Post{
   title String
   description String
   date DateTime @default(now())
+}
+
+model Bank{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
 }
 

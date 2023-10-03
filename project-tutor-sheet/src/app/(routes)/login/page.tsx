@@ -1,4 +1,7 @@
 'use client'
+
+// Ref: https://github.com/soriya2/Login-Form
+
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
 import { callbackify } from "util";
@@ -12,9 +15,14 @@ function handleGoogleLogin(){
     signIn('google',{callbackUrl:"http://localhost:3000"});
 }
 
+function handleFacebookLogin(){
+    signIn('facebook',{callbackUrl:"http://localhost:3000"});
+}
+
 export default function Login() {
     // get session from nextAuth
     const { data: session } = useSession();
+    
     const [randomImg,setRandomImg] = useState<number>(0) 
 
     useEffect(() => {
@@ -39,9 +47,9 @@ return (
     
             <div className="flex justify-between w-full py-4">
             </div>
-            <button className="w-full border border-gray-300 text-md p-2 rounded-lg mb-6 hover:bg-black hover:text-white">
+            <button onClick={()=>handleFacebookLogin()} className="w-full border border-gray-300 text-md p-2 rounded-lg mb-6 hover:bg-black hover:text-white">
             <img src="/images/facebook.png" alt="img" className="w-6 h-6 inline mr-2" />
-            Sign in with Google
+            Sign in with Facebook
             </button>
             <button onClick={() => handleGoogleLogin()}
             className="w-full border border-gray-300 text-md p-2 rounded-lg mb-6 hover:bg-black hover:text-white"

@@ -30,7 +30,7 @@ const AddSheet = () => {
   const descriptionRef = useRef<HTMLTextAreaElement | null>(null);
 
   
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if(titleRef.current?.value && descriptionRef.current?.value){

@@ -1,6 +1,6 @@
 import { NextApiResponse } from "next";
 import {main} from "../route"
-import prisma from "../../../../../prisma";
+import prisma from "../../../../lib/prismaDb";
 import { NextResponse } from "next/server";
 import { error } from "console";
 
