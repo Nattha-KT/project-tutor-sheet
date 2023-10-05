@@ -33,7 +33,7 @@ const data = await fetchFaq();
           </Link>
       </div>
         {/* Show more */}
-        <div className="w-full  flex flex-col justify-center items-center">
+      <div className="w-full  flex flex-col justify-center items-center">
           {data?.map((faq:any)=>(
             <div key={faq.id} className=" w-3/4 p-4 rounded-2xl mx-3 my-2 bg-white shadow-lg flex flex-col justify-center">
               {/* Title and Course code */}
@@ -56,7 +56,7 @@ const data = await fetchFaq();
               </div>
             </div>
           ))}
-        </div>
+      </div>
         
 
 

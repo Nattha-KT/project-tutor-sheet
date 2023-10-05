@@ -89,7 +89,7 @@ export default  function Register_Seller({ banks }: { banks: Banks[] }){
 
 
   return (
-   <div className='flex justify-center items-center '>
+   <div className='flex justify-center items-center z-10'>
     <form className='relative flex flex-col m-6 space-y-8 bg-white drop-shadow-2xl md:flex-row md:space-y-0 rounded-xl' onSubmit={handleSubmit}>
         <div className="space-y-12 p-10 rounded-s-md">
             <div className="border-b border-gray-900/10 pb-12">

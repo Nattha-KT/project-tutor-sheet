@@ -15,14 +15,14 @@ const UploadImageToStorage = () => {
   const [progressUpload, setProgressUpload] = useState<number[]>([])
 
 
-  useEffect(() => {
-    // Code that depends on the window object can be placed here
-    // This code will only be executed on the client side
-    import('@firebase/analytics').then((firebaseAnalytics) => {
-      const analytics = firebaseAnalytics.getAnalytics();
-      // Use the analytics object as needed here
-    });
-  }, []);
+  // useEffect(() => {
+  //   // Code that depends on the window object can be placed here
+  //   // This code will only be executed on the client side
+  //   import('@firebase/analytics').then((firebaseAnalytics) => {
+  //     const analytics = firebaseAnalytics.getAnalytics();
+  //     // Use the analytics object as needed here
+  //   });
+  // }, []);
 
 
 

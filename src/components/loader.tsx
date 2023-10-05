@@ -1,9 +1,7 @@
 
-
 import React from 'react';
 import Image from 'next/image'
 import  styles  from './Loading.module.css';
-import  styles2  from './Animate.module.css';
 
 const Loader: React.FC = () => {
   return (
@@ -17,7 +15,7 @@ const Loader: React.FC = () => {
             />
        </div> */}
         <div className=' mb-14'>
-        <span className={styles2.cssload_loader}><span className={styles2.cssload_loader_inner}></span></span>
+        <span className={styles.cssload_loader}><span className={styles.cssload_loader_inner}></span></span>
         </div>
         <span className={styles.loader}></span>
     </div>  

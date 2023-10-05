@@ -1,11 +1,15 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import Navbar from"../components/Nav";
+import {ComplexNavbar} from"../components/ComplexNavbar";
 import ProviderWrapper from '@/context/ProviderWrapper';
-import { Inter } from "next/font/google";
+import { Inter,Lato,Source_Sans_3   } from 'next/font/google'
+
 
 // const inter = Inter({ subsets: ["latin"] });
-
+const lato = Source_Sans_3({
+  weight: "400",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: 'Tutor Sheet',
@@ -20,10 +24,10 @@ export default function RootLayout({
   return (
     <html lang="en">
          {/* <Nav/> */}
-      <body >
+      <body className={`${lato.className} px-8`}>
         <ProviderWrapper>
-          <Navbar/>
-          <div className="container mx-auto min-h-screen">{children}</div>
+          <ComplexNavbar className=''/>
+          <div className="container mx-auto min-h-screen py-20 z-10">{children}</div>
         </ProviderWrapper>
       </body>
     </html>

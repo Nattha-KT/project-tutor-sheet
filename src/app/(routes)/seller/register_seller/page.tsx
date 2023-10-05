@@ -20,7 +20,7 @@ export default async function Register(){
     const data = await getBanks();
 
   return (
-        <Register_Seller banks={data}/>
+          <Register_Seller banks={data}/>
   )
 }
 
