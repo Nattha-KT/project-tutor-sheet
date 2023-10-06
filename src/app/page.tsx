@@ -4,7 +4,10 @@ import Link from "next/link";
 import Nav from"../components/Nav";
 import Head from 'next/head'
 import Display from "../components/Display";
-import Homepage from "../components/Home";
+import Title from "../components/componentsHome/Title";
+import RecommendSheet from "@/components/componentsHome/RecommendSheet";
+import Footer from "@/components/componentsHome/Footer";
+
 
 
 
@@ -12,11 +15,13 @@ import Homepage from "../components/Home";
 export default async function Home() {
 
   return (
-      <div>
-        <Homepage/>
-      </div>
-      
-   
+  <div className=" flex-1 justify-center">
+    <div className="">
+     <Title className="pb-0 lg:pb-10"/>
+     <RecommendSheet className="pb-0 lg:pb-10"/>
+    </div> 
+     <Footer/>
+  </div>
     
   );
 }

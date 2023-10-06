@@ -1,14 +1,14 @@
 
 'use client'
 import {ComplexNavbar} from "@/components/ComplexNavbar"
-import Homepage from "@/components/Home";
+import Tittle from "@/components/componentsHome/Title";
 
 export default function page() {
   return (
     <div className="flex justify-center">
         {/* <ComplexNavbar/> */}
         <div className="">
-        <Homepage/>
+        <Tittle className=""/>
         </div>
         
     </div>

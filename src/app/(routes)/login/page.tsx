@@ -4,7 +4,7 @@
 
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
-import { callbackify } from "util";
+import {motion,useScroll,useTransform,MotionValue, delay  } from 'framer-motion'
 
 
 const minRange = 1;
@@ -21,19 +21,38 @@ function handleFacebookLogin(){
 
 export default function Login() {
     // get session from nextAuth
-    const { data: session } = useSession();
     
     const [randomImg,setRandomImg] = useState<number>(0) 
 
     useEffect(() => {
         setRandomImg(Math.floor(Math.random() * (maxRange - minRange + 1)) + minRange);
       }, []);
+
+      const ref = useRef<HTMLDivElement | null>(null);
+      const { scrollYProgress }: { scrollYProgress: MotionValue<number> } = useScroll({
+        target: ref,
+        offset: ['start end', 'end start'],
+      });
+      const imageScroll1 = useTransform(scrollYProgress, [0, 1], ['20%', '-20%']);
     
 
 return (
-    <div className="flex items-center justify-center min-h-screen">
-        <div className="relative flex flex-col m-6 space-y-8 bg-white shadow-xl rounded-2xl md:flex-row md:space-y-0">
+    <div className="flex items-center justify-center "> {/*min-h-screen*/}
+     <motion.div
+              initial={{opacity:0,x:-30}}
+              whileInView={{
+                opacity:1,
+                x:1,
+                transition:{
+                  delay:0.3,
+                  duration:0.5,
+                }
+              }}
+              viewport={{once:true}}
+              style={{y:imageScroll1}}>
+        <div className="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
         {/* left side */}
+    
         <div className="flex flex-col  px-8  py-2 md:p-14">
                 <div className='flex justify-start mb-4'>
                      <img src="/images/tutor-logo.png" alt="img" className="w-20 h-20  hidden  md:block object-cover" />
@@ -64,7 +83,7 @@ return (
             <img
             src={`/images/bg${randomImg}.jpg`}
             alt="img"
-            className="w-[400px] h-full hidden rounded-r-2xl md:block object-cover"
+            className="w-[400px]  hidden rounded-r-2xl md:block object-cover"
             />
             {/* text on image   */}
             <div className="absolute hidden bottom-10 right-6 p-6 bg-white bg-opacity-30 backdrop-blur-sm rounded drop-shadow-lg md:block ml-5">
@@ -73,7 +92,9 @@ return (
                 </span>
             </div>
         </div>
+
         </div>
+        </motion.div>
   </div>
 );
 }

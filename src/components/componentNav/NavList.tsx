@@ -18,27 +18,27 @@ import {
 
 const navListItems = [
     {
-      label: "หน้าหลัก",
+      label: "HOME",
       icon: HomeIcon,
       path:"/"
     },
     {
-      label: "ซื้อชีท",
+      label: "MARKET",
       icon: Square3Stack3DIcon,
       path:""
     },
     {
-      label: "ขายชีท",
+      label: "SELL",
       icon: CurrencyDollarIcon,
       path:"/seller"
     },
     {
-      label: "คำถาม",
+      label: "FAQ",
       icon: QuestionMarkCircleIcon,
       path:"/faq"
     },
     {
-      label: "Cart",
+      label: "CART",
       icon: ShoppingCartIcon,
       path:"#"
     },
@@ -54,7 +54,7 @@ const navListItems = [
             href={path}
             variant="small"
             color="blue-gray"
-            className="text-base font-medium hover:font-bold "
+            className="text-md font-[550] hover:font-[700] "
           >
             <MenuItem className="flex items-center gap-2 lg:rounded-full">
               {React.createElement(icon, { className: "h-[18px] w-[18px]" })}{" "}
