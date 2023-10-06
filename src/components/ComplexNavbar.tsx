@@ -28,8 +28,8 @@ export function ComplexNavbar( {className}:{className:string}) {
 //   }, []);
  
   return (
-   <div className={`"flex justify-center" ${className}`}>
-       <Navbar className="mx-auto max-w-screen-2xl p-2 lg:rounded-full lg:pl-6 text-slate-900 fixed z-50">
+   <div className={` ${className}`}>
+    <Navbar className="mx-auto max-w-screen-2xl p-2 lg:rounded-full lg:pl-6 lg:pr-6 text-slate-900 fixed z-50">
       <div className="relative mx-auto flex items-center text-blue-gray-900">
         <Typography
           as="a"

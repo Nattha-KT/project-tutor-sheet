@@ -26,7 +26,7 @@ export default function RootLayout({
          {/* <Nav/> */}
       <body className={`${lato.className} px-8`}>
         <ProviderWrapper>
-          <ComplexNavbar className=''/>
+          <ComplexNavbar className='flex justify-center'/>
           <div className="container mx-auto min-h-screen py-20 z-10">{children}</div>
         </ProviderWrapper>
       </body>
