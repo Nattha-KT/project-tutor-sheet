@@ -1,6 +1,8 @@
 import Register_Seller from "@/components/Register_Seller";
+import Footer from "@/components/componentsHome/Footer";
 import { getServerSession } from "next-auth";
 import React from "react";
+
 
 async function getBanks(){
     try {
@@ -20,7 +22,10 @@ export default async function Register(){
     const data = await getBanks();
 
   return (
-          <Register_Seller banks={data}/>
+          <div>
+            <Register_Seller banks={data}/>
+            <Footer/>
+          </div>
   )
 }
 
