@@ -18,9 +18,9 @@ export default async function Home() {
   <div className=" flex-1 justify-center">
     <div className="">
      <Title className="pb-0 lg:pb-10"/>
-     <RecommendSheet className="pb-0 lg:pb-10"/>
-    </div> 
+     <RecommendSheet className="pb-0 lg:pb-5"/>
      <Footer/>
+    </div> 
   </div>
     
   );

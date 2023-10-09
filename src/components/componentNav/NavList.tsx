@@ -10,7 +10,7 @@ import {
 import {
     HomeIcon,
     CurrencyDollarIcon,
-    Square3Stack3DIcon,
+    BuildingStorefrontIcon,
     QuestionMarkCircleIcon,
     Bars2Icon,
     ShoppingCartIcon
@@ -23,8 +23,8 @@ const navListItems = [
       path:"/"
     },
     {
-      label: "MARKET",
-      icon: Square3Stack3DIcon,
+      label: "STORE",
+      icon: BuildingStorefrontIcon,
       path:""
     },
     {

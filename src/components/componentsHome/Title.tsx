@@ -26,9 +26,9 @@ export default function Title({className}:{className:string}) {
   const imageScroll2 = useTransform(scrollYProgress, [0, 1], ['100%', '-50%']);
 
   return (
-    <section className={`${className}`} ref={ref}>
+    <section id="Title" className={`${className}`} ref={ref}>
     
-        <div className="2xl:flex justify-center w-full lg:w-10/12 mx-auto h-auto 2xl:h-[400px] lg:min-h-[700px] pt-2 ">
+        <div className="2xl:flex justify-center w-10/12 mx-auto h-[400px] 2xl:min-h-[640px] pt-2 ">
           <div className="lg:w-4/12 z-[3] relative">
             {content.intro.subTitle && (
               <motion.span 
