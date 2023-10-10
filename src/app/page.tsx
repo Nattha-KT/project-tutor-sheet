@@ -16,11 +16,11 @@ export default async function Home() {
 
   return (
   <div className=" flex-1 justify-center">
-    <div className="">
+    <div className=" min-h-screen">
      <Title className="pb-0 lg:pb-10"/>
      <RecommendSheet className="pb-0 lg:pb-5"/>
-     <Footer/>
     </div> 
+     <Footer/>
   </div>
     
   );

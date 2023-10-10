@@ -26,7 +26,7 @@ body {
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
-    )
+    ) 
     rgb(var(--background-start-rgb));
 } */
 
@@ -38,7 +38,9 @@ body {
       margin: 0;
       padding: 0;
       /* background-color: #F6F8FB  ; /*rgb(252, 252, 252) /* */
-      background-color: rgb(253, 254, 255)  ; /*rgb(252, 252, 252) /*
+      /* background-color: rgb(253, 254, 255)  ; /*rgb(252, 252, 252) /* */
+      background-color: rgb(248, 250, 253)  ; /*rgb(252, 252, 252) /*
+     
       /* overflow-x: hidden;  */
   }
 }

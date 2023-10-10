@@ -127,8 +127,8 @@ export default  function Register_Seller({ banks }: { banks: Banks[] }){
                 <h2 className="text-base font-semibold leading-7 text-gray-900">Personal Information</h2>
                 <p className="mt-1 text-sm leading-6 text-gray-600">Use a permanent address where you can receive mail.</p>
 
-                <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 pb-10">
-                    <div className="sm:col-span-4">
+                <div className="mt-10 grid grid-cols-6 gap-x-6 gap-y-8 sm:grid-cols-6 pb-10">
+                    <div className="sm:col-span-4 col-span-5">
                         <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
                             Full name  
                         </label>
@@ -147,7 +147,7 @@ export default  function Register_Seller({ banks }: { banks: Banks[] }){
 
                 
 
-                    <div className="sm:col-span-3">
+                    <div className="sm:col-span-3 col-span-4">
                     <label htmlFor="phone" className="block text-sm font-medium leading-6 text-gray-900">
                         Phone
                     </label>
@@ -190,15 +190,16 @@ export default  function Register_Seller({ banks }: { banks: Banks[] }){
                         id="address"
                         onChange={handleInputChange}
                         name="address"
+                        placeholder="ที่อยู่: บ้านเลขที่ ถนน ตรอก/ซอย หมู่, ตำบล/แขวง, อำเภอ/เขต, จังหวัด, เลขไปรษณีย์"
                         rows={3}
                         className="block px-3 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-500 sm:text-sm sm:leading-6"
-                        defaultValue={''}
+                        // defaultValue={''}
                         />
                     </div>
-                    <p className="mt-3 text-sm leading-6 text-gray-600">ที่อยู่: บ้านเลขที่ ถนน ตรอก/ซอย หมู่, ตำบล/แขวง, อำเภอ/เขต, จังหวัด, เลขไปรษณีย์</p>
+                    {/* <p className="mt-3 text-sm leading-6 text-gray-600">ที่อยู่: บ้านเลขที่ ถนน ตรอก/ซอย หมู่, ตำบล/แขวง, อำเภอ/เขต, จังหวัด, เลขไปรษณีย์</p> */}
                     </div>
 
-                    <div className="sm:col-span-3">
+                    <div className="sm:col-span-3 col-span-4">
                     <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900">
                         Bank
                     </label>

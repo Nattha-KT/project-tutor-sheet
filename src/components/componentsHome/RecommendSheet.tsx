@@ -5,8 +5,6 @@ import {
   FaMoneyBill,
   FaQuestion,
   FaUserTie,
-
-
 } from "react-icons/fa"
 import {
   CursorArrowRaysIcon,
@@ -24,11 +22,11 @@ const content = {
     {
       number:"01",
       img:'/images/recoment1.jpg',
-      icon:FaQuestion,
+      icon:FaUserTie,
       titile:"Projext Initial",
       description:"Lorem ipsum dolor sit amet, consectetur",
       btn:{
-        href:"#",
+        href:"/abouteUs",
         label:"Click Here"
       }
     },
@@ -39,18 +37,18 @@ const content = {
       titile:"Conceptual Design",
       description:"Lorem ipsum dolor sit amet, consectetur",
       btn:{
-        href:"#",
+        href:"/seller",
         label:"Click Here"
       }
     },
     {
       number:"03",
       img:'/images/recoment3.jpg',
-      icon:FaUserTie,
+      icon:FaQuestion,
       titile:"Construction Document",
       description:"Lorem ipsum dolor sit amet, consectetur",
       btn:{
-        href:"#",
+        href:"/faq",
         label:"Click Here"
       }
     }
@@ -102,7 +100,7 @@ export default function RecommendSheet({className}:{className:string}) {
   return (
    <>
    <section id="RecomendedSection" className={`${className}`}>
-      <div className=" container mx-auto w-10/12">
+      <div className=" container mx-auto w-11/12">
         <div className="2xl:flex justify-center mb-20 lg:mb-36 ">
           <div className=" lg:px-0 w-full 2xl:w-9/12 lg:flex-col gap-0 items-center">
             <div className=" lg:w-7/12 mb-5 lg:mb-2">
@@ -118,7 +116,7 @@ export default function RecommendSheet({className}:{className:string}) {
                   }
                 }} 
                 viewport={{once:true}}
-                className=" uppercase tracking-[3px] text-sm mb-5
+                className=" uppercase tracking-[3px] text-md mb-5
                 inline-block text-gray-500">
                 {content.headling.subTitle}
               </motion.span>
@@ -159,7 +157,7 @@ export default function RecommendSheet({className}:{className:string}) {
              </motion.p>
               )}
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:w-12/12 -mb-72 mt-8 mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:w-12/12 -mb-72 mt-8 mx-auto">
               {content.steps && content.steps.map((step:any,idx:any) =>{
                 idx *= 0.2
                 return (
@@ -171,15 +169,15 @@ export default function RecommendSheet({className}:{className:string}) {
                       y:0,
                       transition:{
                         delay:idx,
-                        duration:0.5,
+                        duration:0.4,
                       }
                     }} 
                     viewport={{once:true}}
                     whileHover={{y:-10,transition: { duration: 0.1 }}}
                   className={`group duration-300 pt-32 pl-10 pr-10 pb-10 rounded-md
-                  bg-white relative overflow-hidden hover:bg-gray-100 shadow-md hover:shadow-2xl sm:h-[360px]`} > 
+                  bg-white relative overflow-hidden shadow-md hover:shadow-2xl sm:h-[360px]`} > 
                     <span className={`inline-block z-[1]
-                     absolute overflow-hidden -top-[250px] opacity-40 left-0 leading-0`}>
+                     absolute overflow-hidden -top-[250px] opacity-70 hover:opacity-30 left-0 leading-0`}>
                     <img
                     src={step.img}
                     alt="img"
@@ -194,11 +192,11 @@ export default function RecommendSheet({className}:{className:string}) {
                     </div>
                
                     <div>
-                      <h3 className=" group-hover:text-[19px] hover:text-[20px] text-[18px] mb-4 duration-300 transition-all
+                      <h3 className=" group-hover:text-[20px]  text-[18px] mb-4 duration-300 transition-all
                        ease-in-out group-hover:text-sky-950  font-semibold ">
                         {step.titile}
                       </h3>
-                      <p className=" leading-relaxed text-[15px] text-gray-500 mb-7 duration-300
+                      <p className=" leading-relaxed text-[15px] text-gray-900 mb-7 duration-300
                        transition-all ease-in-out group-hover:text-teal-700 group-hover:text-[16px]">
                         {step.description}
                       </p>
@@ -225,7 +223,7 @@ export default function RecommendSheet({className}:{className:string}) {
        initial={{opacity:0,y:20}}
        whileInView={{opacity:1,y:0,transition:{delay:0.2,duration:0.5, timeline: "incorrect-offset 50%",}}}
        viewport={{once:true,}}
-       className=" container flex justify-center pt-72 lg:pt-[220px] pb-32 bg-slate-100 mb-6 px-6 mx-auto ">
+       className=" container flex justify-center pt-72 lg:pt-[220px] pb-16 bg-slate-100 mb-6 px-6 mx-auto ">
         <div className=" text-center lg:w-7/12">
           <p className="leading-relaxed text-[15px] text-stone-700 duration-300 pb-5">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad provident explicabo, 
@@ -248,7 +246,7 @@ export default function RecommendSheet({className}:{className:string}) {
             href="/login"
             className="transition-all duration-300 ease-in-out text-[11px]
             tracking-[2px] font-bold uppercase bg-white py-4 px-5 text-slate-900
-            flex shadow-sm hover:shadow-md  hover:text-amber-400 rounded-md ">
+            flex shadow-md hover:shadow-lg  hover:text-amber-400 rounded-md  ">
            <CursorArrowRaysIcon className="h-[18px] w-[18px]"/>
             Sign In
           </motion.a>

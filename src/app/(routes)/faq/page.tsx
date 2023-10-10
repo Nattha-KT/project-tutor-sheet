@@ -21,7 +21,7 @@ export default async function FaqPage() {
   return (
 
       <>
-        <div className="flex-1 justify-center px-32">
+        <div className="sm:flex justify-center sm:px-32">
         <Faq data={data}></Faq>
         </div>
         <Footer/>

@@ -28,7 +28,7 @@ export default function Title({className}:{className:string}) {
   return (
     <section id="Title" className={`${className}`} ref={ref}>
     
-        <div className="2xl:flex justify-center w-10/12 mx-auto h-[400px] 2xl:min-h-[640px] pt-2 ">
+        <div className="2xl:flex justify-center w-11/12 mx-auto h-[450px] 2xl:min-h-[640px] pt-2">
           <div className="lg:w-4/12 z-[3] relative">
             {content.intro.subTitle && (
               <motion.span 
@@ -67,13 +67,25 @@ export default function Title({className}:{className:string}) {
                   whileInView={{opacity:1,y:0,transition:{delay:0.2,duration:0.5, timeline: "incorrect-offset 50%",}}}
                   viewport={{once:true,}}
               >
-                    <Link href={content.intro.btn.href}
+                    <motion.a
+                    initial={{opacity: 0,y:30}}
+                    whileInView={{
+                      opacity:1,
+                      y:0,
+                      transition:{
+                        delay:0.001,
+                        duration:0.01,
+                      }
+                    }} 
+                    viewport={{once:true}}
+                    whileHover={{y:-4,transition: { duration: 0.1 }}} 
+                     href={content.intro.btn.href}
                     className="transition-all duration-300 ease-in-out text-[10px]
                      tracking-[2px] font-bold uppercase bg-slate-900 py-4 px-5 text-white
-                      inline-block hover:bg-slate-800 hover:shadow-xl rounded-lg"
+                      inline-block hover:shadow-md rounded-lg hover:text-amber-400"
                     >
                       {content.intro.btn.label}
-                    </Link>
+                    </motion.a>
          
               </motion.p>
             )}
@@ -97,7 +109,7 @@ export default function Title({className}:{className:string}) {
               <img
                 src={`/images/homewall2.jpg`}
                 alt="img"
-                className="w-[560px] h-[560px] hidden rounded-r-md shadow-md 2xl:block object-cover"
+                className="w-[560px] h-[600px] hidden rounded-r-md shadow-md 2xl:block object-cover opacity-90"
                 />
             </motion.div>
             <motion.div 
