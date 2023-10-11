@@ -34,7 +34,7 @@ const profileMenuItems = [
     {
       label: "Manage FAQ",
       icon: QuestionMarkCircleIcon,
-      path:"/admin/manage_faq"
+      path:"/admin/manage-faq"
     },
   ];
    

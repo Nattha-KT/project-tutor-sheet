@@ -26,7 +26,7 @@ const content = {
       titile:"Projext Initial",
       description:"Lorem ipsum dolor sit amet, consectetur",
       btn:{
-        href:"/abouteUs",
+        href:"/about-us",
         label:"Click Here"
       }
     },
