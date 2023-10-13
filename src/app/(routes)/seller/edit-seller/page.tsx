@@ -17,7 +17,7 @@ async function getBanks(){
    }
 
 
-export default async function Register(){
+export default async function EditSeller(){
 
     const data = await getBanks();
 

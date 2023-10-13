@@ -76,24 +76,22 @@ const profileMenuItems = [
                 <MenuList>
 
                 <MenuItem
-                        onClick={closeMenu}className={`flex items-center gap-2 rounded hover:bg-gray-100`}>
-                        {React.createElement(HeartIcon, {className: `h-4 w-4`,strokeWidth: 2,})}
-                        <Typography as="span"
-                          href="/"
-                          variant="small"
-                          className="font-normal"
-                      
-                        >
-                          <a href="/">Favorite Sheet</a>
-                        </Typography>
+                    onClick={closeMenu}className={`flex items-center gap-2 rounded hover:bg-gray-100 text-slate-500`}>
+                    {React.createElement(HeartIcon, {className: `h-4 w-4`,strokeWidth: 2,})}
+                    <Typography as="span"
+                      href="/"
+                      variant="small"
+                      className=" text-[16px] font-medium">
+                        <a href="/">Favorite Sheet</a>
+                    </Typography>
                      
-                      </MenuItem>
+                </MenuItem>
 
                   {admin && profileMenuItems.map(({ label, icon,path }, key) => 
                       <MenuItem
                         key={label}
                         onClick={closeMenu}
-                        className={`flex items-center gap-2 rounded hover:bg-gray-100 ${
+                        className={`flex items-center gap-2 rounded hover:bg-gray-100 text-slate-500 ${
                           label === "Sign Out"
                             ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
                             : ""
@@ -107,7 +105,7 @@ const profileMenuItems = [
                           as="span"
                           href={path}
                           variant="small"
-                          className="font-normal"
+                          className=" font-medium text-[16px]"
                           color={label === "Sign Out" ? "red" : "inherit"}
                         >
                             <a key={label} href={path || "/"}>{label}</a>
@@ -131,7 +129,7 @@ const profileMenuItems = [
                         <Typography as="span"
                           onClick={signOut}
                           variant="small"
-                          className="font-normal"
+                          className="font-medium text-[16px]"
                           color="red"
                         >
                           Sign out

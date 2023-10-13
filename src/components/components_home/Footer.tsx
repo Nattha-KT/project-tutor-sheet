@@ -17,7 +17,7 @@ const LINKS = [
     title: "Resource",
     items:  [{name:"Block",href:"#"},
             {name:"Help",href:"/faq"},
-            {name:"About Us",href:"/"}],
+            {name:"About Us",href:"/about-us"},],
   },
 ];
  
@@ -49,7 +49,7 @@ export default function Footer() {
               viewport={{once:true}}
               style={{y:imageScroll1}}
               >
-    <footer className="relative w-full bg-slate-950 text-white">
+    <footer className="relative w-full bg-slate-950 text-white ">
       <div className="mx-auto w-full max-w-full px-8 py-8">
         <div className="grid grid-cols-1 justify-between gap-4 md:grid-cols-2">
           <Typography variant="h5" className="mb-6">

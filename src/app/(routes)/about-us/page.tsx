@@ -1,5 +1,5 @@
 'use client'
-import Footer from '@/components/componentsHome/Footer'
+import Footer from '@/components/components_home/Footer'
 import React,{useState, useEffect,useRef, useCallback} from 'react'
 import {motion} from 'framer-motion'
 import {BiChevronLeft,BiChevronRight} from 'react-icons/bi'
@@ -61,7 +61,7 @@ export default function Aboute() {
   }, []);
 
   return (
-    <>
+    <div className='container'>
       <section className=" flex justify-center items-center min-h-screen">
         <div className=' container px-4 mx-auto pt-10'>
           <div className=' flex justify-center'>
@@ -99,7 +99,7 @@ export default function Aboute() {
           <div className=' lg:flex justify-start lg:justify-center'>
            <motion.div
             initial={{opacity: 0,y:20}}
-            whileInView={{opacity:1,y:0,transition:{delay:0.9,duration:0.5}}}
+            whileInView={{opacity:1,y:0,transition:{delay:0.4,duration:0.5}}}
             viewport={{once:true}}
             className=' w-full lg:w-10/12 lg:flex gap-0 items-center'>
             <Swiper
@@ -165,7 +165,9 @@ export default function Aboute() {
           </motion.div>
         </div>
       </section>  
+      <section>
       <Footer/>
-    </>
+      </section>
+    </div>
   )
 }

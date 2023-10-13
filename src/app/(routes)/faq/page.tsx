@@ -1,6 +1,6 @@
 
 import Faq from "@/components/Faq";
-import Footer from "@/components/componentsHome/Footer";
+import Footer from "@/components/components_home/Footer";
 
 async function fetchFaq(){
     const res = await fetch("http://localhost:3000/api/faq",{

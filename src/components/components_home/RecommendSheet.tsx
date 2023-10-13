@@ -93,9 +93,6 @@ const content = {
   // ]
 }
 
-
-
-
 export default function RecommendSheet({className}:{className:string}) {
   return (
    <>
@@ -177,11 +174,11 @@ export default function RecommendSheet({className}:{className:string}) {
                   className={`group duration-300 pt-32 pl-10 pr-10 pb-10 rounded-md
                   bg-white relative overflow-hidden shadow-md hover:shadow-2xl sm:h-[360px]`} > 
                     <span className={`inline-block z-[1]
-                     absolute overflow-hidden -top-[250px] opacity-70 hover:opacity-30 left-0 leading-0`}>
+                     absolute  -top-[250px] opacity-70 hover:opacity-30 left-0 leading-0`}>
                     <img
                     src={step.img}
                     alt="img"
-                    className="w-[730px] lg:w-[560px] h-[620px] hidden rounded-r-md shadow-md sm:block object-cover z-[15]"/>
+                    className="w-[730px] lg:w-[560px] h-[620px] rounded-r-md shadow-md sm:block object-cover z-[15]"/>
                      
                     </span>
                     <div className=" absolute top-2 right-2">
@@ -201,12 +198,12 @@ export default function RecommendSheet({className}:{className:string}) {
                         {step.description}
                       </p>
                       <p className="z-[20] absolute ">
-                        <Link href={step.btn.href}
+                        <a href={step.btn.href}
                         className="Z-[30] text-[13px] tracking-[2px] uppercase border-b-2 pb-2
                         inline-block border-sky-800 duration-300 transition-all ease-in-out
                         group-hover:border-teal-600 group-hover:text-slate-700 group-hover:text-[17px]">
                           {step.btn.label}
-                        </Link>
+                        </a>
                       </p>
                     </div>
                     

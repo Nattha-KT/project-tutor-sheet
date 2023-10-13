@@ -1,6 +1,6 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import {ComplexNavbar} from"../components/ComplexNavbar";
+import {ComplexNavbar} from"../components/components_nav/ComplexNavbar";
 import ProviderWrapper from '@/context/ProviderWrapper';
 import { Inter,Lato,Source_Sans_3   } from 'next/font/google'
 

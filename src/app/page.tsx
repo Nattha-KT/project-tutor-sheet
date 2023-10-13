@@ -1,12 +1,12 @@
 
 import Link from "next/link";
 // import { useState, useEffect, cache } from "react";
-import Nav from"../components/Nav";
+import Nav from"../components/antiques/Nav";
 import Head from 'next/head'
 import Display from "../components/Display";
-import Title from "../components/componentsHome/Title";
-import RecommendSheet from "@/components/componentsHome/RecommendSheet";
-import Footer from "@/components/componentsHome/Footer";
+import Title from "../components/components_home/Title";
+import RecommendSheet from "@/components/components_home/RecommendSheet";
+import Footer from "@/components/components_home/Footer";
 
 
 

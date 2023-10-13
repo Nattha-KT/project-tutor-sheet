@@ -1,7 +1,7 @@
 
 'use client'
-import {ComplexNavbar} from "@/components/ComplexNavbar"
-import Tittle from "@/components/componentsHome/Title";
+import {ComplexNavbar} from "@/components/components_nav/ComplexNavbar"
+import Tittle from "@/components/components_home/Title";
 
 export default function page() {
   return (

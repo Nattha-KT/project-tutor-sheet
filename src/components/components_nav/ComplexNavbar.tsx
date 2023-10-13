@@ -11,8 +11,8 @@ import {
   } from "@heroicons/react/24/outline";
 
 import Image from 'next/image';
-import ProfileMenu from "./componentNav/ProfileMenu";
-import NavList from "./componentNav/NavList";
+import ProfileMenu from "./ProfileMenu";
+import NavList from "./NavList";
 
 
 export function ComplexNavbar( {className}:{className:string}) {
@@ -29,7 +29,7 @@ export function ComplexNavbar( {className}:{className:string}) {
  
   return (
    <div className={` ${className}`}>
-    <Navbar className="mx-auto max-w-screen-3xl p-2 lg:rounded-full lg:pl-6 lg:pr-6 text-slate-900 fixed z-50">
+    <Navbar className="mx-auto max-w-screen-3xl p-2 lg:rounded-full lg:pl-6 lg:pr-6 bg-white text-slate-900 fixed z-50">
       <div className="relative mx-auto flex items-center text-blue-gray-900">
         <Typography
           as="a"
