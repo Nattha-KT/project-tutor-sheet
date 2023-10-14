@@ -6,13 +6,13 @@ import toast, { Toaster } from 'react-hot-toast';
 import axios from "axios";
 import {useSession} from "next-auth/react";
 
-
 type Banks = {
     id: string
     name: string
   }
 
   type Seller={
+    id:string
     pen_name: string,
     full_name: string,
     phone:string,
@@ -21,13 +21,17 @@ type Banks = {
     address:string,
   }
 
-  const AddSeller = async (seller:Seller) => {
-    const res = fetch("http://localhost:3000/api/seller",{
-      method: "POST",
+  interface EditSellerProps {
+    banks: Banks[];
+    data_seller: Seller;
+  }
+
+  const UpdateSeller = async (seller:Seller) => {
+    const res = fetch(`http://localhost:3000/api/seller/${seller.id}`,{
+      method: "PUT",
       body: JSON.stringify(seller),
       // @ts-ignore
       "Content-Type":"application/json",
-    //   'Authorization': `Bearer ${token}`, // Include the token in the Authorization header
     });
     // console.log(res);
     
@@ -35,31 +39,25 @@ type Banks = {
   };
 
 
-export default  function Register_Seller({ banks }: { banks: Banks[] }){
+export default  function EditSeller({ banks, data_seller }: EditSellerProps){
 
-    const {data:session,update} = useSession();
+    // const {data:session,update} = useSession();
+    const { data: session } = useSession();
     const router = useRouter();
-    // console.log(banks);
+
     
     const [seller ,setSeller] = useState<Seller>({
-        pen_name: "",
-        full_name: "",
-        phone:"",
-        bank_name: "",
-        bank_id: "",
-        address:"",
+        id: session?.user.sid,
+        pen_name: data_seller.pen_name,
+        full_name: data_seller.full_name,
+        phone:data_seller.phone,
+        bank_name: data_seller.bank_name,
+        bank_id: data_seller.bank_id,
+        address:data_seller.address,
     })
 
-    async function updateUser(seller_id:string){
-        await update({
-            ...session,
-            user:{
-                ...session?.user,
-                role:"SELLER",
-                sid:seller_id,
-            }
-        })
-    }
+    // useEffect(() => {},[])
+
 
     const  handleInputChange = (e : React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>{
         const name = e.target.name;
@@ -73,16 +71,14 @@ export default  function Register_Seller({ banks }: { banks: Banks[] }){
     e.preventDefault();
     if(seller){
       toast.loading("Sending request... 🚀👩🏾‍🚀",{id:"1"});
-      const res = await AddSeller(seller);
+      const res = await UpdateSeller(seller);
     //   console.log(res.seller.id);
       if (res && res.message == "Error"){
         toast.error("Error ! 🚀✖️",{id:"1"});
       }else{
-        updateUser(res.seller.id);
-        await toast.success("Added successfully! 🚀✔️",{id:"1"})
+        await toast.success("Update successfully! 🚀✔️",{id:"1"})
         setTimeout(() => {
-            // router.push("/seller");
-            window.location.href="/seller";
+            router.push("/seller")
         },500);
       }
       }else toast.error("Error !!  🚀✖️",{id:"1"});
@@ -110,6 +106,7 @@ export default  function Register_Seller({ banks }: { banks: Banks[] }){
                     <div className="mt-2">
                         <div className="flex px-2 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-amber-500 sm:max-w-md">
                         <input
+                            value={seller.pen_name}
                             type="text"
                             onChange={handleInputChange}
                             name="pen_name"
@@ -135,6 +132,7 @@ export default  function Register_Seller({ banks }: { banks: Banks[] }){
                         </label>
                         <div className="mt-2">
                             <input
+                            value={seller.full_name}
                             type="text"
                             placeholder="(ไม่ต้องมีคำนำหน้า)"
                             onChange={handleInputChange}
@@ -154,6 +152,7 @@ export default  function Register_Seller({ banks }: { banks: Banks[] }){
                     </label>
                     <div className="mt-2">
                         <input
+                        value={seller.phone}
                         id="phone"
                         onChange={handleInputChange}
                         name="phone"
@@ -165,39 +164,21 @@ export default  function Register_Seller({ banks }: { banks: Banks[] }){
                     </div>
                     </div>
 
-                    {/* <div className="sm:col-span-4">
-                    <label htmlFor="phone" className="block text-sm font-medium leading-6 text-gray-900">
-                        ID number
-                    </label>
-                    <div className="mt-2">
-                        <input
-                        id="id_number"
-                        // onChange={handleInputChange}
-                        name="id_number"
-                        type="id_number"
-                        placeholder='เลขบัตรประชาชน 13 หลัก'
-                        autoComplete="phone"
-                        className="block w-full px-3 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-500 sm:text-sm sm:leading-6"
-                        />
-                    </div>
-                    </div> */}
-
                     <div className="col-span-full">
                     <label htmlFor="address" className="block text-sm font-medium leading-6 text-gray-900">
                         Address (เพื่อออกใบกำกับภาษี)
                     </label>
                     <div className="mt-2">
                         <textarea
+                        value={seller.address}
                         id="address"
                         onChange={handleInputChange}
                         name="address"
                         placeholder="ที่อยู่: บ้านเลขที่ ถนน ตรอก/ซอย หมู่, ตำบล/แขวง, อำเภอ/เขต, จังหวัด, เลขไปรษณีย์"
                         rows={3}
                         className="block px-3 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-500 sm:text-sm sm:leading-6"
-                        // defaultValue={''}
                         />
                     </div>
-                    {/* <p className="mt-3 text-sm leading-6 text-gray-600">ที่อยู่: บ้านเลขที่ ถนน ตรอก/ซอย หมู่, ตำบล/แขวง, อำเภอ/เขต, จังหวัด, เลขไปรษณีย์</p> */}
                     </div>
 
                     <div className="sm:col-span-3 col-span-4">
@@ -206,6 +187,7 @@ export default  function Register_Seller({ banks }: { banks: Banks[] }){
                     </label>
                     <div className="mt-2">
                         <select
+                        value={seller.bank_name}
                         id="bank_name"
                         onChange={handleInputChange}
                         name="bank_name"
@@ -226,6 +208,7 @@ export default  function Register_Seller({ banks }: { banks: Banks[] }){
                         </label>
                     <div className="mt-2">
                         <input
+                        value={seller.bank_id}
                         type="text"
                         onChange={handleInputChange}
                         placeholder= "numbers onl"

@@ -30,7 +30,7 @@ function SideNavbar( {className}:{className:string}) {
   return (
     
     <>
-    {session?.user.role == "SELLER" ? (
+    {session?.user.role == "SELLER" ||session?.user.role == "ADMIN" ? (
         <Disclosure as="nav" className={`${className}`}>
         <Disclosure.Button className=" fixed right-[15px] z-[1] inline-flex items-center peer justify-center rounded-md p-2 text-gray-800 hover:bg-gray-900
          hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white group"
@@ -66,12 +66,11 @@ function SideNavbar( {className}:{className:string}) {
                 </h3>
               </a>
               <a className="flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-gray-900 p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto"
-              href="seller/edit-seller">
+              href={`seller/edit-seller/${session.user.sid}`}>
                 <MdOutlineEditNote className="text-2xl text-gray-600 group-hover:text-white " />
-                <a className="text-base text-gray-800 group-hover:text-white font-semibold "
-                 href="/edit-seller">
+                <h3 className="text-base text-gray-800 group-hover:text-white font-semibold ">
                   Edit
-                </a>
+                </h3>
               </a>
               <div className="flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-gray-900 p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto">
                 <MdOutlineAnalytics className="text-2xl text-gray-600 group-hover:text-white " />

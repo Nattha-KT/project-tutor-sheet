@@ -13,11 +13,12 @@ export async function main() {
 
 export const GET = async (req: Request, res: Response)=>{
 
-    const session = await getServerSession(authOptions);
+    // const session = await getServerSession(authOptions);
+    // // const session = await getServerSession(req, res, authOptions)
 
-    if(!session){
-        return NextResponse.json({message:"You are not logged in"})
-    }
+    // if(!session){
+    //     return NextResponse.json({message:"You are not logged in"})
+    // }
     try{
         await main();
         const banks = await prisma.bank.findMany(); 
