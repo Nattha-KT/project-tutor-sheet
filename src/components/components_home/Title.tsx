@@ -28,7 +28,7 @@ export default function Title({className}:{className:string}) {
   return (
     <section id="Title" className={`${className}`} ref={ref}>
     
-        <div className="2xl:flex justify-center w-11/12 mx-auto h-[450px] 2xl:min-h-[640px] pt-2">
+        <div className="2xl:flex justify-center w-11/12 mx-auto h-[450px] 2xl:min-h-[800px] pt-2">
           <div className="lg:w-4/12 z-[3] relative">
             {content.intro.subTitle && (
               <motion.span 
@@ -109,8 +109,8 @@ export default function Title({className}:{className:string}) {
               <img
                 src={`/images/homewall2.jpg`}
                 alt="img"
-                className="w-[560px] h-[600px] hidden rounded-r-md shadow-md 2xl:block object-cover opacity-90"
-                />
+                className="w-full h-[650px] 2xl:h-[640px] hidden rounded-r-md shadow-md 2xl:block object-cover opacity-90"
+                /> 
             </motion.div>
             <motion.div 
               initial={{opacity:0,x:-30}}

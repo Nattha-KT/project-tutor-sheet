@@ -11,6 +11,7 @@ import {
 } from "@heroicons/react/24/outline";
 import React from "react";
 import { Step } from "@material-tailwind/react";
+import ButtonLogin from "./ButtonLogin";
 
 const content = {
   headling :{
@@ -220,14 +221,14 @@ export default function RecommendSheet({className}:{className:string}) {
        initial={{opacity:0,y:20}}
        whileInView={{opacity:1,y:0,transition:{delay:0.2,duration:0.5, timeline: "incorrect-offset 50%",}}}
        viewport={{once:true,}}
-       className=" container flex justify-center pt-72 lg:pt-[220px] pb-16 bg-slate-100 mb-6 px-6 mx-auto ">
+       className="  flex justify-center pt-72 lg:pt-[220px] pb-16 bg-slate-100 mb-6 px-6 mx-auto ">
         <div className=" text-center lg:w-7/12">
           <p className="leading-relaxed text-[15px] text-stone-700 duration-300 pb-5">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad provident explicabo, 
             ipsum consequatur obcaecati labore eius voluptate impedit incidunt quibusdam alias nulla 
             cum laboriosam magnam iusto libero reprehenderit, ab odit.
           </p>
-         <div className="flex justify-center items-center ">
+         {/* <div className="flex justify-center items-center ">
          <motion.a
              initial={{opacity: 0,y:30}}
              whileInView={{
@@ -248,7 +249,8 @@ export default function RecommendSheet({className}:{className:string}) {
             Sign In
           </motion.a>
 
-         </div>
+         </div> */}
+         <ButtonLogin/>
         </div>
        
       </motion.div>

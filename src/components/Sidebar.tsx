@@ -14,12 +14,16 @@ import {
 } from "react-icons/md";
 import Link from "next/link";
 import { useRouter } from 'next/navigation'
-import {useSession} from "next-auth/react";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 
 function SideNavbar( {className}:{className:string}) {
   const [isLeft, setIsLeft] = useState(false);
   const router = useRouter();
+
+  const HandleSignout = async () => {
+    await signOut();
+  }
 
   const HandleShowSide = () => {
     isLeft ? setIsLeft(false):setIsLeft(true);
@@ -83,9 +87,10 @@ function SideNavbar( {className}:{className:string}) {
         
             {/* logout */}
             <div className=" my-4">
-              <div className="flex  justify-start items-center gap-4 pl-5 border border-gray-200  hover:bg-gray-900 p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto">
+              <div className="flex  justify-start items-center gap-4 pl-5 border border-gray-200  hover:bg-gray-900 p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto"
+               onClick={HandleSignout}>
                 <MdOutlineLogout className="text-2xl text-gray-600 group-hover:text-white " />
-                <h3 className="text-base text-gray-800 group-hover:text-white font-semibold ">
+                <h3 className="text-base text-gray-800 group-hover:text-white font-semibold " >
                   Logout
                 </h3>
               </div>

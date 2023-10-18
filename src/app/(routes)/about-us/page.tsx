@@ -61,7 +61,7 @@ export default function Aboute() {
   }, []);
 
   return (
-    <div className='container'>
+    <div>
       <section className=" flex justify-center items-center min-h-screen">
         <div className=' container px-4 mx-auto pt-10'>
           <div className=' flex justify-center'>
