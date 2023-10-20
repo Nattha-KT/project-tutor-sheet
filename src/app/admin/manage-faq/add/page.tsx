@@ -40,7 +40,7 @@ const AddSheet = () => {
       }else toast.error("Error !!  🚀✖️",{id:"1"});
       setTimeout(() => {
         // router.push("/admin/manage_faq");
-        window.location.href = '/admin/manage_faq';
+        window.location.href = '/admin/manage-faq';
       },500);
   };
 

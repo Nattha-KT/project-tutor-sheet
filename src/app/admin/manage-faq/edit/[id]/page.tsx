@@ -66,7 +66,7 @@ const EditSheet = ({params}:{params:{id:string}}) => {
       toast.success("Added successfully! 🚀✔️",{id:"1"})
       setTimeout(() => {
         // router.push("/admin/manage_faq");
-        window.location.href = '/admin/manage_faq';
+        window.location.href = '/admin/manage-faq';
       },500);
       // console.log(bol);
     }

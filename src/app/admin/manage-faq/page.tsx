@@ -28,7 +28,7 @@ const data = await fetchFaq();
       </div>
       {/* Link to add sheet */}
       <div className="flex my-5 flex-center">
-          <Link href={"manage_faq/add"} className=" rounded-3xl px-4 py-2 text-center m-auto text-md bg-slate-600 font-semibold text-white hover:bg-slate-800 ">
+          <Link href={"manage-faq/add"} className=" rounded-3xl px-4 py-2 text-center m-auto text-md bg-slate-600 font-semibold text-white hover:bg-slate-800 ">
               ➕ADD FAQ
           </Link>
       </div>
@@ -41,7 +41,7 @@ const data = await fetchFaq();
                 <div className="mr-auto">
                   <h2 className="mr-auto font-bold">{faq.title}</h2>
                 </div>
-                <Link href={`manage_faq/edit/${faq.id}`} className="rounded-3xl px-4 py-2 text-center text-md bg-slate-500 font-semibold text-white hover:bg-slate-600">
+                <Link href={`manage-faq/edit/${faq.id}`} className="rounded-3xl px-4 py-2 text-center text-md bg-slate-500 font-semibold text-white hover:bg-slate-600">
                   Edit
                 </Link>
               </div>
