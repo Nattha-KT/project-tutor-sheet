@@ -35,3 +35,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+#test features 
+/src/app/routes/uploadfile/
+/src/app/routes/test/
+
+#Features that may be required
+/src/components/antiques/
+

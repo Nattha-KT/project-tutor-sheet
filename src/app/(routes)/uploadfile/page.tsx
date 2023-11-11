@@ -5,7 +5,8 @@ import React, { useState ,useEffect} from 'react'
 import { storage } from '../../../../firebaseConfig'
 import { number } from 'prop-types'
 
-const UploadImageToStorage = () => {
+
+const UploadImage = () => {
   // const [imageFile, setImageFile] = useState<File>()
   const [imageFileList, setImageFileList] = useState<File[]>([])
   const [downloadURL, setDownloadURL] = useState('')
@@ -23,8 +24,6 @@ const UploadImageToStorage = () => {
   //     // Use the analytics object as needed here
   //   });
   // }, []);
-
-
 
   const handleUploadFile = async() => {
 
@@ -87,23 +86,32 @@ const UploadImageToStorage = () => {
     }
   }
 
-  const handleSelectedFile = (files: FileList | null) => {
-    if (files && files[0]?.size < 100000000) {
-      const selectedFile = files[0];
-      // setImageFile(selectedFile);
-
+  const handleSelectedFile =  async(files: FileList | null) => {
+    console.log(files);
+    const validFiles: File[] = [];
+    if (files){
+    for(const [key, value] of Object.entries(files)){
+      if (value?.size < 100000000) {
+        // setImageFile(selectedFile);
+        validFiles.push(value);
+      } else {
+        message.error('File size to large')
+      }
+    } 
+    if (validFiles.length > 0) {
       if (imageFileList) {
-        setImageFileList([...imageFileList, selectedFile]);
+        const newFileList = [...imageFileList, ...validFiles];
+        await setImageFileList(newFileList);
         setButtonUpload(true);
       } else {
         setButtonUpload(false);
       }
-      
-      // console.log(imageFileList)
-    } else {
-      message.error('File size to large')
     }
+    // console.log(imageFileList)
+
   }
+  }
+  
 
   const handleRemoveFile = (index:number) => {
     const newList = [...imageFileList];
@@ -128,6 +136,7 @@ const UploadImageToStorage = () => {
       <div className="col-lg-8 offset-lg-2">
       <span className="sr-only">Choose profile photo</span>
         <Input
+          multiple
           type="file"
           placeholder="Select file to upload"
           accept="image/png"
@@ -142,17 +151,18 @@ const UploadImageToStorage = () => {
 
         <div className="mt-5 w-4/5 ">
           {/* {imageFileList && imageFileList?.map((image_File:any)=>( */}
-            <Card>
+          <Card>
             {imageFileList && imageFileList?.map((image_File:any,index:number)=>(
-              <div  key={image_File.name}>    
+              <div  key={image_File.name} className='flex flex-col'>    
                 <List.Item>
                   <List.Item.Meta
                     title={image_File.name}
                     description={`Size: ${image_File.size}`}
                   />
                  </List.Item>
+                 <img src={URL.createObjectURL(image_File)} alt="" className='md:w-auto md:h-auto md:max-w-[150px] md:max-h-[150px] md:block rounded-lg' />
 
-                <div className="text-right mt-3 ">
+                <div className="text-right mt-2">
                   <Button
                     type="primary"
                     onClick={() => handleRemoveFile(index)}
@@ -162,8 +172,8 @@ const UploadImageToStorage = () => {
                     Delete
                   </Button>
 
-                  <Progress percent={progress(index)} className=' my-5' />
                 </div>
+                <Progress percent={progress(index)} className=' my-5' />
               </div>
             ))}
             {/* {downloadURL && (
@@ -199,4 +209,4 @@ const UploadImageToStorage = () => {
   )
 }
 
-export default UploadImageToStorage
+export default UploadImage

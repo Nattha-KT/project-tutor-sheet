@@ -29,8 +29,6 @@ type Banks = {
       "Content-Type":"application/json",
     //   'Authorization': `Bearer ${token}`, // Include the token in the Authorization header
     });
-    // console.log(res);
-    
     return (await res).json();
   };
 
@@ -39,7 +37,6 @@ export default  function Register_Seller({ banks }: { banks: Banks[] }){
 
     const {data:session,update} = useSession();
     const router = useRouter();
-    // console.log(banks);
     
     const [seller ,setSeller] = useState<Seller>({
         pen_name: "",
@@ -164,23 +161,6 @@ export default  function Register_Seller({ banks }: { banks: Banks[] }){
                         />
                     </div>
                     </div>
-
-                    {/* <div className="sm:col-span-4">
-                    <label htmlFor="phone" className="block text-sm font-medium leading-6 text-gray-900">
-                        ID number
-                    </label>
-                    <div className="mt-2">
-                        <input
-                        id="id_number"
-                        // onChange={handleInputChange}
-                        name="id_number"
-                        type="id_number"
-                        placeholder='เลขบัตรประชาชน 13 หลัก'
-                        autoComplete="phone"
-                        className="block w-full px-3 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-500 sm:text-sm sm:leading-6"
-                        />
-                    </div>
-                    </div> */}
 
                     <div className="col-span-full">
                     <label htmlFor="address" className="block text-sm font-medium leading-6 text-gray-900">

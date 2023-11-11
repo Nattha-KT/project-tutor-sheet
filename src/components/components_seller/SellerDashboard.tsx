@@ -76,7 +76,7 @@ export default function SellerDashboard() {
               Sheets list
             </Typography>
             <Typography color="gray" className="mt-1 font-normal">
-              See information about all members
+              See information about all sheets
             </Typography>
           </div>
           <div className="flex shrink-0 flex-col gap-2 sm:flex-row">

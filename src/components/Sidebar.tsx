@@ -63,14 +63,14 @@ function SideNavbar( {className}:{className:string}) {
                 </h3>
               </a>  
               <a className="flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-gray-900 p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto"
-               href="seller/new-sheet">
+               href="/seller/new-sheet">
                 <MdNoteAdd className="text-2xl text-gray-600 group-hover:text-white " />
                 <h3 className="text-base text-gray-800 group-hover:text-white font-semibold ">
                   New Sheet
                 </h3>
               </a>
               <a className="flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-gray-900 p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto"
-              href={`seller/edit-seller/${session.user.sid}`}>
+              href={`/seller/edit-seller/${session.user.sid}`}>
                 <MdOutlineEditNote className="text-2xl text-gray-600 group-hover:text-white " />
                 <h3 className="text-base text-gray-800 group-hover:text-white font-semibold ">
                   Edit

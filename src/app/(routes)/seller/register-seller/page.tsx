@@ -9,13 +9,13 @@ import React from "react";
 async function fetchBanks(){
   try {
     const response = await axios.get("http://localhost:3000/api/banks");
-  const data = response.data;
-  const banks = data.banks;
+    const data = response.data;
+    const banks = data.banks;
    return banks;
- } catch (error) {
-   console.error("Error fetching data:", error);
-   return [];
- }
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return [];
+  }
  }
 
 

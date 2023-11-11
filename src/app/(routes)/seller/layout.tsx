@@ -14,11 +14,11 @@ export default function SellerLayout({children,}: {children: React.ReactNode}) {
   return (
     <div >
       <Sidebar className="absolute"/>
-      {/* <ProviderWrapper> */}
-      <div className=" mx-auto  pt-10 flex justify-center overflow-x-scroll">
+      <ProviderWrapper>
+      <div className=" mx-auto  pt-10 flex justify-center">
         {children}
       </div>
-      {/* </ProviderWrapper> */}
+      </ProviderWrapper>
       <Footer/>
     </div>
     

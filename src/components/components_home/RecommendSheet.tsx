@@ -97,7 +97,7 @@ const content = {
 export default function RecommendSheet({className}:{className:string}) {
   return (
    <>
-   <section id="RecomendedSection" className={`${className}`}>
+    <section id="RecomendedSection" className={`${className}`}>
       <div className=" container mx-auto w-11/12">
         <div className="2xl:flex justify-center mb-20 lg:mb-36 ">
           <div className=" lg:px-0 w-full 2xl:w-9/12 lg:flex-col gap-0 items-center">
@@ -221,7 +221,7 @@ export default function RecommendSheet({className}:{className:string}) {
        initial={{opacity:0,y:20}}
        whileInView={{opacity:1,y:0,transition:{delay:0.2,duration:0.5, timeline: "incorrect-offset 50%",}}}
        viewport={{once:true,}}
-       className="  flex justify-center pt-72 lg:pt-[220px] pb-16 bg-slate-100 mb-6 px-6 mx-auto ">
+       className="  flex justify-center pt-72 lg:pt-[220px] pb-16 bg-slate-100 px-6 mx-auto ">
         <div className=" text-center lg:w-7/12">
           <p className="leading-relaxed text-[15px] text-stone-700 duration-300 pb-5">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad provident explicabo, 

@@ -7,7 +7,7 @@ type Faq={
 
 export default function Faq({data}:{data:Faq[]}) {
   return (
-    <div className="grid gap-6 grid-cols-1 font-medium  m-6 p-5 sm:p-20 space-y-8 bg-white shadow-xl rounded-2xl md:flex-row md:space-y-0">
+    <div className="grid gap-6 grid-cols-1 font-medium  m-6 mb-12 p-5 sm:p-20 space-y-8 bg-white shadow-xl rounded-2xl md:flex-row md:space-y-0">
           
     <div className=" text-3xl font-bold ">FAQ💡</div>
     <div className=" text-base font-medium">Welcome to our FAQ section! Here, we aim to provide you with clear and concise answers to some of 
