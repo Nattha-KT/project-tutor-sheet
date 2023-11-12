@@ -1,5 +1,5 @@
 
-import Faq from "@/components/Faq";
+import Faq from "@/app/(routes)/faq/_components/Faq";
 import Footer from "@/components/components_home/Footer";
 
 async function fetchFaq(){

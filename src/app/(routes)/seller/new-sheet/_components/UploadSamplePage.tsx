@@ -10,9 +10,6 @@ type UploadSamplePageProps = {
 }
 
 const UploadImage = ({imageList,setImageList,buttonDelete,setCheckImageList}: UploadSamplePageProps) => {
-  // const [imageFile, setImageFile] = useState<File>()
-  // const [imageFileList, setImageFileList] = useState<File[]>([])
-  // const {buttonDelete} = useUploadSamplePage()
 
   const handleSelectedFile =  async(files: FileList | null) => {
     // console.log(files);

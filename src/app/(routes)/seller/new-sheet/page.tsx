@@ -1,9 +1,9 @@
 'use client'
 import React, { use, useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast';
-import UploadSamplePage from '@/components/UploadSamplePage';
-import UploadCoverPage from '@/components/UploadCoverPage';
-import UploadFile from '@/components/UploadFile';
+import UploadSamplePage from '@/app/(routes)/seller/new-sheet/_components/UploadSamplePage';
+import UploadCoverPage from '@/app/(routes)/seller/new-sheet/_components/UploadCoverPage';
+import UploadFile from '@/app/(routes)/seller/new-sheet/_components/UploadFile';
 import {message, Image, Progress } from 'antd'
 import { useUploadFileAll } from '@/hooks/useUploadFileAll';
 import {useSession} from "next-auth/react";
@@ -77,27 +77,41 @@ export default function NewSheet() {
     }
 
 
-    const handleSubmit = async (e:any) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
-        // console.log(sheet);
-        setIsUpload(true)
-        if(sheet){
-          message.loading("Sending request... 🚀👩🏾‍🚀",1);
+        message.loading("Sending request... 🚀👩🏾‍🚀", 0); // Show loading message
+        console.log(sellerId)
+        console.log(sheet)
+        if (!sheet) {
+          message.destroy(); // Close the loading message
+          return message.error("Error! Sheet not found!! 🚀✖️", 2);
+        }
+      
+        try {
           const res = await AddNewSheet(sheet);
-          if (res && res.message == "Success"){
-                const sheetId = res?.sheet.id
-                if(await handleUploadFileAll(sellerId,sheetId)){
-                    return;
-                }else{
-                    message.success("Upload successfully! 🚀✔️",2)
-                    setTimeout(() => {
-                        window.location.href="/seller";
-                    },1000);
-                }
-            }else message.error("Error Request failed ! 🚀✖️",2);
-    
-        }else message.error("Error! sheet can not found!!  🚀✖️",2);
+      
+          if (res && res.message === "Success") {
+            const sheetId = res.sheet?.id;
+            if (sheetId && !(await handleUploadFileAll(sellerId, sheetId))) {
+              message.destroy(); // Close the loading message
+              message.success("Upload successfully! 🚀✔️", 2);
+              setTimeout(() => {
+                window.location.href = "/seller";
+              }, 1000);
+            } else {
+                message.destroy(); // Close the loading message
+                message.error("Error Upload failed ! 🚀✖️", 2);
+            }
+          } else {
+            message.destroy(); // Close the loading message
+            message.error("Error Request failed ! 🚀✖️", 2);
+          }
+        } catch (err) {
+          message.destroy(); // Close the loading message
+          message.error("An error occurred: " + err, 2);
+        }
       };
+      
     
   return (
     <div className='flex justify-center items-center z-10 mb-6' >

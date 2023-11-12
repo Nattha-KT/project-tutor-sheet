@@ -1,14 +1,11 @@
 "use client";
 
 import toast, { Toaster } from 'react-hot-toast';
-import { revalidateTag } from 'next/cache'
-import { NextRequest, NextResponse } from 'next/server'
 
 
 import "react-toastify/dist/ReactToastify.css";
 import { Fragment } from "react";
 import { useRef } from "react";
-import { useRouter } from "next/navigation";
 
 const AddMoreSheet = async ({title,answer}:{title:String,answer:String}) => {
   const res = fetch("http://localhost:3000/api/faq",{
@@ -21,8 +18,6 @@ const AddMoreSheet = async ({title,answer}:{title:String,answer:String}) => {
 };
 
 const AddSheet = () => {
-
-  const router = useRouter();
 
   const titleRef = useRef<HTMLInputElement | null>(null);
   const answerRef = useRef<HTMLTextAreaElement | null>(null);
@@ -39,7 +34,6 @@ const AddSheet = () => {
       : toast.error("Error ! 🚀✖️");}
       }else toast.error("Error !!  🚀✖️",{id:"1"});
       setTimeout(() => {
-        // router.push("/admin/manage_faq");
         window.location.href = '/admin/manage-faq';
       },500);
   };
@@ -58,7 +52,6 @@ const AddSheet = () => {
           </form>
         </div>
       </div>
-   
       <Toaster />
     </Fragment>
   );

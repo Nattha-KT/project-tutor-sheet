@@ -57,9 +57,6 @@ const data = await fetchFaq();
             </div>
           ))}
       </div>
-        
-
-
     </div>
   )
 }
