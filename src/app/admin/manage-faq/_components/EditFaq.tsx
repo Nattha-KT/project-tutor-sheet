@@ -5,7 +5,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { Fragment, useEffect } from "react";
 import { useRef } from "react";
 import { useRouter } from "next/navigation";
-import { revalidateTag } from 'next/cache'
+
+
 
 type Faq = {
     id: string,
@@ -13,7 +14,7 @@ type Faq = {
     answer : string,
 };
 
-const UpdateSheet = async (data:Faq) => {
+const UpdateFaq = async (data:Faq) => {
   const res = fetch(`http://localhost:3000/api/faq/${data.id}`,{
     method: "PUT",
     body: JSON.stringify({title:data.title,answer:data.answer}),
@@ -23,7 +24,7 @@ const UpdateSheet = async (data:Faq) => {
   return (await res).json();
 };
 
-const DeleteSheet = async (id:string) => {
+const DeleteFaq = async (id:string) => {
   const res = fetch(`http://localhost:3000/api/faq/${id}`,{
     method: "DELETE",
     // @ts-ignore
@@ -33,26 +34,24 @@ const DeleteSheet = async (id:string) => {
   return (await res).json();
 };
 
-const getSheetById = async (id:string) => {
+const getFaqById = async (id:string) => {
     const res = await fetch(`http://localhost:3000/api/faq/${id}`);
     const data = await res.json();
     return  data.faq;
 
 }
 
-const EditSheet = ({params}:{params:{id:string}}) => {
-  const router =useRouter();
+export default function EditFaq ({id}:{id:string}) {//{params}:{params:{id:string}}
   const titleRef = useRef<HTMLInputElement | null>(null);
   const answerRef = useRef<HTMLTextAreaElement | null>(null);
 
     useEffect(()=>{
         toast.loading("Fetching Sheets...👩🏾‍🚀",{id:"1"});
-        getSheetById(params.id).then((data)=>{
+        getFaqById(id).then((data)=>{
             titleRef.current!.value = data.title;
             answerRef.current!.value = data.answer;
             toast.success("Fetching Complate 🚀",{id:"1"});
         }).catch((err)=>{
-            // console.log(err);
             toast.error("Error fetching sheet👾👾",{id:"1"})
         });
 
@@ -62,20 +61,17 @@ const EditSheet = ({params}:{params:{id:string}}) => {
     e.preventDefault();
     if(titleRef.current && answerRef.current){
       toast.loading("Sending request... 🚀👩🏾‍🚀",{id:"1"});
-      await UpdateSheet({title:titleRef.current?.value,answer:answerRef.current?.value,id:params.id});
+      await UpdateFaq({title:titleRef.current?.value,answer:answerRef.current?.value,id:id});
       toast.success("Added successfully! 🚀✔️",{id:"1"})
       setTimeout(() => {
-        // router.push("/admin/manage_faq");
         window.location.href = '/admin/manage-faq';
       },500);
-      // console.log(bol);
     }
   };
 
   const handleDelete = async () => {
     toast.loading("Deleting request... 🚀👩🏾‍🚀",{id:"1"});
-
-    await DeleteSheet(params.id)
+    await DeleteFaq(id)
     toast.success("Deleted! 🚀✔️",{id:"1"})
   }
 
@@ -111,4 +107,3 @@ const EditSheet = ({params}:{params:{id:string}}) => {
   );
 };
 
-export default EditSheet;

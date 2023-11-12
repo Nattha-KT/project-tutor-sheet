@@ -1,8 +1,6 @@
 "use client";
 
 import toast, { Toaster } from 'react-hot-toast';
-
-
 import "react-toastify/dist/ReactToastify.css";
 import { Fragment } from "react";
 import { useRef } from "react";
@@ -17,7 +15,7 @@ const AddMoreSheet = async ({title,answer}:{title:String,answer:String}) => {
   return (await res).json();
 };
 
-const AddSheet = () => {
+export default function AddFaq() {
 
   const titleRef = useRef<HTMLInputElement | null>(null);
   const answerRef = useRef<HTMLTextAreaElement | null>(null);
@@ -57,4 +55,4 @@ const AddSheet = () => {
   );
 };
 
-export default AddSheet;
+

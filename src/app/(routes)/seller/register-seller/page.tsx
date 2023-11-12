@@ -1,4 +1,4 @@
-import RegisterSeller from "../../../../components/components_seller/RegisterSeller";
+import RegisterSeller from "../_components/RegisterSeller";
 import Footer from "@/components/components_home/Footer";
 import axios from "axios";
 import { getServerSession } from "next-auth";

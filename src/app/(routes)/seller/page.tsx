@@ -1,8 +1,7 @@
 
 import { useSession } from 'next-auth/react'
 import { redirect } from 'next/navigation'
-import SellerDashboard from '@/components/components_seller/SellerDashboard'
-import Display from '@/components/Display'
+import SellerDashboard from '@/app/(routes)/seller/_components/SellerDashboard'
 
 
 

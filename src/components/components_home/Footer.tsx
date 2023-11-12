@@ -51,7 +51,7 @@ export default function Footer() {
               style={{y:imageScroll1}}
               >
         
-          <div className="mx-auto w-full max-w-full ">
+          <div className="mx-auto w-full max-w-full mt-5">
             <div className="grid grid-cols-1 justify-between gap-4 md:grid-cols-2">
               <Typography variant="h5" className="mb-6">
                   <svg width="240" height="25" viewBox="0 0 370.02912621359224 41.62478677853547" className="css-1j8o68f">
