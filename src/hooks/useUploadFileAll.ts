@@ -33,19 +33,9 @@ export const useUploadFileAll = () => {
       }
   }
 
-  const handleUploadFileAll = async (sid:string,sheetID:string) => {
-    if (!file) {
-      message.error("File not found🚀✖️");
-      return  true;
-    }else if (!image){
-      message.error("Cover page not found🚀✖️");
-      return true;
-    }
-
-    await handleUploadFile(file,sid,sheetID);
-    await handleUploadImage(image,sid,sheetID);
-
-     imageList.map(async (image) => {
+  const handleUploadSampleImage = async(imageList : File[] ,sid:string,sheetID:string)=>{
+    
+    imageList.map(async (image) => {
       try {
         const imageListName = image.name;
         const storageRef = ref(storage, `${sid}/${sheetID}/image-sample/${imageListName}`);
@@ -55,6 +45,24 @@ export const useUploadFileAll = () => {
         return true;
       }
     });
+  }
+
+  const handleUploadFileAll = async (sid:string,sheetID:string) => {
+    if (!file) {
+      message.error("File not found🚀✖️");
+      return  true;
+    }else if (!image){
+      message.error("Cover page not found🚀✖️");
+      return true;
+    }else if (!imageList){
+      message.error("Sample page not found🚀✖️");
+      return true;
+    }
+
+    await handleUploadFile(file,sid,sheetID);
+    await handleUploadImage(image,sid,sheetID);
+    await handleUploadSampleImage(imageList,sid,sheetID);
+
 
   };
 
