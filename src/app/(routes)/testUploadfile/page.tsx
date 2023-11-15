@@ -4,6 +4,7 @@ import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import React, { useState ,useEffect} from 'react'
 import { storage } from '../../../../firebaseConfig'
 import { number } from 'prop-types'
+import { v4 as uuidv4 } from 'uuid';
 
 
 const UploadImage = () => {
@@ -24,6 +25,33 @@ const UploadImage = () => {
   //     // Use the analytics object as needed here
   //   });
   // }, []);
+
+  // const handleUploadImage = async () => {
+  //   try {
+  //     // if(sellerId == null) {throw new Error("Seller ID  is null!")}
+  //     const imageName = imageFileList[0].name;
+  //     const storageRefImage =  ref(storage, `images/cover-page/${imageName}`);
+  //     const uploadTaskImage = uploadBytesResumable(storageRefImage, imageFileList[0]);
+  //     await new Promise((resolve, reject) => {
+  //       uploadTaskImage.on(
+  //         'state_changed',
+  //         () => {
+  //           // Upload completed successfully
+  //           getDownloadURL(uploadTaskImage.snapshot.ref)
+  //             .then((url) => {
+  //               console.log('Image available at', url);
+  //               setDownloadURL(url)
+  //               resolve(url);
+  //             })
+  //         }
+  //       );
+  //     });
+  //   } catch (error:any) {
+  //     message.error("Error!"+error.message);
+  //     console.log("Error handleUploadImage: " + error.message);
+  //     // throw new Error(error.message);
+  //   }
+  // };
 
   const handleUploadFile = async() => {
 
@@ -63,13 +91,14 @@ const UploadImage = () => {
           (error) => {
             reject(error);
           },
-          // () => {
-          //   getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          //     //url is download url of file
-          //     setDownloadURL(url)
-          //     console.log('File available at', url);
-          //   })
-          // },
+          () => {
+            getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+              //url is download url of file
+              // console.log(uploadTask.snapshot.ref);
+              setDownloadURL(url)
+              console.log('File available at', url);
+            })
+          },
         )
       });
     })
@@ -176,7 +205,7 @@ const UploadImage = () => {
                 <Progress percent={progress(index)} className=' my-5' />
               </div>
             ))}
-            {/* {downloadURL && (
+            {downloadURL && (
               <>
                 <Image
                   src={downloadURL}
@@ -185,7 +214,7 @@ const UploadImage = () => {
                 />
                 <p>{downloadURL}</p>
               </>
-            )} */}
+            )}
             <p></p>
           </Card>
          {buttonUpload && (

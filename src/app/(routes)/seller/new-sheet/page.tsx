@@ -1,6 +1,5 @@
 'use client'
 import React, { use, useEffect, useState } from 'react'
-import toast, { Toaster } from 'react-hot-toast';
 import UploadSamplePage from '@/app/(routes)/seller/new-sheet/_components/UploadSamplePage';
 import UploadCoverPage from '@/app/(routes)/seller/new-sheet/_components/UploadCoverPage';
 import UploadFile from '@/app/(routes)/seller/new-sheet/_components/UploadFile';
@@ -8,6 +7,10 @@ import {message, Image, Progress } from 'antd'
 import { useUploadFileAll } from '@/hooks/useUploadFileAll';
 import {useSession} from "next-auth/react";
 import axios from "axios"
+import { v4 as uuidv4 } from 'uuid';
+import { ExclamationCircleFilled } from '@ant-design/icons';
+import { Button, Modal, Space } from 'antd';
+import { on } from 'events';
 
 type Sheet={
     course_code:string,
@@ -19,27 +22,18 @@ type Sheet={
     num_page: number,
     class_details:string,
     content_details:string,
+    cover_page: string,
+    sample_page: string[],
+    file_path:string,
     sid:string,
 }
 
-const AddNewSheet = async (sheet:Sheet) => {
-    try {
-      const response = await axios.post("http://localhost:3000/api/sheets", sheet, {
-        headers: {
-          'Content-Type': 'application/json', // Set the content type to JSON
-        },
-      });
-      return response.data;
-    } catch (error) {
-      console.error('Error:', error);
-      return error;
-    }
-  };
+
 
 export default function NewSheet() {
 
     const {data:session} = useSession();
-    const sellerId = session ? session!.user.sid :"" ;
+    const sellerId = session && session!.user.sid  ;
     const [isUpload,setIsUpload] =useState(false)
     const [checkFile,setCheckFile] = useState(false);
     const [checkImage,setCheckImage] = useState(false);
@@ -48,19 +42,9 @@ export default function NewSheet() {
             imageList,setImageList,
             file,setFile,
             image,setImage,
-            handleUploadFileAll} = useUploadFileAll()
-    const [sheet,setSheet] = useState<Sheet>({
-            course_code:"",
-            name:"",
-            semester:"",
-            type:"",
-            year: "",
-            price:0,
-            num_page: 0,
-            class_details:"",
-            content_details:"",
-            sid:sellerId,
-            });
+            sheet,setSheet,
+            handleUploadFileAll,} = useUploadFileAll(sellerId)
+      
 
     useEffect(()=>{
         setSheet((prevSheet) => ({
@@ -77,46 +61,43 @@ export default function NewSheet() {
     }
 
 
-    const handleSubmit = async (e: any) => {
+    const handleSubmit = async (e:any) => {
         e.preventDefault();
         message.loading("Sending request... 🚀👩🏾‍🚀", 0); // Show loading message
-        console.log(sellerId)
-        console.log(sheet)
+        setIsUpload(true);
         if (!sheet) {
-          message.destroy(); // Close the loading message
-          return message.error("Error! Sheet not found!! 🚀✖️", 2);
+            message.destroy(); // Close the loading message
+            return message.error("Error! Sheet not found!! 🚀✖️", 2);
         }
-      
+        
         try {
-          const res = await AddNewSheet(sheet);
-      
-          if (res && res.message === "Success") {
-            const sheetId = res.sheet?.id;
-            if (sheetId && !(await handleUploadFileAll(sellerId, sheetId))) {
-              message.destroy(); // Close the loading message
-              message.success("Upload successfully! 🚀✔️", 2);
-              setTimeout(() => {
-                window.location.href = "/seller";
-              }, 1000);
+            const res = await handleUploadFileAll();
+            if (res == "Success") {
+                message.destroy(); // Close the loading message
+                message.success("Upload successfully! 🚀✔️", 2);
+                setTimeout(() => {
+                    window.location.href = "/seller";
+                }, 2000);
+                    // message.destroy(); // Close the loading message
+                    // message.error("Error Upload failed ! 🚀✖️", 2);
             } else {
                 message.destroy(); // Close the loading message
-                message.error("Error Upload failed ! 🚀✖️", 2);
+                message.error("Error  handleUploadSheet failed! 🚀✖️", 2);
             }
-          } else {
-            message.destroy(); // Close the loading message
-            message.error("Error Request failed ! 🚀✖️", 2);
-          }
-        } catch (err) {
+          
+        } catch (err:any) {
           message.destroy(); // Close the loading message
-          message.error("An error occurred: " + err, 2);
+          message.error("An error occurred: " + err.message, 2);
         }
       };
+
+    
       
     
   return (
     <div className='flex justify-center items-center z-10 mb-6' >
-    <form className='relative flex flex-col m-6 space-y-8 bg-white drop-shadow-2xl md:flex-row md:space-y-0 rounded-xl lg: w-4/4' onSubmit={handleSubmit}>
-        <div className="space-y-12 p-10 rounded-s-md">
+    <form className='relative flex flex-col m-6 space-y-8 bg-white drop-shadow-2xl md:flex-row md:space-y-0 rounded-xl lg: w-4/4'onSubmit={handleSubmit} >
+        <div  className="space-y-12 p-10 rounded-s-md">
             <div className="border-b border-gray-900/10 pb-12">
                 <div className='flex justify-center'>
                      <img src="/images/tutor-logo.png" alt="img" className="w-36 h-38  hidden  md:block object-cover" />
@@ -141,7 +122,7 @@ export default function NewSheet() {
                         </label>
                         <div className="mt-2">
                             <input
-                            required 
+                             required
                             type="text"
                             placeholder="ชื่อวิชา รวมข้อมูลที่อยากให้ปรากฎชัดๆบนหน้าปก"
                             onChange={handleInputChange}
@@ -159,7 +140,7 @@ export default function NewSheet() {
                         </label>
                         <div className="mt-2">
                             <input
-                            required 
+                             required
                             id="course_code"
                             onChange={handleInputChange}
                             name="course_code"
@@ -176,7 +157,7 @@ export default function NewSheet() {
                         </label>
                         <div className="mt-2">
                             <select
-                            required 
+                             required
                             id="type"
                             onChange={handleInputChange}
                             name="type"
@@ -197,7 +178,7 @@ export default function NewSheet() {
                         </label>
                         <div className="mt-2">
                             <select
-                            required 
+                             required
                             id="semester"
                             onChange={handleInputChange}
                             name="semester"
@@ -221,7 +202,7 @@ export default function NewSheet() {
                         </label>
                         <div className="mt-2">
                             <select
-                            required 
+                             required
                             id="year"
                             onChange={handleInputChange}
                             name="year"
@@ -244,7 +225,7 @@ export default function NewSheet() {
                         </label>
                         <div className="mt-2">
                             <input
-                            required 
+                             required
                             type="number"
                             onChange={handleInputChange}
                             placeholder= "จำนวนหน้าของเนื้อหาไม่รวมปก"
@@ -261,7 +242,7 @@ export default function NewSheet() {
                         </label>
                         <div className="mt-2">
                             <input
-                            required 
+                             required
                             type="number"
                             onChange={handleInputChange}
                             placeholder= "ราคาที่ต้องการวางขาย"
@@ -280,7 +261,7 @@ export default function NewSheet() {
                         </label>
                         <div className="mt-2">
                             <textarea
-                            required 
+                             required
                             id="class_details"
                             onChange={handleInputChange}
                             name="class_details"
@@ -297,7 +278,7 @@ export default function NewSheet() {
                         </label>
                         <div className="mt-2">
                             <textarea
-                            required 
+                             required
                             id="content_details"
                             onChange={handleInputChange}
                             name="content_details"
@@ -328,7 +309,7 @@ export default function NewSheet() {
                     </div>
                     <div className="col-span-6">
                         <label htmlFor="street-address" className="block text-sm font-medium leading-6 text-gray-900">
-                        File (File size not more than 150MB)
+                        File (File size not more than 60MB)
                         </label>
                         <div className="mt-2">
                         <UploadFile file={file} setFile={setFile} buttonDelete={isUpload} setCheckFile={setCheckFile} />
@@ -345,10 +326,9 @@ export default function NewSheet() {
             </div>
             <button  className="w-full border border-gray-300 text-md p-2 rounded-lg mb-6 hover:bg-amber-500 hover:text-white" hidden={!(checkFile&&checkImage&&checkImageList)} >
                     🚀✨Add new sheet!!✨
-            </button>
+            </button> 
         </div>
     </form>
-    {/* <Toaster/> */}
    </div>
   )
 }

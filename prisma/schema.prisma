@@ -19,8 +19,11 @@ model Sheet{
   year String
   price Int
   num_page Int
+  status_approve Boolean  @default(false)
   class_details String
   content_details String
+  cover_page String?
+  samples_page String[]
   file_path String?
   date DateTime @default(now())
   sid String @db.ObjectId

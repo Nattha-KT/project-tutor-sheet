@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import {
   MagnifyingGlassIcon,
@@ -22,9 +22,32 @@ import {
   IconButton,
   Tooltip,
 } from "@material-tailwind/react";
+import Link from 'next/link';
+// import { fetchMetaData } from '../page';
+import {useSession} from "next-auth/react";
+import { storage } from '../../../../../firebaseConfig';
+import { getDownloadURL, listAll, ref } from 'firebase/storage';
 
+
+type Sheet={
+  course_code:string,
+  name:string,
+  semester:string,
+  type:string,
+  year: string,
+  price:number,
+  status_approve:string,
+  num_page: number,
+  class_details:string,
+  content_details:string,
+  cover_page: string,
+  date: string,
+  sample_page: string[],
+  file_path:string,
+  sid:string,
+}
  
-const TABLE_HEAD = ["Member", "Price", "Status", "Date", ""];
+const TABLE_HEAD = ["Course Name", "Price", "Status", "Date", ""];
  
 const TABLE_ROWS = [
   {
@@ -65,7 +88,33 @@ const TABLE_ROWS = [
 ];
 
 
-export default function SellerDashboard() {
+export default function SellerDashboard({sheets}:{sheets:Sheet[]}) {
+
+  const [urlList, setUrlList] = useState<string[]>([])
+
+  const handleRetriveCoverImage = () => {
+    const storageRef = ref(storage, `651b91e1310ade9c50dc20ce/6550efddfe956be9526dcc51/cover-page`);
+  
+    listAll(storageRef)
+      .then((res) => {
+        res.items.forEach((itemRef) => {
+          console.log("itemRef" + itemRef);
+          getDownloadURL(itemRef).then((urlDownload) => {
+            setUrlList((prevItems) => [...prevItems, urlDownload]);
+            console.log("console Url List  => " + urlDownload);
+            console.log("Updated Url List =>", urlList); 
+          });
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  useEffect(()=>{
+    handleRetriveCoverImage();
+  },[]);
+
   return (
     
       <Card className="h-full w-12/12 lg:w-[1000px] max-w-[100%]  sm:p-5 mb-10">
@@ -85,7 +134,7 @@ export default function SellerDashboard() {
             </Button>
             <Button className="flex items-center gap-3" size="sm">
               <ClipboardDocumentIcon strokeWidth={2} className="h-4 w-4" />
-              <a href="seller/new-sheet"> Add Sheet</a>
+              <Link href="/seller/new-sheet"> Add Sheet</Link>
             </Button>
           </div>
         </div>
@@ -94,7 +143,7 @@ export default function SellerDashboard() {
             <Input
                 label="Search"
                 className=''
-                icon={<MagnifyingGlassIcon className="h-5 w-5"/>} crossOrigin={undefined}            />
+                icon={<MagnifyingGlassIcon className="h-5 w-5"/>} crossOrigin={undefined}/>
           </div>
         </div>
       </CardHeader>
@@ -122,8 +171,8 @@ export default function SellerDashboard() {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(
-              ({ img,price, name,  online, date }, index) => {
+            {sheets&& sheets.map(
+              ({ price, name, status_approve, date }, index) => {
                 const isLast = index === TABLE_ROWS.length - 1;
                 const classes = isLast
                   ? "p-4"
@@ -133,7 +182,7 @@ export default function SellerDashboard() {
                   <tr key={name}>
                     <td className={classes}>
                       <div className="flex items-center gap-3">
-                        <Avatar src={img} alt={name} size="sm" />
+                        <Avatar src={urlList[0]} alt={name} size="sm" />
                         <div className="flex flex-col">
                           <Typography
                             variant="small"
@@ -162,8 +211,8 @@ export default function SellerDashboard() {
                         <Chip
                           variant="ghost"
                           size="sm"
-                          value={online ? "approve" : "approve"}
-                          color={online ? "green" : "red"}
+                          value={status_approve ? "approve" : "approve"}
+                          color={status_approve ? "green" : "red"}
                         />
                       </div>
                     </td>
@@ -173,7 +222,7 @@ export default function SellerDashboard() {
                         color="blue-gray"
                         className="font-normal"
                       >
-                        {date}
+                        {new Date(date).toDateString()}
                       </Typography>
                     </td>
                     <td className={classes}>

@@ -18,7 +18,7 @@ const UploadFile = ({file,setFile,buttonDelete,setCheckFile}: UploadFileProps) =
 
   const handleSelectedFile =  async(file: FileList | null) => {
     
-    if (file && convertByteToMbyte(file[0].size) < 100) {
+    if (file && convertByteToMbyte(file[0].size) < 60) {
       setFile(file[0])
       setCheckFile(true);
     } else {

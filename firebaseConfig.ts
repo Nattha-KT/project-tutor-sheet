@@ -10,10 +10,10 @@ import { getFirestore } from 'firebase/firestore';
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
-let app: any;
-let firestore: any;
-let storage: any;
-let analytics:any;
+let app: ReturnType<typeof initializeApp>;
+let firestore: ReturnType<typeof getFirestore>;
+let storage: ReturnType<typeof getStorage>;
+let analytics: ReturnType<typeof getAnalytics>;
 
 
 if (typeof window !== 'undefined') {
@@ -29,10 +29,10 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
- app = initializeApp(firebaseConfig);
- firestore = getFirestore(app);
- analytics = getAnalytics(app);
- storage = getStorage(app);
+  app = initializeApp(firebaseConfig);
+  firestore = getFirestore(app);
+  analytics = getAnalytics(app);
+  storage = getStorage(app);
 }
 
-export { app, firestore, storage };
+export { app, firestore, storage, analytics };
