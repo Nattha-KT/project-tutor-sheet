@@ -22,11 +22,7 @@ import {
   IconButton,
   Tooltip,
 } from "@material-tailwind/react";
-import Link from 'next/link';
-// import { fetchMetaData } from '../page';
-import {useSession} from "next-auth/react";
-import { storage } from '../../../../../firebaseConfig';
-import { getDownloadURL, listAll, ref } from 'firebase/storage';
+
 
 
 type Sheet={
@@ -49,71 +45,51 @@ type Sheet={
  
 const TABLE_HEAD = ["Course Name", "Price", "Status", "Date", ""];
  
-const TABLE_ROWS = [
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-    price:"35",
-    name: "John Michael",
-    online: true,
-    date: "23/04/18",
-  },
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg",
-    price:"35",
-    name: "Alexa Liras",
-    online: false,
-    date: "23/04/18",
-  },
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-1.jpg",
-    price:"78",
-    name: "Laurent Perrier",
-    online: false,
-    date: "19/09/17",
-  },
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-4.jpg",
-    price:"87",
-    name: "Michael Levi",
-    online: true,
-    date: "24/12/08",
-  },
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-5.jpg",
-    price:"15",
-    name: "Richard Gran",
-    online: false,
-    date: "04/10/21",
-  },
-];
 
 
 export default function SellerDashboard({sheets}:{sheets:Sheet[]}) {
 
-  const [urlList, setUrlList] = useState<string[]>([])
+  const [currentPage, setCurrentPage] = useState(1);
+  const [filteredSheets, setFilteredSheets] = useState<Sheet[]>([]); 
+  const [totalPages, setTotalPages] = useState(1); 
+  const [searchTerm, setSearchTerm] = useState(''); 
+  const itemsPerPage = 5; 
 
-  const handleRetriveCoverImage = () => {
-    const storageRef = ref(storage, `651b91e1310ade9c50dc20ce/6550efddfe956be9526dcc51/cover-page`);
-  
-    listAll(storageRef)
-      .then((res) => {
-        res.items.forEach((itemRef) => {
-          console.log("itemRef" + itemRef);
-          getDownloadURL(itemRef).then((urlDownload) => {
-            setUrlList((prevItems) => [...prevItems, urlDownload]);
-            console.log("console Url List  => " + urlDownload);
-            console.log("Updated Url List =>", urlList); 
-          });
-        });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+ 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredSheets.slice(indexOfFirstItem, indexOfLastItem);
+
+  useEffect(() => {
+
+    const filteredSheets = sheets.filter(sheet => sheet.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    setFilteredSheets(filteredSheets);
+
+    if(filteredSheets.length > 0) {
+       // คำนวณจำนวนหน้าทั้งหมด
+    const total = Math.ceil(filteredSheets.length / itemsPerPage);
+    setTotalPages(total);
+
+
+    // กำหนดหน้าปัจจุบันให้ไม่เกินจำนวนหน้าทั้งหมด
+    setCurrentPage(current => Math.min(current, total));
+    }
+   
+  }, [ searchTerm, currentPage]);
+
+ 
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(current => current + 1);
+    }
   };
 
-  useEffect(()=>{
-    handleRetriveCoverImage();
-  },[]);
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(current => current - 1);
+    }
+  };
+
 
   return (
     
@@ -134,7 +110,7 @@ export default function SellerDashboard({sheets}:{sheets:Sheet[]}) {
             </Button>
             <Button className="flex items-center gap-3" size="sm">
               <ClipboardDocumentIcon strokeWidth={2} className="h-4 w-4" />
-              <Link href="/seller/new-sheet"> Add Sheet</Link>
+              <a href="/seller/new-sheet"> Add Sheet</a>
             </Button>
           </div>
         </div>
@@ -142,13 +118,15 @@ export default function SellerDashboard({sheets}:{sheets:Sheet[]}) {
           <div className="w-full md:w-72 ">
             <Input
                 label="Search"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 className=''
                 icon={<MagnifyingGlassIcon className="h-5 w-5"/>} crossOrigin={undefined}/>
           </div>
         </div>
       </CardHeader>
       <CardBody className="overflow-scroll px-0">
-        <table className="mt-4 w-full min-w-max table-auto text-left">
+        <table className="mt-4 w-full min-w-max table-auto text-left ">
           <thead>
             <tr>
               {TABLE_HEAD.map((head, index) => (
@@ -171,9 +149,9 @@ export default function SellerDashboard({sheets}:{sheets:Sheet[]}) {
             </tr>
           </thead>
           <tbody>
-            {sheets&& sheets.map(
-              ({ price, name, status_approve, date }, index) => {
-                const isLast = index === TABLE_ROWS.length - 1;
+            {currentItems&& currentItems.map(
+              ({ cover_page,price, name, status_approve, date }, index) => {
+                const isLast = index === sheets.length - 1;
                 const classes = isLast
                   ? "p-4"
                   : "p-4 border-b border-blue-gray-50";
@@ -182,7 +160,11 @@ export default function SellerDashboard({sheets}:{sheets:Sheet[]}) {
                   <tr key={name}>
                     <td className={classes}>
                       <div className="flex items-center gap-3">
-                        <Avatar src={urlList[0]} alt={name} size="sm" />
+                        <div className="avatar">
+                          <div className="mask mask-squircle w-12 h-12">
+                            <img src={cover_page} alt="Avatar Tailwind CSS Component" />
+                          </div>
+                        </div>
                         <div className="flex flex-col">
                           <Typography
                             variant="small"
@@ -241,13 +223,17 @@ export default function SellerDashboard({sheets}:{sheets:Sheet[]}) {
       </CardBody>
       <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
         <Typography variant="small" color="blue-gray" className="font-normal">
-          Page 1 of 10
+          {`Page ${currentPage} of ${totalPages}`}
         </Typography>
         <div className="flex gap-2">
-          <Button variant="outlined" size="sm">
+          <Button variant="outlined" size="sm"
+            onClick={handlePrevPage} disabled={currentPage === 1}
+          >
             Previous
           </Button>
-          <Button variant="outlined" size="sm">
+          <Button variant="outlined" size="sm"
+           onClick={handleNextPage} disabled={currentPage === totalPages}
+          >
             Next
           </Button>
         </div>
