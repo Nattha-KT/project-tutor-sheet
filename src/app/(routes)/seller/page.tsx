@@ -22,8 +22,6 @@ export async function fetchSheets() {
 
 export default async function Seller() {
 
-
-
   return (
       <SellerDashboard sheets={await fetchSheets()}/>
   )
