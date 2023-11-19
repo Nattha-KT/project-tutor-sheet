@@ -1,14 +1,25 @@
 
-import { useSession } from 'next-auth/react'
-import { redirect } from 'next/navigation'
 import SellerDashboard from '@/app/(routes)/seller/_components/SellerDashboard'
-import { getDownloadURL, ref, getMetadata, getStorage } from "firebase/storage";
-import { storage } from "../../../../firebaseConfig";
-import { message } from 'antd';
 
+type Sheet={
+  course_code:string,
+  name:string,
+  semester:string,
+  type:string,
+  year: string,
+  price:number,
+  status_approve:string,
+  num_page: number,
+  class_details:string,
+  content_details:string,
+  cover_page: string,
+  date: string,
+  sample_page: string[],
+  file_path:string,
+  sid:string,
+}
 
-
-export async function fetchSheets() {
+export async function fetchSheets(): Promise<Sheet[]> {
   const res = await fetch("http://localhost:3000/api/sheets",{
       cache:"no-store", // bypass its cache when making the HTTP request to the specified URL.
        next: {
@@ -22,7 +33,9 @@ export async function fetchSheets() {
 
 export default async function Seller() {
 
+  const sheets = await fetchSheets();
+
   return (
-      <SellerDashboard sheets={await fetchSheets()}/>
+      <SellerDashboard dataSheets={sheets}/>
   )
 }

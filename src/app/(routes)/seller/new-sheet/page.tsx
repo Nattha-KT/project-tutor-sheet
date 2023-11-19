@@ -6,29 +6,6 @@ import UploadFile from '@/app/(routes)/seller/new-sheet/_components/UploadFile';
 import {message, Image, Progress } from 'antd'
 import { useUploadFileAll } from '@/hooks/useUploadFileAll';
 import {useSession} from "next-auth/react";
-import axios from "axios"
-import { v4 as uuidv4 } from 'uuid';
-import { ExclamationCircleFilled } from '@ant-design/icons';
-import { Button, Modal, Space } from 'antd';
-import { on } from 'events';
-
-type Sheet={
-    course_code:string,
-    name:string,
-    semester:string,
-    type:string,
-    year: string,
-    price:number,
-    num_page: number,
-    class_details:string,
-    content_details:string,
-    cover_page: string,
-    sample_page: string[],
-    file_path:string,
-    sid:string,
-}
-
-
 
 export default function NewSheet() {
 

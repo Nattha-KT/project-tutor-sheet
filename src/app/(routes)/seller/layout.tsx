@@ -15,7 +15,7 @@ export default function SellerLayout({children,}: {children: React.ReactNode}) {
     <div >
       <Sidebar className="absolute"/>
       <ProviderWrapper>
-      <div className=" mx-auto  pt-10 flex justify-center container">
+      <div className=" mx-auto  pt-10 flex justify-center container min-w-full">
         {children}
       </div>
       </ProviderWrapper>

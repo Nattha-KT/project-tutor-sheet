@@ -1,6 +1,5 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-
 import {
   MagnifyingGlassIcon,
   ChevronUpDownIcon,
@@ -42,12 +41,14 @@ type Sheet={
   file_path:string,
   sid:string,
 }
+interface SellerDashboardProps {
+  dataSheets: Sheet[];
+}
  
 const TABLE_HEAD = ["Course Name", "Price", "Status", "Date", ""];
  
 
-
-export default function SellerDashboard({sheets}:{sheets:Sheet[]}) {
+const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) =>  {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredSheets, setFilteredSheets] = useState<Sheet[]>([]); 
@@ -56,13 +57,11 @@ export default function SellerDashboard({sheets}:{sheets:Sheet[]}) {
   const itemsPerPage = 5; 
 
  
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredSheets.slice(indexOfFirstItem, indexOfLastItem);
+
 
   useEffect(() => {
 
-    const filteredSheets = sheets.filter(sheet => sheet.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    const filteredSheets = dataSheets.filter(dataSheets => dataSheets.name.toLowerCase().includes(searchTerm.toLowerCase()));
     setFilteredSheets(filteredSheets);
 
     if(filteredSheets.length > 0) {
@@ -76,6 +75,10 @@ export default function SellerDashboard({sheets}:{sheets:Sheet[]}) {
     }
    
   }, [ searchTerm, currentPage]);
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredSheets.slice(indexOfFirstItem, indexOfLastItem);
 
  
   const handleNextPage = () => {
@@ -106,7 +109,7 @@ export default function SellerDashboard({sheets}:{sheets:Sheet[]}) {
           </div>
           <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
             <Button variant="outlined" size="sm">
-             <a href="/seller/view-all-sheet"> view all</a>
+             <a href="/seller/view-all"> view all</a>
             </Button>
             <Button className="flex items-center gap-3" size="sm">
               <ClipboardDocumentIcon strokeWidth={2} className="h-4 w-4" />
@@ -151,7 +154,7 @@ export default function SellerDashboard({sheets}:{sheets:Sheet[]}) {
           <tbody>
             {currentItems&& currentItems.map(
               ({ cover_page,price, name, status_approve, date }, index) => {
-                const isLast = index === sheets.length - 1;
+                const isLast = index === dataSheets.length - 1;
                 const classes = isLast
                   ? "p-4"
                   : "p-4 border-b border-blue-gray-50";
@@ -241,3 +244,5 @@ export default function SellerDashboard({sheets}:{sheets:Sheet[]}) {
       </Card>
   )
 }
+
+export default SellerDashboard;
