@@ -8,15 +8,14 @@ import React from "react";
 async function getBanks(){
   try {
     const response = await axios.get("http://localhost:3000/api/banks");
-  const data = response.data;
-  const banks = data.banks;
-   return banks;
- } catch (error) {
-   console.error("Error fetching data:", error);
-   return [];
+    const data = response.data;
+    const banks = data.banks;
+    return banks;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return [];
+  }
  }
- }
-
 
    
 async function getSellerByID(id:string){
@@ -40,7 +39,6 @@ export default async function Edit( {params}:{params:{id:string}}){
 
     const banks = await getBanks();
     const data = await getSellerByID(params.id);
-    // console.log(data);  
 
   return (
           <div>

@@ -56,7 +56,7 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) =>  {
   const [searchTerm, setSearchTerm] = useState(''); 
   const itemsPerPage = 5; 
 
- 
+ console.log("dataSheets: " + dataSheets)
 
 
   useEffect(() => {
@@ -74,7 +74,7 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) =>  {
     setCurrentPage(current => Math.min(current, total));
     }
    
-  }, [ searchTerm, currentPage]);
+  }, [ searchTerm, currentPage,dataSheets]);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;

@@ -3,13 +3,9 @@ import '../app/globals.css'
 import { SessionProvider } from 'next-auth/react'
 
 
-export default function ProviderWrapper({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function ProviderWrapper({children,session}: {children: React.ReactNode,session:any}) {
   return (
-    <SessionProvider>
+    <SessionProvider session={session}>
         {children}
     </SessionProvider>
   )

@@ -208,7 +208,6 @@ export const useUploadFileAll = (sellerId:string) => {
 
   return {
     handleUploadFileAll,
-    handleUploadSheet,
     file,
     setFile,
     sheet,

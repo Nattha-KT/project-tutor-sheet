@@ -1,9 +1,6 @@
 "use client"
 import { Fragment, useEffect, useState } from "react";
-import { useRef } from "react";
-import { useRouter } from "next/navigation";
 import toast, { Toaster } from 'react-hot-toast';
-import axios from "axios";
 import {useSession} from "next-auth/react";
 
 
@@ -19,6 +16,7 @@ type Banks = {
     bank_name: string,
     bank_id: string
     address:string,
+    image:string
   }
 
   const AddSeller = async (seller:Seller) => {
@@ -35,8 +33,7 @@ type Banks = {
 
 export default  function Register_Seller({ banks }: { banks: Banks[] }){
 
-    const {data:session,update} = useSession();
-    const router = useRouter();
+    const {data:session,update,status} = useSession();
     
     const [seller ,setSeller] = useState<Seller>({
         pen_name: "",
@@ -45,7 +42,22 @@ export default  function Register_Seller({ banks }: { banks: Banks[] }){
         bank_name: "",
         bank_id: "",
         address:"",
+        image:""
     })
+
+    useEffect(() => {
+        // เมื่อ session มีค่าและ image ไม่ได้ถูกตั้งค่าใน state แล้ว
+        if (status === 'authenticated' && !seller.image) {
+          // ดึงข้อมูลรูปภาพจาก session
+          const userImage = session?.user?.image || '';
+    
+          // ตั้งค่า state
+          setSeller((prevSeller) => ({
+            ...prevSeller,
+            image: userImage,
+          }));
+        }
+      }, [session, seller, status]);
 
     async function updateUser(seller_id:string){
         await update({
@@ -71,15 +83,13 @@ export default  function Register_Seller({ banks }: { banks: Banks[] }){
     if(seller){
       toast.loading("Sending request... 🚀👩🏾‍🚀",{id:"1"});
       const res = await AddSeller(seller);
-    //   console.log(res.seller.id);
       if (res && res.message == "Error"){
         toast.error("Error ! 🚀✖️",{id:"1"});
       }else{
         updateUser(res.seller.id);
         await toast.success("Added successfully! 🚀✔️",{id:"1"})
         setTimeout(() => {
-            // router.push("/seller");
-            window.location.href="/seller";
+            window.location.reload();
         },500);
       }
       }else toast.error("Error !!  🚀✖️",{id:"1"});

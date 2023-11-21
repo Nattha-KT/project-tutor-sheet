@@ -41,7 +41,6 @@ type Banks = {
 
 export default  function EditSeller({ banks, data_seller }: EditSellerProps){
 
-    // const {data:session,update} = useSession();
     const { data: session } = useSession();
     const router = useRouter();
 
@@ -55,8 +54,6 @@ export default  function EditSeller({ banks, data_seller }: EditSellerProps){
         bank_id: data_seller.bank_id,
         address:data_seller.address,
     })
-
-    // useEffect(() => {},[])
 
 
     const  handleInputChange = (e : React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>{
@@ -229,7 +226,7 @@ export default  function EditSeller({ banks, data_seller }: EditSellerProps){
                 </div>
             </div>
             <button className="w-full border border-gray-300 text-md p-2 rounded-lg mb-6 hover:bg-amber-500 hover:text-white">
-                    🚀✨Start selling sheets!!✨
+                    🚀✨Edit Profile Seller!!✨
             </button>
         </div>
     </form>

@@ -40,7 +40,8 @@ type Sheet={
 
       <div className='min-h-screen max-w-7xl mx-auto px-5  justify-center  grid   sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-x-10 gap-y-5'>
 
-        <div className="bg-white shadow-lg rounded-xl overflow-hidden max-h-[420px]   max-w-xs sm:w-[280px] w-[350px]  order-first lg:order-none relative">
+        <div className="bg-white shadow-lg rounded-xl overflow-hidden max-h-[420px]   max-w-xs sm:w-[280px] w-[350px]  order-first lg:order-none relative
+          transition-transform duration-300 hover:scale-[102%] hover:shadow-xl focus:outline-none ">
             <div className="absolute top-0 right-0 m-4">
                 <IconButton
                 size="sm"
@@ -58,7 +59,7 @@ type Sheet={
                 </svg>
                 </IconButton>
             </div>
-                <Image  height={1000} width={1000} src="/images/bg2.jpg" alt="Abstract Design" className="w-full h-60  object-cover"/>
+                <Image onClick={()=>{console.log("hello")}}  height={1000} width={1000} src="/images/bg2.jpg" alt="Abstract Design" className="w-full h-60  object-cover"/>
             <div className="py-4 px-4">
                 <div className='flex justify-between'>
                     <h2 className="text-xl sm:text-lg text-gray-800 font-semibold mb-3">Abstract Design</h2> <TooltipCustomStyles/>

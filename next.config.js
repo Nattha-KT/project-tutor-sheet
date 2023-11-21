@@ -8,19 +8,23 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'images\\.unsplash\\.com',
-        pathname: '.*',
-      },
-      {
-        protocol: 'https',
-        hostname: 'lh3\\.googleusercontent\\.com',
-        pathname: '.*',
-      },
-      {
-        protocol: 'https',
-        hostname: 'platform-lookaside\\.fbsbx\\.com',
-        pathname: '.*',
-      },
+        hostname: '**',
+      }
+      // {
+      //   protocol: 'https',
+      //   hostname: 'images\\.unsplash\\.com',
+      //   pathname: '.*',
+      // },
+      // {
+      //   protocol: 'https',
+      //   hostname: 'lh3\\.googleusercontent\\.com',
+      //   pathname: '.*',
+      // },
+      // {
+      //   protocol: 'https',
+      //   hostname: 'platform-lookaside\\.fbsbx\\.com',
+      //   pathname: '.*',
+      // },
     ],
   },
 };

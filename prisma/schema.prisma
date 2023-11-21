@@ -103,6 +103,7 @@ model Seller{
   bank_name  String
   bank_id String
   address   String
+  image String?
   sheet Sheet[]
   user User[]
 }
