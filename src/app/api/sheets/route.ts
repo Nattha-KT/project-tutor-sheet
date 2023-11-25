@@ -2,6 +2,7 @@ import { NextApiResponse } from "next";
 // import prisma from "../../../../lib/prismaDb";
 import prisma from "@/lib/prismaDb";
 import { NextResponse } from "next/server"
+import { select } from "@material-tailwind/react";
 
 export async function main() {
     try{
@@ -43,7 +44,15 @@ export const POST = async (req: Request, res: Response)=>{
     export const GET = async (req: Request, res: Response)=>{
         try{
             await main();
-            const sheets = await prisma.sheet.findMany(); 
+            const sheets = await prisma.sheet.findMany({include:{
+                seller:{
+                    select:{
+                        full_name:true,
+                        pen_name:true,
+                        image:true,
+                    }
+                }
+            }}); 
             return NextResponse.json({message:"success",sheets},{status:200})
         }catch(err){
             return NextResponse.json({message:"Error",err},{status:500});

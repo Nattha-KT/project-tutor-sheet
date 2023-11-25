@@ -21,6 +21,7 @@ import {
   IconButton,
   Tooltip,
 } from "@material-tailwind/react";
+import Image from 'next/image';
 
 
 
@@ -165,7 +166,7 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) =>  {
                       <div className="flex items-center gap-3">
                         <div className="avatar">
                           <div className="mask mask-squircle w-12 h-12">
-                            <img src={cover_page} alt="Avatar Tailwind CSS Component" />
+                            <Image width={2000} height={2000} src={cover_page} alt="Avatar Tailwind CSS Component" />
                           </div>
                         </div>
                         <div className="flex flex-col">

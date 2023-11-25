@@ -1,5 +1,5 @@
 
-
+Head
 import {
   Card,
   CardHeader,
@@ -8,6 +8,9 @@ import {
   Tooltip,
   Avatar,
 } from "@material-tailwind/react";
+import Head from "next/head";
+import { Seller } from "../../../../types/type";
+import { v4 as uuidv4 } from 'uuid';
 
 function StarIcon() {
   return (
@@ -26,9 +29,10 @@ function StarIcon() {
   );
 }
  
-export function TooltipCustomStyles() {
+export function TooltipCustomStyles({seller,classDetail,contentDetail}:{seller:Seller,classDetail:string,contentDetail:string}) {
   return (
     <Tooltip
+    key={uuidv4()}
       placement="bottom"
       className=" bg-white px-4 py-3 shadow-md shadow-black/10"
       content={
@@ -43,13 +47,13 @@ export function TooltipCustomStyles() {
               <Avatar
                 size="lg"
                 variant="circular"
-                src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+                src={seller.image}
                 alt="tania andrew"
               />
               <div className="flex w-full flex-col gap-0.5">
                 <div className="flex items-center justify-between">
                   <Typography variant="h5" color="blue-gray">
-                    Tania Andrew
+                    {seller.pen_name}
                   </Typography>
                   <div className="5 flex items-center gap-0">
                     <StarIcon />
@@ -59,13 +63,15 @@ export function TooltipCustomStyles() {
                     <StarIcon />
                   </div>
                 </div>
-                <Typography color="blue-gray">Frontend Lead @ Google</Typography>
+                <Typography color="blue-gray">{seller.full_name}</Typography>
               </div>
             </CardHeader>
             <CardBody className="mb-6 p-0">
-              <Typography>
-                &quot;I found solution to all my design needs from Creative Tim. I use
-                them  very humble guys !!!&quot;
+              <Typography className=" ">
+                <p className="font-normal text-base text-gray-700">
+                Class Dedtail: {classDetail};<br></br>
+                Content Detail: {contentDetail}
+                </p>
               </Typography>
             </CardBody>
           

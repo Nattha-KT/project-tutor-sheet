@@ -12,14 +12,11 @@ import {
   MdNoteAdd,
   MdOutlineLogout,
 } from "react-icons/md";
-import Link from "next/link";
-import { useRouter } from 'next/navigation'
 import { useSession, signIn, signOut } from "next-auth/react";
 
 
 function SideNavbar( {className}:{className:string}) {
   const [isLeft, setIsLeft] = useState(false);
-  const router = useRouter();
 
   const HandleSignout = async () => {
     await signOut();
@@ -45,7 +42,7 @@ function SideNavbar( {className}:{className:string}) {
             aria-hidden="true"
           />
         </Disclosure.Button>
-        <div className={`p-6 h-[500px] rounded-lg shadow-md fixed bg-white z-[15] top-[120px]
+        <div className={`p-6 h-[500px] rounded-lg shadow-md fixed bg-white z-[50] top-[120px]
          ${isLeft ? 'left-0' : '-left-96'} w-60 peer:transition ease-out delay-200 duration-200`}
          tabIndex={0}
          onBlur={() =>setIsLeft(false) }

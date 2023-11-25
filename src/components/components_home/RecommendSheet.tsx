@@ -1,5 +1,5 @@
 'use client'
-import Link from "next/link"
+import Image from 'next/image';
 import {motion} from "framer-motion"
 import {
   FaMoneyBill,
@@ -176,7 +176,10 @@ export default function RecommendSheet({className}:{className:string}) {
                   bg-white relative overflow-hidden shadow-md hover:shadow-2xl sm:h-[360px]`} > 
                     <span className={`inline-block z-[1]
                      absolute  -top-[250px] opacity-70 hover:opacity-30 left-0 leading-0`}>
-                    <img
+                    <Image
+                    priority={true}
+                    width={2000}
+                    height={2000}
                     src={step.img}
                     alt="img"
                     className="w-[730px] lg:w-[560px] h-[620px] rounded-r-md shadow-md sm:block object-cover z-[15]"/>

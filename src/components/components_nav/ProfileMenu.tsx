@@ -22,9 +22,8 @@ import {
     PowerIcon,    
   } from "@heroicons/react/24/outline";
 import { useSession, signIn, signOut } from "next-auth/react";
-import Link from 'next/link'
-import LoginPage from "../LoginPage";
 import DialogLogin from "../DialogLogin";
+
 
 // profile menu component
 const profileMenuItems = [
@@ -49,6 +48,7 @@ const profileMenuItems = [
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
    
     const closeMenu = () => setIsMenuOpen(false);
+
    
     return (
         < >
@@ -65,7 +65,7 @@ const profileMenuItems = [
                       size="md"
                       alt="tania andrew"
                       className="border border-gray-400 p-0.5"
-                      src={session?.user.image || ""} 
+                      src={session?.user.image} 
                     />
                     <ChevronDownIcon
                       strokeWidth={2.5}
@@ -75,19 +75,20 @@ const profileMenuItems = [
                     />
                   </Button>
                 </MenuHandler>
-                <MenuList>
 
-                <MenuItem
-                    onClick={closeMenu}className={`flex items-center gap-2 rounded hover:bg-gray-100 text-slate-500`}>
-                    {React.createElement(HeartIcon, {className: `h-4 w-4`,strokeWidth: 2,})}
-                    <Typography as="span"
-                      href="/"
-                      variant="small"
-                      className=" text-[16px] font-medium">
-                        <a href="/">Favorite Sheet</a>
-                    </Typography>
-                     
-                </MenuItem>
+                <MenuList>
+                  <div className="bg-gray-500 px-3 py-2 rounded-xl text-[16px] font-normal text-white mb-2">{session?.user.name}</div>
+                  <MenuItem
+                      onClick={closeMenu}className={`flex items-center gap-2 rounded hover:bg-gray-100 text-slate-500`}>
+                      {React.createElement(HeartIcon, {className: `h-4 w-4`,strokeWidth: 2,})}
+                      <Typography as="span"
+                        href="/"
+                        variant="small"
+                        className=" text-[16px] font-medium">
+                          <a href="/">Favorite Sheet</a>
+                      </Typography>
+                      
+                  </MenuItem>
 
                   {admin && profileMenuItems.map(({ label, icon,path }, key) => 
                       <MenuItem

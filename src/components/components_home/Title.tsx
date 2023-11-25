@@ -106,7 +106,10 @@ export default function Title({className}:{className:string}) {
               style={{y:imageScroll1}}
               className="z-[2] relative bg-cover bg-center"
               >
-              <img
+              <Image
+                width={2000}
+                height={2000}
+                priority={true}
                 src={`/images/homewall2.jpg`}
                 alt="img"
                 className="w-full h-[650px] 2xl:h-[640px] hidden rounded-r-md shadow-md 2xl:block object-cover opacity-90"
@@ -125,7 +128,11 @@ export default function Title({className}:{className:string}) {
               viewport={{once:true}}
               style={{y:imageScroll2}}
               className=" absolute bottom-0 lg:bottom-[200px] -left-[120px] top-[320px] ">
-              <img src={`/images/dots.svg`}
+              <Image
+                width={2000}
+                height={2000}
+                priority={true} 
+                src={`/images/dots.svg`}
                 alt="img dot"
                 className=" w-52 hidden  2xl:block" />
             </motion.div>

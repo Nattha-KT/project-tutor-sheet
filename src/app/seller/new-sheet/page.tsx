@@ -15,6 +15,7 @@ export default function NewSheet() {
     const [checkFile,setCheckFile] = useState(false);
     const [checkImage,setCheckImage] = useState(false);
     const [checkImageList,setCheckImageList] = useState(false);
+    const [years, setYears] = useState<number[]>([]);
     const {
             imageList,setImageList,
             file,setFile,
@@ -24,6 +25,10 @@ export default function NewSheet() {
       
 
     useEffect(()=>{
+        const startYear = 2020;
+        const currentYear = new Date().getFullYear();
+        const yearsArray = Array.from({ length: currentYear - startYear + 1 }, (_, index) => startYear + index);
+        setYears(yearsArray);
         setSheet((prevSheet) => ({
             ...prevSheet,sid:sellerId
           }));
@@ -144,7 +149,7 @@ export default function NewSheet() {
                                 <option ></option>
                                 <option >midterm</option>
                                 <option >final</option>
-                                <option >other</option>
+                                <option >allterm</option>
                             </select>
                         </div>
                     </div>
@@ -186,13 +191,10 @@ export default function NewSheet() {
                             autoComplete="year"
                             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-amber-500 sm:max-w-xs sm:text-sm sm:leading-6"
                             >
-                                <option ></option>
-                                <option >2020</option>
-                                <option >2021</option>
-                                <option >2022</option>
-                            {/* {banks && banks.map((bank:any)=>(
-                                <option key={bank.id}>{bank.name}</option>
-                            ))} */}
+                             <option ></option>
+                             {years.map((year) => (
+                             <option key={year}>{year}</option>
+                             ))}
                             </select>
                         </div>
                     </div>

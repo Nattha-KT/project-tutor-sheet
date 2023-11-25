@@ -12,10 +12,27 @@ export async function main() {
 
 
 export const GET = async (req: Request, res: NextApiResponse)=>{
+
         try{
-            const sid = req.url.split("/sheets/by-sid/")[1];
+            const slug = req.url.split("/sheets/by-sid/")[1];
+            const sid = slug.split("/")[0];
+            const take = parseInt(slug.split("/")[1],10);
+            const skip = parseInt(slug.split("/")[2],10);
+
             await main();
-            const sheetsBySid = await prisma.sheet.findMany({where:{sid}});
+            const sheetsBySid = await prisma.sheet.findMany({ 
+                skip: skip,
+                take: take,
+                where:{sid},include:{
+                    seller:{
+                        select:{
+                            full_name:true,
+                            pen_name:true,
+                            image:true,
+                        }
+                    }
+                }
+            });
             if(!sheetsBySid)
                 return NextResponse.json({message: "Not Found"},{status:500});
             return NextResponse.json({message: "Success",sheetsBySid},{status:200});

@@ -6,12 +6,14 @@ const config: Config = {
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx,html}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx,html}',
-    // "./pages/**/*.{ts,tsx}",  //flowbite
-    // "./public/**/*.html",   //flowbite
-    // "./node_modules/flowbite-react/**/*.js", //flowbite
     "./node_modules/@material-tailwind/react/components/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@material-tailwind/react/theme/components/**/*.{js,ts,jsx,tsx}",
   ],
+  variants: {
+    extend: {
+      cursor: ['hover'],
+    },
+  },
   theme: {
     extend: {
       backgroundImage: {
@@ -22,7 +24,6 @@ const config: Config = {
     },
   },
   plugins: [
-    // require("flowbite/plugin"),
     require('daisyui'),
     
   ],

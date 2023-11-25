@@ -17,3 +17,13 @@ export interface Sheet{
     sid:string,
   }
 
+export interface Seller{
+    pen_name: string,
+    full_name: string,
+    phone:string,
+    bank_name: string,
+    bank_id: string
+    address:string,
+    image:string
+  }
+
