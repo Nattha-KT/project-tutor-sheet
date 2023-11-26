@@ -13,7 +13,8 @@ type MetaData ={
  
 export function Pagination(metaData:MetaData) {
   const router = useRouter();
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowWidth, setWindowWidth] = useState(0);
+  const [mounted, setMounted] = useState(false);
 
   const { page = 1, totalPages, hasNextPage } = metaData;
   const currentPage = Math.min(Math.max(Number(page), 1), totalPages);
@@ -42,16 +43,18 @@ export function Pagination(metaData:MetaData) {
   };
 
   useEffect(() => {
+    setWindowWidth(window.innerWidth);
+  
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
-
+  
     window.addEventListener('resize', handleResize);
-
+  
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [])
 
   const isMobile = windowWidth <= 385; // ตั้งค่าตามความต้องการ
 

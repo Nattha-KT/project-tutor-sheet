@@ -1,7 +1,7 @@
 "use server"
 import React from 'react'
-import ViewAllCard from '../../_components/ViewAllCard';
-import { Sheet } from '../../../../../types/type';
+import ViewAllCard from '../_components/ViewAllCard';
+import { Sheet } from '../../../../types/type';
 import { v4 as uuidv4 } from 'uuid';
 import { authOptions } from '@/lib/auth';
 import { getServerSession } from "next-auth/next"
