@@ -1,6 +1,6 @@
-Head
+'use client'
 import React, { useEffect, useState } from 'react'
-import Head from 'next/head';
+import { v4 as uuidv4 } from 'uuid';
 import Image from 'next/image';
 import {
     Navbar,
@@ -64,7 +64,7 @@ export default function SearchBar({clasName}: {clasName: string}) {
 
 
   return (
-    <div className={`${clasName} mb-10`}>
+    <div key={uuidv4()} className={`${clasName} mb-10`} >
      <Navbar
       variant="gradient"
       className="mx-auto max-w-screen-xl bg-gray-50 border-0 px-4 py-3 z-[30]"

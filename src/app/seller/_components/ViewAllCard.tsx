@@ -1,14 +1,9 @@
 "use client"
 import Image from 'next/image'
 import { Sheet,Seller } from '../../../../types/type';
-import {
-    Button,
-    IconButton,
-  } from "@material-tailwind/react";
+import {Button,IconButton,} from "@material-tailwind/react";
 import {ShoppingCartIcon} from "@heroicons/react/24/outline";
 import {TooltipCustomStyles} from './Tooltip';
-import SearchBar from '../../../components/SearchBar';
-import { Pagination } from '../../../components/Pagination';
 import { v4 as uuidv4 } from 'uuid';
 
 interface ExtendedSheet extends Sheet {
@@ -19,21 +14,21 @@ interface ExtendedSheet extends Sheet {
     dataSheets: ExtendedSheet[];
   }
   const ViewAllCard: React.FC<SellerDashboardProps> = ({ dataSheets }) =>   {
-
-
+    const handleOnclick =() => {
+      console.log("image clicked");
+    }
   return (
-    <div key={uuidv4()} className=' container min-h-screen pb-10 min-w-fit '>
-        <SearchBar clasName=' relative z-[20]'/>
-      <div className='min-h-screen max-w-7xl z-10 mx-auto px-5  justify-center  grid grid-cols-2  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-2 sm:gap-x-5 gap-y-5'>
+      <div  key={uuidv4()} className=' h-auto max-w-7xl z-10 mx-auto px-5  justify-center  grid grid-cols-2  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-2 sm:gap-x-5 gap-y-5'>
         {dataSheets&& dataSheets.map((sheet)=>(
-            <div key={sheet.id} className="bg-white shadow-lg rounded-xl flex flex-col overflow-hidden sm:max-h-[420px] min-w-full  md:w-[280px]  order-first lg:order-none relative
+            <div key={sheet.id} className="bg-white shadow-lg rounded-xl flex flex-col overflow-hidden max-h-[320px] sm:max-h-[420px] min-w-full  md:w-[280px]  order-first lg:order-none relative
             transition-transform duration-300 hover:scale-[102%] hover:shadow-xl focus:outline-none ">
-              <div className="absolute z-10 top-0 right-0 m-4">
+              <div className="absolute z-[30] top-0 right-0 m-4">
                   <IconButton
                   size="sm"
                   color="red"
                   variant="text"
                   className="rounded-full"
+                  onClick={handleOnclick}
                   >
                   <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -68,15 +63,10 @@ interface ExtendedSheet extends Sheet {
                   <Button className="relative hidden px-0 sm:px-10 mt-3 sm:flex justify-center" size="sm" fullWidth={true}>
                     <ShoppingCartIcon className='h-[12px] sm:h-[18px] w-[18px] mr-2 text-[12px] sm:text-md'/>Add to cart
                     </Button>
-                      
               </div>
           </div>
         ))} 
       </div>
-      <div className=' flex justify-center mt-10'>
-        <Pagination/>
-      </div>
-    </div>
   )
 }
 

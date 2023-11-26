@@ -22,26 +22,8 @@ import {
   Tooltip,
 } from "@material-tailwind/react";
 import Image from 'next/image';
+import { Sheet } from '../../../../types/type';
 
-
-
-type Sheet={
-  course_code:string,
-  name:string,
-  semester:string,
-  type:string,
-  year: string,
-  price:number,
-  status_approve:string,
-  num_page: number,
-  class_details:string,
-  content_details:string,
-  cover_page: string,
-  date: string,
-  sample_page: string[],
-  file_path:string,
-  sid:string,
-}
 interface SellerDashboardProps {
   dataSheets: Sheet[];
 }

@@ -14,17 +14,17 @@ export async function fetchSheetsBySid(sid: string) {
     },
   });
   const data = await res.json();
-  return data.sheetsBySid;
+  return data.results;
 }
 
 export default async function Seller() {
 
   const session = await getServerSession(authOptions);
-  const sheets = await fetchSheetsBySid(session?.user.sid || '');
+  const results = await fetchSheetsBySid(session?.user.sid || '');
 
 
   return (
-    <SellerDashboard dataSheets={sheets} />
+    <SellerDashboard dataSheets={...results.sheets} />
   );
 }
 
