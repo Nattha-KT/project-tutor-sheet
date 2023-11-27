@@ -25,7 +25,7 @@ export type PageProps = {
 	searchParams?: { [key: string]: string | string[] | undefined };
 };
 
-const PAGE_SIZE = 1;
+const PAGE_SIZE = 8;
 
 export default async function  ViewAllPage(props:PageProps){
   const pageNumber = Number(props?.searchParams?.page || 1);

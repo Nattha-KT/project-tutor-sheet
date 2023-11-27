@@ -182,7 +182,7 @@ export default function RecommendSheet({className}:{className:string}) {
                     height={2000}
                     src={step.img}
                     alt="img"
-                    className="w-[730px] lg:w-[560px] h-[620px] rounded-r-md shadow-md sm:block object-cover z-[15]"/>
+                    className="w-[770px] lg:w-[560px] h-[620px] rounded-r-md shadow-md sm:block object-cover z-[15]"/>
                      
                     </span>
                     <div className=" absolute top-2 right-2">
@@ -192,7 +192,7 @@ export default function RecommendSheet({className}:{className:string}) {
                       </span>
                     </div>
                
-                    <div>
+                    <div className='mb-[60px] sm:mb-0'>
                       <h3 className=" group-hover:text-[20px]  text-[18px] mb-4 duration-300 transition-all
                        ease-in-out group-hover:text-sky-950  font-semibold ">
                         {step.titile}

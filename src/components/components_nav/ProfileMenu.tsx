@@ -1,8 +1,6 @@
 'use client'
 import React from "react";
 import {
-    Navbar,
-    MobileNav,
     Typography,
     Button,
     Menu,
@@ -10,9 +8,6 @@ import {
     MenuList,
     MenuItem,
     Avatar,
-    Card,
-    IconButton,
-    menu,
 } from "@material-tailwind/react";
 import {
     HeartIcon,
@@ -23,6 +18,7 @@ import {
   } from "@heroicons/react/24/outline";
 import { useSession, signIn, signOut } from "next-auth/react";
 import DialogLogin from "../DialogLogin";
+import Image from "next/image"
 
 
 // profile menu component
@@ -60,13 +56,14 @@ const profileMenuItems = [
                     color="blue-gray"
                     className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
                   >
-                    <Avatar
+                    {/* <Avatar
                       variant="circular"
                       size="md"
                       alt="tania andrew"
                       className="border border-gray-400 p-0.5"
                       src={session?.user.image} 
-                    />
+                    /> */}
+                    <Image  width={50} height={50} alt="" src={session?.user.image}  className="border border-gray-400 p-0.5 rounded-full" />
                     <ChevronDownIcon
                       strokeWidth={2.5}
                       className={`h-3 w-3 transition-transform ${
