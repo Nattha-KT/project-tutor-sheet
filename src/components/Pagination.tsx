@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Button, IconButton,Typography  } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { v4 as uuidv4 } from 'uuid';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 type MetaData ={
   page?: string,
@@ -12,9 +12,11 @@ type MetaData ={
 }
  
 export function Pagination(metaData:MetaData) {
+  
+  const search = useSearchParams();
+  const searchQuery = search.get("search");
   const router = useRouter();
   const [windowWidth, setWindowWidth] = useState(0);
-  const [mounted, setMounted] = useState(false);
 
   const { page = 1, totalPages, hasNextPage } = metaData;
   const currentPage = Math.min(Math.max(Number(page), 1), totalPages);
@@ -26,20 +28,20 @@ export function Pagination(metaData:MetaData) {
       variant: currentPage === index ? "filled" : "text",
       color: "gray",
       onClick: () => {
-        router.push(`?page=${index}`);
+        router.push(`?page=${index}&${searchQuery?`search=${searchQuery}`:""}`);
       },
     } as any);
  
   const next = () => {
     if (!hasNextPage) return;
     
-    router.push(`?page=${currentPage + 1}`);
+    router.push(`?&page=${currentPage + 1}&${searchQuery?`search=${searchQuery}`:""}`);
   };
  
   const prev = () => {
     if (currentPage === 1) return;
  
-    router.push(`?page=${currentPage - 1}`);;
+    router.push(`?&page=${currentPage - 1}&${searchQuery?`search=${searchQuery}`:""}`);;
   };
 
   useEffect(() => {

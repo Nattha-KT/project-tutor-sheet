@@ -7,10 +7,11 @@ import { authOptions } from '@/lib/auth';
 import { getServerSession } from "next-auth/next"
 import { Pagination } from '@/components/Pagination';
 import SearchBar from '@/components/SearchBar';
-import { redirect } from 'next/navigation'
 
-export async function fetchSheetsBySid(sid: string,take:number,skip:number){
-  const res = await fetch(`http://localhost:3000/api/sheets/by-sid/${sid}/${take}/${skip}`, {
+
+
+export async function fetchSheetsBySid(sid: string,take:number,skip:number,searchQuery:string){
+  const res = await fetch(`http://localhost:3000/api/sheets/by-sid/${sid}/${take}/${skip}?search=${searchQuery}`, {
     cache: "no-store",
     next: {
       tags: ["sheets"],
@@ -29,14 +30,12 @@ const PAGE_SIZE = 8;
 
 export default async function  ViewAllPage(props:PageProps){
   const pageNumber = Number(props?.searchParams?.page || 1);
+  const searchQuery = props.searchParams?.search || ""
   const take = PAGE_SIZE;
 	const skip = (pageNumber - 1) * take; // Calculate skip based on page number.
 
   const session = await getServerSession(authOptions);
-  // if(!session?.user){
-  //   redirect('/login')
-  // }
-  const results = await fetchSheetsBySid(session?.user.sid || '',take,skip);
+  const results = await fetchSheetsBySid(session?.user.sid || '',take,skip,searchQuery as string) ;
 
 
   return (

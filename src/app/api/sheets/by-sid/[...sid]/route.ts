@@ -1,6 +1,6 @@
 import { NextApiResponse } from "next";
 import prisma from "../../../../../lib/prismaDb";
-import { NextResponse } from "next/server"
+import { NextResponse,NextRequest  } from "next/server"
 
 export async function main() {
     try{
@@ -11,9 +11,10 @@ export async function main() {
 }
 
 
-export const GET = async (req: Request, res: NextApiResponse)=>{
+export const GET = async (req: NextRequest , res: NextApiResponse)=>{
 
         try{
+            const searchQuery = req.nextUrl.searchParams.get("search");
             const slug = req.url.split("/sheets/by-sid/")[1];
             const sid = slug.split("/")[0];
             let take = parseInt(slug.split("/")[1],10);
@@ -23,7 +24,28 @@ export const GET = async (req: Request, res: NextApiResponse)=>{
             const sheetsBySid = await prisma.sheet.findMany({ 
                 skip: skip||undefined,
                 take: take || undefined,
-                where:{sid},include:{
+                where: {
+                    sid: {
+                      equals: sid, 
+                    },
+                    ...(searchQuery ? {
+                        OR: [
+                          {
+                            course_code: {
+                              contains: searchQuery,
+                              mode: "insensitive", 
+                            }
+                          },
+                          {
+                            name: {
+                              contains: searchQuery,
+                              mode: "insensitive", 
+                            },
+                          }
+                        ]
+                      } : {}),
+                  },
+                include:{
                     seller:{
                         select:{
                             full_name:true,
@@ -33,7 +55,27 @@ export const GET = async (req: Request, res: NextApiResponse)=>{
                     }
                 }
             });
-            const total = await prisma.sheet.count({where:{sid}})
+            const total = await prisma.sheet.count({where:{
+                sid: {
+                  equals: sid, 
+                },
+                ...(searchQuery ? {
+                    OR: [
+                      {
+                        course_code: {
+                          contains: searchQuery,
+                          mode: "insensitive", 
+                        }
+                      },
+                      {
+                        name: {
+                          contains: searchQuery,
+                          mode: "insensitive", 
+                        },
+                      }
+                    ]
+                  } : {}),
+              },})
             const results = {
                 sheets:sheetsBySid,
                 metaData:{

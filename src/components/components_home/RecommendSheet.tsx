@@ -183,8 +183,8 @@ export default function RecommendSheet({className}:{className:string}) {
                     src={step.img}
                     alt="img"
                     className="w-[770px] lg:w-[560px] h-[620px] rounded-r-md shadow-md sm:block object-cover z-[15]"/>
-                     
                     </span>
+                    
                     <div className=" absolute top-2 right-2">
                       <span className=" text-3xl text-sky-800 duration-300 
                       transition-all ease-in-out group-hover:text-teal-600">
