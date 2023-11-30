@@ -17,12 +17,13 @@ import {
   Tabs,
   TabsHeader,
   Tab,
-  Avatar,
   IconButton,
   Tooltip,
 } from "@material-tailwind/react";
 import Image from 'next/image';
 import { Sheet } from '../../../../types/type';
+import { v4 as uuidv4 } from 'uuid';
+import { app } from '../../../../firebaseConfig';
 
 interface SheetsProps extends Sheet {
   id: string;
@@ -40,11 +41,11 @@ const TABS = [
   },
   {
     label: "Approved",
-    value: "Approved",
+    value: "true",
   },
   {
     label: "Unapproved",
-    value: "Unapproved",
+    value: "false",
   },
 ];
  
@@ -56,11 +57,27 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) =>  {
   const [totalPages, setTotalPages] = useState(1); 
   const [searchTerm, setSearchTerm] = useState(''); 
   const itemsPerPage = 5; 
+  const [approve,setApprove] = useState("all")
+
+  
+  const handleFilter = (approve: string, dataSheets: SheetsProps[]) => {
+  
+    const filter = dataSheets.filter((sheet) => {
+      if (approve === "all" || sheet.status_approve.toString() === approve) {
+        return sheet.name.toLowerCase().includes(searchTerm.toLowerCase());
+      }
+      return false;
+    });
+  
+    setFilteredSheets(filter);
+    return filter;
+  };
+
 
   useEffect(() => {
-    const filter = dataSheets.filter(dataSheets => dataSheets.name.toLowerCase().includes(searchTerm.toLowerCase()));
-    console.log("filter: "+filter)
-    setFilteredSheets(filter);
+    console.log(approve)
+
+    const filter = handleFilter(approve,dataSheets);
 
     if(filter.length > 0) {
        // คำนวณจำนวนหน้าทั้งหมด
@@ -70,12 +87,15 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) =>  {
     // กำหนดหน้าปัจจุบันให้ไม่เกินจำนวนหน้าทั้งหมด
     setCurrentPage(current => Math.min(current, total));
     }
-  }, [ searchTerm,currentPage,dataSheets]);
+  }, [ searchTerm,approve,dataSheets]);
+
 
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredSheets.slice(indexOfFirstItem, indexOfLastItem);
+  let currentItems = filteredSheets.slice(indexOfFirstItem, indexOfLastItem);
+
+ 
  
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -94,7 +114,7 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) =>  {
     
       <Card className="h-full w-12/12 lg:w-[1200px] max-w-[100%]  sm:p-5 mb-10">
       <CardHeader floated={false} shadow={false} className="rounded-none">
-        <div className="mb-8 flex items-center justify-between gap-8">
+        <div className="mb-8 flex items-center justify-between gap-2 sm:gap-8">
           <div>
               <div className='ml-[-45px]'>
                   <svg width="250" height="100" viewBox="0 0 370.02912621359224 41.62478677853547" className="css-1j8o68f">
@@ -119,9 +139,9 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) =>  {
         </div>
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
         <Tabs value="all" className="w-full md:w-max">
-            <TabsHeader>
+            <TabsHeader className=' bg-stone-200'>
               {TABS.map(({ label, value }) => (
-                <Tab key={value} value={value}>
+                <Tab key={uuidv4()} value={value} onClick={()=>{setApprove(value)}}>
                   &nbsp;&nbsp;{label}&nbsp;&nbsp;
                 </Tab>
               ))}
@@ -137,19 +157,19 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) =>  {
           </div>
         </div>
       </CardHeader>
-      <CardBody className="overflow-scroll px-0">
-        <table className="mt-4 w-full min-w-max table-auto text-left ">
+      <CardBody className="overflow-x-scroll px-0 ">
+        <table className="mt-4 w-full min-w-max table-auto text-left bg-slate-50 ">
           <thead>
             <tr>
               {TABLE_HEAD.map((head, index) => (
                 <th
                   key={head}
-                  className="cursor-pointer border-y border-gray-100 bg-gray-100 p-4 transition-colors hover:bg-gray-200"
+                  className="cursor-pointer border-y border-stone-100 bg-stone-200 p-4 transition-colors hover:bg-stone-300"
                 >
                   <Typography
                     variant="small"
                     color="blue-gray"
-                    className="flex items-center justify-between gap-2 font-normal leading-none opacity-70"
+                    className="flex items-center justify-between gap-2 font-semibold leading-none opacity-70 text-stone-900"
                   >
                     {head}{" "}
                     {index !== TABLE_HEAD.length - 1 && (
