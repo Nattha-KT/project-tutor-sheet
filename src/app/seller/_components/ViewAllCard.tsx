@@ -27,8 +27,7 @@ export default function ViewAllCard ({dataSheets}:SellerDashboardProps) {
   const [filteredSheets, setFilteredSheets] = useState<ExtendedSheet[]>([]); 
 
   const useDropdown = useDropdownFilter();
-  const {type,year,price,semester,applyFiltersAndSort} = useDropdown;
-  const defaultValues: string = "default"   
+  const {type,year,price,semester,applyFiltersAndSort} = useDropdown;  
 
   useEffect(() => {
     const currentValues: string[] = [type, year, price, semester];
