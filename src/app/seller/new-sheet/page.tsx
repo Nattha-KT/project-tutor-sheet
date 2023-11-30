@@ -1,8 +1,8 @@
 'use client'
 import React, { use, useEffect, useState } from 'react'
-import UploadSamplePage from '@/app/(routes)/seller/new-sheet/_components/UploadSamplePage';
-import UploadCoverPage from '@/app/(routes)/seller/new-sheet/_components/UploadCoverPage';
-import UploadFile from '@/app/(routes)/seller/new-sheet/_components/UploadFile';
+import UploadSamplePage from '@/app/seller/new-sheet/_components/UploadSamplePage';
+import UploadCoverPage from '@/app/seller/new-sheet/_components/UploadCoverPage';
+import UploadFile from '@/app/seller/new-sheet/_components/UploadFile';
 import {message, Image, Progress } from 'antd'
 import { useUploadFileAll } from '@/hooks/useUploadFileAll';
 import {useSession} from "next-auth/react";
@@ -149,7 +149,7 @@ export default function NewSheet() {
                                 <option ></option>
                                 <option >midterm</option>
                                 <option >final</option>
-                                <option >allterm</option>
+                                <option >all term</option>
                             </select>
                         </div>
                     </div>

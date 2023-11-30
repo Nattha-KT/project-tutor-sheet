@@ -9,7 +9,7 @@ import {
   Avatar,
 } from "@material-tailwind/react";
 import Head from "next/head";
-import { Seller } from "../../../../types/type";
+import { Seller, Sheet } from "../../types/type";
 import { v4 as uuidv4 } from 'uuid';
 
 function StarIcon() {
@@ -28,8 +28,12 @@ function StarIcon() {
     </svg>
   );
 }
+
+interface TooptipProps extends Sheet {
+  seller : Seller
+}
  
-export function TooltipCustomStyles({seller,classDetail,contentDetail}:{seller:Seller,classDetail:string,contentDetail:string}) {
+const TooltipCustomStyles: React.FC<TooptipProps> =({seller,date,content_details,class_details}) =>{
   return (
     <Tooltip
     key={uuidv4()}
@@ -68,10 +72,12 @@ export function TooltipCustomStyles({seller,classDetail,contentDetail}:{seller:S
             </CardHeader>
             <CardBody className="mb-6 p-0">
               <Typography className=" ">
-                <p className="font-normal text-base text-gray-700">
-                Class Dedtail: {classDetail};<br></br>
-                Content Detail: {contentDetail}
-                </p>
+              <p className="font-normal text-base text-gray-700">
+                <span className="font-bold text-stone-800">Date:</span> {new Date(date).toDateString()}<br></br>
+                <span className="font-bold text-stone-800">Class Detail:</span> {class_details};<br></br>
+                <span className="font-bold text-stone-800">Content Detail:</span> {content_details}
+              </p>
+
               </Typography>
             </CardBody>
           
@@ -96,3 +102,5 @@ export function TooltipCustomStyles({seller,classDetail,contentDetail}:{seller:S
     </Tooltip>
   );
 }
+
+export default  TooltipCustomStyles;

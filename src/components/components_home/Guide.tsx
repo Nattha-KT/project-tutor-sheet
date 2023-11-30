@@ -94,7 +94,7 @@ const content = {
   // ]
 }
 
-export default function RecommendSheet({className}:{className:string}) {
+export default function GuideTutorSheet({className}:{className:string}) {
   return (
    <>
     <section id="RecomendedSection" className={`${className}`}>

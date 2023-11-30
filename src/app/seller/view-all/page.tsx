@@ -1,12 +1,11 @@
 "use server"
 import React from 'react'
 import ViewAllCard from '../_components/ViewAllCard';
-import { Sheet } from '../../../../types/type';
+
 import { v4 as uuidv4 } from 'uuid';
 import { authOptions } from '@/lib/auth';
 import { getServerSession } from "next-auth/next"
 import { Pagination } from '@/components/Pagination';
-import SearchBar from '@/components/SearchBar';
 
 
 
@@ -39,10 +38,9 @@ export default async function  ViewAllPage(props:PageProps){
 
 
   return (
-    <div key={uuidv4()} className=' container h-auto pb-10 min-w-fit '>
-        <SearchBar clasName=' relative z-[20]'/>
-        <ViewAllCard dataSheets={results.sheets}/>
-        <div className=' flex justify-center mt-10'>
+    <div key={uuidv4()} className=' container h-auto pb-10 min-w-fit min-h-[50vh] '>
+        {results && <ViewAllCard dataSheets={results.sheets}/>}
+        <div className=' flex justify-center mt-16'>
         <Pagination  {...results.metaData} {...props.searchParams}/>
       </div>
     </div>

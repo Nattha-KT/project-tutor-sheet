@@ -2,6 +2,7 @@ import { Fragment, useEffect, useState } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { v4 as uuidv4 } from 'uuid';
+import { Select, Option } from "@material-tailwind/react";
 
 
 function classNames(...classes: any) {
@@ -20,7 +21,7 @@ type DropdownProps ={
   }
 
 
-  const Dropdown: React.FC<DropdownProps> = ({ options, onSelect,name }) => {
+  const DropdownFilter: React.FC<DropdownProps> = ({ options, onSelect,name }) => {
     
   return (
     <Menu key={uuidv4()} as="div" className="relative inline-block text-left">
@@ -61,8 +62,9 @@ type DropdownProps ={
           </div>
         </Menu.Items>
       </Transition>
-    </Menu>
+      
+    </Menu>  
   )
 }
 
-export default Dropdown;
+export default DropdownFilter;

@@ -12,7 +12,7 @@ export interface Sheet{
     content_details:string,
     cover_page: string,
     date: string,
-    sample_page: string[],
+    samples_page: string[],
     file_path:string,
     sid:string,
   }

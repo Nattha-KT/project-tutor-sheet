@@ -1,10 +1,13 @@
-"use client"
+'use client'
 import Image from 'next/image'
 import { Sheet,Seller } from '../../../../types/type';
 import {Button,IconButton,} from "@material-tailwind/react";
 import {ShoppingCartIcon} from "@heroicons/react/24/outline";
-import {TooltipCustomStyles} from './Tooltip';
+import TooltipCustomStyles from '../../../components/Tooltip';
 import { v4 as uuidv4 } from 'uuid';
+import  {useDropdownFilter}  from '@/hooks/useFilter';
+import React, { useEffect, useState } from 'react'
+import SearchBar from '@/components/SearchBar';
 
 interface ExtendedSheet extends Sheet {
     id: string;
@@ -13,13 +16,32 @@ interface ExtendedSheet extends Sheet {
   interface SellerDashboardProps {
     dataSheets: ExtendedSheet[];
   }
-  const ViewAllCard: React.FC<SellerDashboardProps> = ({ dataSheets }) =>   {
-    const handleOnclick =() => {
-      console.log("image clicked");
-    }
+
+  const handleOnclick =() => {
+    console.log("image clicked");
+  }
+
+
+export default function ViewAllCard ({dataSheets}:SellerDashboardProps) {
+
+  const [filteredSheets, setFilteredSheets] = useState<ExtendedSheet[]>([]); 
+
+  const useDropdown = useDropdownFilter();
+  const {type,year,price,semester,applyFiltersAndSort} = useDropdown;
+  const defaultValues: string = "default"   
+
+  useEffect(() => {
+    const currentValues: string[] = [type, year, price, semester];
+    const result = applyFiltersAndSort(dataSheets, currentValues);
+    setFilteredSheets(result);
+  }, [year, price, semester, type, dataSheets]);
+
+
   return (
+     <>
+       <SearchBar clasName=' relative z-[20]' useDropdown={useDropdown}/>
       <div  key={uuidv4()} className=' h-auto max-w-7xl z-10 mx-auto px-5  justify-center  grid grid-cols-2  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-2 sm:gap-x-5 gap-y-5'>
-        {dataSheets&& dataSheets.map((sheet)=>(
+        {filteredSheets && filteredSheets.map((sheet)=>(
             <div key={sheet.id} className="bg-white shadow-lg rounded-xl flex flex-col overflow-hidden max-h-[320px] sm:max-h-[420px] min-w-full  md:w-[280px]  order-first lg:order-none relative
             transition-transform duration-300 hover:scale-[102%] hover:shadow-xl focus:outline-none ">
               <div className="absolute z-[30] top-0 right-0 m-4">
@@ -47,7 +69,7 @@ interface ExtendedSheet extends Sheet {
                   <div>
                     <div className='flex justify-between'>
                         <h2 className="text-[14px] sm:text-[17px] text-gray-800 font-semibold mb-2">{sheet.name}</h2> 
-                        <TooltipCustomStyles seller={sheet.seller} classDetail={sheet.class_details} contentDetail={sheet.content_details}/>
+                        <TooltipCustomStyles {...sheet.seller} {...sheet}/>
                     </div>
                     <div className='flex flex-col sm:flex-row sm:justify-between text-gray-500 leading-relaxed text-md font-medium text-[13px] sm:text-[16px]'>
                     <div className="">{`${sheet.course_code}`}</div>
@@ -67,7 +89,11 @@ interface ExtendedSheet extends Sheet {
           </div>
         ))} 
       </div>
+
+        {filteredSheets.length == 0 && (
+        <div className='flex justify-center items-center'>
+          <Image width={400} height={400} src={"/emoji-sad.png"} alt='emoji'></Image>
+        </div>)}
+     </>
   )
 }
-
-export default ViewAllCard;

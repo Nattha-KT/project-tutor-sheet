@@ -39,7 +39,7 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) =>  {
   const [searchTerm, setSearchTerm] = useState(''); 
   const itemsPerPage = 5; 
 
- console.log("dataSheets: " + dataSheets)
+//  console.log("dataSheets: " + dataSheets)
 
 
   useEffect(() => {

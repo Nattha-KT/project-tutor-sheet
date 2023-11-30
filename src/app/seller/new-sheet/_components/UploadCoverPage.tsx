@@ -1,8 +1,8 @@
 'use client'
 import { Button, Card, Input, List, message, Image, Progress } from 'antd'
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
+// import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import React, { useState ,useEffect} from 'react'
-import { storage } from '../../../../../../firebaseConfig'
+// import { storage } from '../../../../../firebaseConfig'
 
 type UploadImageProps={
   image : File|null,
