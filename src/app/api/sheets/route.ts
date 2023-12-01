@@ -2,7 +2,7 @@ import { NextApiResponse } from "next";
 // import prisma from "../../../../lib/prismaDb";
 import prisma from "@/lib/prismaDb";
 import { NextResponse } from "next/server"
-import { select } from "@material-tailwind/react";
+
 
 export async function main() {
     try{

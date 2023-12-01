@@ -9,14 +9,14 @@ const LINKS = [
     title: "Product",
     // items: ["Overview", "Market","Sell"],
     items: [{name:"Overview",href:"#Title"},
-           {name:"Market",href:"/"},
+           {name:"Market",href:"/store"},
            {name:"Sell",href:"/seller"}],
     // ref:["#Title","/","/seller"]
   },
   {
     title: "Resource",
-    items:  [{name:"Block",href:"#"},
-            {name:"Help",href:"/faq"},
+    items:  [{name:"Help",href:"/helper"},
+            {name:"FAQ",href:"/faq"},
             {name:"About Us",href:"/about-us"},],
   },
 ];

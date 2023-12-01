@@ -25,7 +25,7 @@ const navListItems = [
     {
       label: "STORE",
       icon: BuildingStorefrontIcon,
-      path:""
+      path:"/store"
     },
     {
       label: "SELL",

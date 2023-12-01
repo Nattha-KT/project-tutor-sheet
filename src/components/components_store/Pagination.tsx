@@ -19,7 +19,7 @@ export function Pagination(metaData:MetaData) {
   const [windowWidth, setWindowWidth] = useState(0);
 
   const { page = 1, totalPages, hasNextPage } = metaData;
-  const currentPage = Math.min(Math.max(Number(page), 1), totalPages);
+  const currentPage = totalPages!=0? Math.min(Math.max(Number(page), 1), totalPages):0;
   const listPage = Math.floor(currentPage/5);
   
 
@@ -39,7 +39,7 @@ export function Pagination(metaData:MetaData) {
   };
  
   const prev = () => {
-    if (currentPage === 1) return;
+    if (currentPage === 1 || currentPage === 0) return;
  
     router.push(`?&page=${currentPage - 1}&${searchQuery?`search=${searchQuery}`:""}`);;
   };
@@ -69,7 +69,7 @@ export function Pagination(metaData:MetaData) {
           size="sm"
           variant="outlined"
           onClick={prev}
-          disabled={currentPage === 1}
+          disabled={currentPage === 1 || currentPage === 0}
         >
           <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" />
         </IconButton>
@@ -92,7 +92,7 @@ export function Pagination(metaData:MetaData) {
           variant="text"
           className="flex items-center gap-1 sm:gap-2"
           onClick={prev}
-          disabled={currentPage === 1}
+          disabled={currentPage === 1 || currentPage === 0}
         >
           <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
         </Button>

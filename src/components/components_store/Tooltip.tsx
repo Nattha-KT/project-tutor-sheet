@@ -9,7 +9,7 @@ import {
   Avatar,
 } from "@material-tailwind/react";
 import Head from "next/head";
-import { Seller, Sheet } from "../../types/type";
+import { Seller, Sheet } from "../../../types/type";
 import { v4 as uuidv4 } from 'uuid';
 
 function StarIcon() {

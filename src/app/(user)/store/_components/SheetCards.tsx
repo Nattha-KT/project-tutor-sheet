@@ -1,5 +1,6 @@
 'use client'
-import { Sheet,Seller } from '../../../../types/type';
+import Image from 'next/image'
+import { Sheet,Seller } from '../../../../../types/type';
 import { v4 as uuidv4 } from 'uuid';
 import  {useDropdownFilter}  from '@/hooks/useFilter';
 import React, { useEffect, useState } from 'react'
@@ -19,7 +20,7 @@ interface ExtendedSheet extends Sheet {
   }
 
 
-export default function ViewAllCard ({dataSheets}:SellerDashboardProps) {
+export default function SheetCards ({dataSheets}:SellerDashboardProps) {
 
   const [filteredSheets, setFilteredSheets] = useState<ExtendedSheet[]>([]); 
 
@@ -35,7 +36,7 @@ export default function ViewAllCard ({dataSheets}:SellerDashboardProps) {
 
   return (
      <>
-       <SearchBar clasName=' relative z-[20]' useDropdown={useDropdown} pathSearch='view-all'/>
+       <SearchBar clasName=' relative z-[20]' useDropdown={useDropdown} pathSearch={""}/>
         <AllCard filteredSheets={filteredSheets}></AllCard>
      </>
   )
