@@ -35,7 +35,7 @@ export default function Title({className}:{className:string}) {
                   initial={{opacity:0,y:20}}
                   whileInView={{opacity:1,y:0,transition:{delay:0.2,duration:0.5, timeline: "incorrect-offset 50%",}}}
                   viewport={{once:true,}}
-                  className="uppercase tracking-[3px] text-[20px] mb-5 inline-block text-gray-500"
+                  className="uppercase tracking-[3px] text-[20px] mb-5 inline-block text-gray-500 font-medium"
                   >
                     {content.intro.subTitle}
               </motion.span>
@@ -45,7 +45,7 @@ export default function Title({className}:{className:string}) {
                   initial={{opacity:0,y:20}}
                   whileInView={{opacity:1,y:0,transition:{delay:0.2,duration:0.5, timeline: "incorrect-offset 50%",}}}
                   viewport={{once:true,}}
-                  className="text-gray-800 text-3xl sm:text-4xl md:text-5xl 2xl:shadow-xl 2xl:p-6 lg:text-6xl w-auto lg:w-screen max-w-xl mb-4 md:mb-8"
+                  className="text-gray-800 text-3xl sm:text-4xl md:text-5xl 2xl:shadow-xl 2xl:p-6 lg:text-6xl w-auto lg:w-screen max-w-xl mb-4 md:mb-8 sm:bg-gray-50 rounded-md"
                   >
                     {content.intro.title}
               </motion.h1>
@@ -112,7 +112,7 @@ export default function Title({className}:{className:string}) {
                 priority={true}
                 src={`/images/homewall2.jpg`}
                 alt="img"
-                className="w-full h-[650px] 2xl:h-[640px] hidden rounded-r-md shadow-md 2xl:block object-cover opacity-90"
+                className="w-full h-[650px] 2xl:h-[720px] hidden rounded-r-md shadow-md 2xl:block object-cover opacity-90"
                 /> 
             </motion.div>
             <motion.div 

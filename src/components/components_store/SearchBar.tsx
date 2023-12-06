@@ -66,7 +66,7 @@ export default function SearchBar({clasName,useDropdown,pathSearch}:{clasName: s
     <form className={`${clasName} mb-10 z-[40]`} onSubmit={onSearch} >   
      <Navbar                                                  
       variant="gradient"
-      className="mx-auto max-w-screen-xl bg-gray-50 border-0 px-4 py-3 z-[30]"
+      className="mx-auto max-w-screen-xl bg-white border-0 px-4 py-3 z-[30]"
     >
       <div className="flex flex-wrap items-center justify-between gap-y-4 text-black">
           <a className='mr-4 ml-[-30px]' href={pathSearch}>
