@@ -2,8 +2,8 @@ import { CursorArrowRaysIcon } from '@heroicons/react/24/outline'
 import { motion } from 'framer-motion'
 import React from 'react'
 import { useSession} from "next-auth/react";
-import LoginPage from '../LoginPage';
-import DialogLogin from '../DialogLogin';
+import LoginPage from '../components_login/LoginPage';
+import DialogLogin from '../../components/components_login/DialogLogin';
 
 
 export default function ButtonLogin() {

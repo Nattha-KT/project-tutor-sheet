@@ -17,7 +17,7 @@ import {
     PowerIcon,    
   } from "@heroicons/react/24/outline";
 import { useSession, signIn, signOut } from "next-auth/react";
-import DialogLogin from "../DialogLogin";
+import DialogLogin from "../../components/components_login/DialogLogin";
 import Image from "next/image"
 
 

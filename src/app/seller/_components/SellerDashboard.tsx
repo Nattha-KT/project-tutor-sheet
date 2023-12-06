@@ -23,7 +23,6 @@ import {
 import Image from 'next/image';
 import { Sheet } from '../../../../types/type';
 import { v4 as uuidv4 } from 'uuid';
-import { app } from '../../../../firebaseConfig';
 
 interface SheetsProps extends Sheet {
   id: string;
@@ -235,7 +234,7 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) =>  {
                       </Typography>
                     </td>
                     <td className="p-4">
-                      <Tooltip content="Edit User">
+                      <Tooltip content="Edit Sheet">
                         <IconButton variant="text">
                           <PencilIcon className="h-4 w-4" />
                         </IconButton>

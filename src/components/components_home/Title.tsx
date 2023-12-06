@@ -10,7 +10,7 @@ const content ={
     subTitle:"Welcome",
     description:"A collection of various summary sheets from Suranaree University of Technology for preparing for exams in that subject.",
     btn:{
-      href:"/sheets",
+      href:"/store",
       label:"View Sheet"
     }
   }
