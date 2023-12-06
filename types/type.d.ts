@@ -16,6 +16,9 @@ export interface Sheet{
     file_path:string,
     sid:string,
   }
+export interface PropSheet extends Sheet {
+    id: string;
+}
 
 export interface Seller{
     pen_name: string,

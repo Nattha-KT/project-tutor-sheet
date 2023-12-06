@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import {ComplexNavbar} from"../components/components_nav/ComplexNavbar";
 import ProviderWrapper from '@/context/ProviderWrapper';
 import { getServerSession } from "next-auth";
+import Head from 'next/head';
 
 import { Inter,Lato,Source_Sans_3   } from 'next/font/google'
 
@@ -22,7 +23,10 @@ export default async function RootLayout({children,}: {children: React.ReactNode
   const session = await getServerSession();
   return (
     <html lang="en">
-         {/* <Nav/> */}
+      <Head>
+        {/* เพิ่ม link เพื่อกำหนด favicon */}
+        <link rel="icon" href="favicon.ico" />
+      </Head>
       <body className={`${lato.className}`}>
         <ProviderWrapper session={session}>
           <ComplexNavbar className='flex justify-center'/>

@@ -23,6 +23,7 @@ import {
 import Image from 'next/image';
 import { Sheet } from '../../../../types/type';
 import { v4 as uuidv4 } from 'uuid';
+import { DialogEditSheet } from '@/components/Dialog';
 
 interface SheetsProps extends Sheet {
   id: string;
@@ -57,7 +58,6 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) =>  {
   const [searchTerm, setSearchTerm] = useState(''); 
   const itemsPerPage = 5; 
   const [approve,setApprove] = useState("all")
-
   
   const handleFilter = (approve: string, dataSheets: SheetsProps[]) => {
   
@@ -74,7 +74,6 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) =>  {
 
 
   useEffect(() => {
-    console.log(approve)
 
     const filter = handleFilter(approve,dataSheets);
 
@@ -181,14 +180,14 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) =>  {
           </thead>
           <tbody>
             {currentItems && currentItems.map(
-              ({ id,name,cover_page,price, status_approve, date }, index) => {
+              (sheet, index) => {
                 return (
-                  <tr key={id}>
+                  <tr key={sheet.id}>
                     <td className="p-4">
                       <div className="flex items-center gap-3">
                         <div className="avatar">
                           <div className="mask mask-squircle w-12 h-12">
-                            <Image width={2000} height={2000} src={cover_page} alt="Avatar Tailwind CSS Component" />
+                            <Image width={2000} height={2000} src={sheet.cover_page} alt="Avatar Tailwind CSS Component" />
                           </div>
                         </div>
                         <div className="flex flex-col">
@@ -197,7 +196,7 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) =>  {
                             color="blue-gray"
                             className="font-normal"
                           >
-                            {name}
+                            {sheet.name}
                           </Typography>
             
                         </div>
@@ -210,7 +209,7 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) =>  {
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {price+` ฿`}
+                          {sheet.price+` ฿`}
                         </Typography>
                       </div>
                     </td>
@@ -219,8 +218,8 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) =>  {
                         <Chip
                           variant="ghost"
                           size="sm"
-                          value={status_approve ? "approve" : "approve"}
-                          color={status_approve ? "green" : "red"}
+                          value={sheet.status_approve ? "approve" : "approve"}
+                          color={sheet.status_approve ? "green" : "red"}
                         />
                       </div>
                     </td>
@@ -230,15 +229,18 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) =>  {
                         color="blue-gray"
                         className="font-normal"
                       >
-                        {new Date(date).toDateString()}
+                        {new Date(sheet.date).toDateString()}
                       </Typography>
                     </td>
                     <td className="p-4">
-                      <Tooltip content="Edit Sheet">
-                        <IconButton variant="text">
+                      <Tooltip content="Edit Detail">
+                        <IconButton variant="text"
+                          onClick={() => (document.getElementById(`${sheet.id}`) as HTMLDialogElement).showModal()}
+                        >
                           <PencilIcon className="h-4 w-4" />
                         </IconButton>
                       </Tooltip>
+                      <DialogEditSheet name_id={`${sheet.id}`} sheet={sheet} />
                     </td>
                   </tr>
                 );
