@@ -1,3 +1,4 @@
+'use client'
 import { cache, useEffect, useState } from "react";
 import { ref, uploadBytes, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { storage } from "../../firebaseConfig";
@@ -42,7 +43,7 @@ export const useUploadFileAll = (sellerId:string) => {
         content_details:"",
         cover_page: "",
         samples_page: [],
-        file_path:`Seller/${sellerId}/${uuidv4()}`,
+        file_path:"",
         sid:sellerId,
     });
 

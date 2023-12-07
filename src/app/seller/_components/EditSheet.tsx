@@ -2,7 +2,9 @@
 import React, { useEffect, useState } from 'react'
 import { PropSheet  } from '../../../../types/type'
 import toast, { Toaster } from 'react-hot-toast';
+import "react-toastify/dist/ReactToastify.css";
 import { Button } from "@material-tailwind/react";
+import { DialogDeleteSheet } from '@/components/Dialog';
   
  type Sheet = {
     course_code:string,
@@ -14,10 +16,26 @@ import { Button } from "@material-tailwind/react";
     content_details:string,
   }
 
-
+  function deleteFileOnFirebase() {
+    // [START storage_delete_file]
+    const { getStorage, ref, deleteObject } = require("firebase/storage");
+  
+    const storage = getStorage();
+  
+    // Create a reference to the file to delete
+    const desertRef = ref(storage, 'images/desert.jpg');
+  
+    // Delete the file
+    deleteObject(desertRef).then(() => {
+      // File deleted successfully
+    }).catch((error:any) => {
+      // Uh-oh, an error occurred!
+    });
+    // [END storage_delete_file]
+  }
 
   const UpdateSheet = async (sheet:Sheet,id:string) => {
-    const res = fetch(`http://localhost:3000/api/seller/${id}`,{
+    const res = fetch(`http://localhost:3000/api/sheets/by-id/${id}`,{
       method: "PUT",
       body: JSON.stringify(sheet),
       // @ts-ignore
@@ -28,16 +46,27 @@ import { Button } from "@material-tailwind/react";
     return (await res).json();
   };
 
-export default  function EditSheet({sheet,id}: {sheet:PropSheet,id:string}) {
+  
+const DeleteSheet = async (id:string) => {
+    const res = fetch(`http://localhost:3000/api/sheets/by-id/${id}`,{
+      method: "DELETE",
+      // @ts-ignore
+      "Content-Type":"application/json",
+    });
+  
+    return (await res).json();
+  };
+
+export default  function EditSheet({sheet}: {sheet:PropSheet}) {
 
     const [updateSheet,setUpdateSheet] = useState<Sheet>({
-        course_code:"",
-        name:"",
-        semester:"",
-        type:"",
-        year: "",
-        class_details:"",
-        content_details:"",
+        course_code:sheet.course_code,
+        name:sheet.name,
+        semester:sheet.semester,
+        type:sheet.type,
+        year: sheet.year,
+        class_details:sheet.class_details,
+        content_details:sheet.content_details,
 
     });
     const [years, setYears] = useState<number[]>([]);
@@ -58,16 +87,25 @@ export default  function EditSheet({sheet,id}: {sheet:PropSheet,id:string}) {
           const res = await UpdateSheet(updateSheet,sheet.id);
         //   console.log(res.seller.id);
           if (res && res.message == "Error"){
+            // message.destroy(); 
             toast.error("Error ! 🚀✖️",{id:"1"});
           }else{
+            // message.destroy(); 
             await toast.success("Update successfully! 🚀✔️",{id:"1"})
-            setTimeout(() => {
-                location.reload();
-            },500);
           }
           }else toast.error("Error !!  🚀✖️",{id:"1"});
-    
       };
+
+      
+  const handleDelete = async () => {
+    toast.loading("Deleting request... 🚀👩🏾‍🚀",{id:"1"});
+    await DeleteSheet(sheet.id)
+    toast.success("Deleted! 🚀✔️",{id:"1"})
+    setTimeout(() => {
+        window.location.reload();
+    }, 1000);
+  }
+
 
       useEffect(()=>{
         const startYear = 2020;
@@ -81,7 +119,8 @@ export default  function EditSheet({sheet,id}: {sheet:PropSheet,id:string}) {
    
   return (
 
-    <form className='relative flex flex-col min-w-full space-y-6 bg-white drop-shadow-2xl md:flex-row md:space-y-0 rounded-xl lg: w-4/4'onSubmit={handleSubmit} >
+    <form className='relative flex flex-col min-w-full space-y-6 bg-white drop-shadow-2xl md:flex-row md:space-y-0 rounded-xl lg: w-4/4' >
+        <Toaster/>
         <div  className="space-y-6 p-8 rounded-s-md">
             <div className="border-b border-gray-900/10 pb-2">
             <div className=' flex justify-center font-[1000] text-2xl text-gray-600 mb-6 gap-x-2'>
@@ -97,7 +136,8 @@ export default  function EditSheet({sheet,id}: {sheet:PropSheet,id:string}) {
                         </label>
                         <div className="mt-2">
                             <input
-                             required
+                            required
+                            value={updateSheet.name}
                             type="text"
                             placeholder="ชื่อวิชา รวมข้อมูลที่อยากให้ปรากฎชัดๆบนหน้าปก"
                             onChange={handleInputChange}
@@ -115,7 +155,8 @@ export default  function EditSheet({sheet,id}: {sheet:PropSheet,id:string}) {
                         </label>
                         <div className="mt-2">
                             <input
-                             required
+                            required
+                            value={updateSheet.course_code}
                             id="course_code"
                             onChange={handleInputChange}
                             name="course_code"
@@ -132,8 +173,9 @@ export default  function EditSheet({sheet,id}: {sheet:PropSheet,id:string}) {
                         </label>
                         <div className="mt-2">
                             <select
-                             required
+                            required
                             id="type"
+                            value={updateSheet.type}
                             onChange={handleInputChange}
                             name="type"
                             autoComplete="type"
@@ -153,7 +195,8 @@ export default  function EditSheet({sheet,id}: {sheet:PropSheet,id:string}) {
                         </label>
                         <div className="mt-2">
                             <select
-                             required
+                            required
+                            value={updateSheet.semester}
                             id="semester"
                             onChange={handleInputChange}
                             name="semester"
@@ -174,8 +217,9 @@ export default  function EditSheet({sheet,id}: {sheet:PropSheet,id:string}) {
                         </label>
                         <div className="mt-2">
                             <select
-                             required
+                            required
                             id="year"
+                            value={updateSheet.year}
                             onChange={handleInputChange}
                             name="year"
                             autoComplete="year"
@@ -196,7 +240,8 @@ export default  function EditSheet({sheet,id}: {sheet:PropSheet,id:string}) {
                         </label>
                         <div className="mt-2">
                             <textarea
-                             required
+                            required
+                            value={updateSheet.class_details}
                             id="class_details"
                             onChange={handleInputChange}
                             name="class_details"
@@ -213,7 +258,8 @@ export default  function EditSheet({sheet,id}: {sheet:PropSheet,id:string}) {
                         </label>
                         <div className="mt-2">
                             <textarea
-                             required
+                            required
+                            value={updateSheet.content_details}
                             id="content_details"
                             onChange={handleInputChange}
                             name="content_details"
@@ -228,8 +274,13 @@ export default  function EditSheet({sheet,id}: {sheet:PropSheet,id:string}) {
                 </div>
             </div>
             <div className='flex justify-between'>
-            <Button color="amber" className='text-white hover:text-slate-900'>Edit now</Button>
-            <Button color="red" className='text-white hover:text-slate-900'>Delete</Button>
+            <Button color="amber" className='text-white hover:text-slate-900'
+            onClick={handleSubmit}
+            >Edit now</Button>
+            <Button color="red" className='text-white hover:text-slate-900'
+              onClick={() => (document.getElementById(`${sheet.id}_delete`) as HTMLDialogElement).showModal()}
+            >Delete</Button>
+                <DialogDeleteSheet name_id={sheet.id+"_delete"} handleDelete={handleDelete}/>
             </div>
         </div>
     </form>

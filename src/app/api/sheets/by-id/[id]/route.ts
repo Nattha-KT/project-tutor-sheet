@@ -28,3 +28,42 @@ export const GET = async (req: Request, res: NextApiResponse)=>{
         }
     }
 
+    export const PUT = async (req: Request, res: NextApiResponse)=>{
+        try{
+            const id = req.url.split("/by-id/")[1];
+            const {course_code,name,type,semester,year,class_details,content_details} = await req.json()
+            await main();
+            const sheetsById = await prisma.sheet.update({
+                data:{course_code,name,type,semester,year,class_details,content_details},
+                where:{id}});
+
+            if(!sheetsById)
+                return NextResponse.json({message: "Not Found"},{status:500});
+            return NextResponse.json({message: "Success",sheetsById},{status:200});
+    
+        }catch(err){
+            return NextResponse.json({message: "Error creating",err},{status:500})
+        }finally{
+            await prisma.$disconnect();
+        }
+    }
+
+    
+export const DELETE = async (req: Request, res: NextApiResponse)=>{
+
+    try{
+        const id = req.url.split("/by-id/")[1];
+        await main();
+        const faq = await prisma.sheet.delete({where:{id}});
+
+        return NextResponse.json({message: "Success",faq},{status:200});
+
+    }catch(err){
+        return NextResponse.json({message: "Error creating",err},{status:500})
+    }finally{
+        await prisma.$disconnect();
+    }
+
+};
+
+

@@ -56,11 +56,11 @@ export const PUT = async (req: Request, res: NextApiResponse)=>{
         const id = req.url.split("/seller/")[1];
         const {pen_name,full_name,phone,bank_name,bank_id,address}:Seller = await req.json();
         await main();
-        const post = await prisma.seller.update({
+        const seller = await prisma.seller.update({
             data:{pen_name,full_name,phone,bank_name,bank_id,address},
             where :{id},
         });
-        return NextResponse.json({message: "Success",post},{status:200});
+        return NextResponse.json({message: "Success",seller},{status:200});
 
     }catch(err){
         return NextResponse.json({message: "Error creating",err},{status:500})

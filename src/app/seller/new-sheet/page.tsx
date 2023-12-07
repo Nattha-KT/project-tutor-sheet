@@ -6,6 +6,7 @@ import UploadFile from '@/app/seller/new-sheet/_components/UploadFile';
 import {message, Image, Progress } from 'antd'
 import { useUploadFileAll } from '@/hooks/useUploadFileAll';
 import {useSession} from "next-auth/react";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function NewSheet() {
 
@@ -30,7 +31,7 @@ export default function NewSheet() {
         const yearsArray = Array.from({ length: currentYear - startYear + 1 }, (_, index) => startYear + index);
         setYears(yearsArray);
         setSheet((prevSheet) => ({
-            ...prevSheet,sid:sellerId
+            ...prevSheet,sid:sellerId,file_path:`Seller/${sellerId}/${uuidv4()}`
           }));
     },[sellerId])
 
