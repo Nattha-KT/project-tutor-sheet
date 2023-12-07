@@ -5,6 +5,9 @@ import toast, { Toaster } from 'react-hot-toast';
 import "react-toastify/dist/ReactToastify.css";
 import { Button } from "@material-tailwind/react";
 import { DialogDeleteSheet } from '@/components/Dialog';
+import { ref, uploadBytes,  list, deleteObject, listAll } from 'firebase/storage';
+import { storage } from "../../../../firebaseConfig";
+import { useDeleteSheet } from '@/hooks/useDeleteSheet';
   
  type Sheet = {
     course_code:string,
@@ -16,23 +19,6 @@ import { DialogDeleteSheet } from '@/components/Dialog';
     content_details:string,
   }
 
-  function deleteFileOnFirebase() {
-    // [START storage_delete_file]
-    const { getStorage, ref, deleteObject } = require("firebase/storage");
-  
-    const storage = getStorage();
-  
-    // Create a reference to the file to delete
-    const desertRef = ref(storage, 'images/desert.jpg');
-  
-    // Delete the file
-    deleteObject(desertRef).then(() => {
-      // File deleted successfully
-    }).catch((error:any) => {
-      // Uh-oh, an error occurred!
-    });
-    // [END storage_delete_file]
-  }
 
   const UpdateSheet = async (sheet:Sheet,id:string) => {
     const res = fetch(`http://localhost:3000/api/sheets/by-id/${id}`,{
@@ -46,16 +32,7 @@ import { DialogDeleteSheet } from '@/components/Dialog';
     return (await res).json();
   };
 
-  
-const DeleteSheet = async (id:string) => {
-    const res = fetch(`http://localhost:3000/api/sheets/by-id/${id}`,{
-      method: "DELETE",
-      // @ts-ignore
-      "Content-Type":"application/json",
-    });
-  
-    return (await res).json();
-  };
+
 
 export default  function EditSheet({sheet}: {sheet:PropSheet}) {
 
@@ -67,16 +44,16 @@ export default  function EditSheet({sheet}: {sheet:PropSheet}) {
         year: sheet.year,
         class_details:sheet.class_details,
         content_details:sheet.content_details,
-
     });
     const [years, setYears] = useState<number[]>([]);
+    const {DeleteSheet,deleteFilesInDirectory}= useDeleteSheet();
 
 
     const  handleInputChange = (e : React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>{
         const { name, value } = e.target;
         setUpdateSheet((prevSheet) => ({
             ...prevSheet,
-            [name]: name !== "price" && name !== "num_page" ? value : parseInt(value, 10),
+            [name]: value,
           }));
     }
 
@@ -85,26 +62,36 @@ export default  function EditSheet({sheet}: {sheet:PropSheet}) {
         if(updateSheet&&sheet){
           toast.loading("Sending request... 🚀👩🏾‍🚀",{id:"1"});
           const res = await UpdateSheet(updateSheet,sheet.id);
-        //   console.log(res.seller.id);
           if (res && res.message == "Error"){
-            // message.destroy(); 
             toast.error("Error ! 🚀✖️",{id:"1"});
           }else{
-            // message.destroy(); 
-            await toast.success("Update successfully! 🚀✔️",{id:"1"})
+            toast.success("Update successfully! 🚀✔️",{id:"1"})
           }
           }else toast.error("Error !!  🚀✖️",{id:"1"});
       };
 
       
-  const handleDelete = async () => {
-    toast.loading("Deleting request... 🚀👩🏾‍🚀",{id:"1"});
-    await DeleteSheet(sheet.id)
-    toast.success("Deleted! 🚀✔️",{id:"1"})
-    setTimeout(() => {
-        window.location.reload();
-    }, 1000);
-  }
+      const handleDelete = async () => {
+        try {
+          toast.loading("Deleting request... 🚀👩🏾‍🚀", { id: "1" });
+    
+          const deleteSheetPromise = DeleteSheet(sheet.id);
+          const deleteFilesPromise = deleteFilesInDirectory(sheet.file_path);
+      
+          // Wait for both promises to complete
+          await Promise.all([deleteFilesPromise,deleteSheetPromise]);
+      
+          toast.success("Deleted! 🚀✔️", { id: "1" });
+      
+          // Use a Promise-based setTimeout to make it asynchronous
+          await new Promise((resolve) => setTimeout(resolve, 500));
+      
+          window.location.reload();
+        } catch (error) {
+          console.error("Error occurred during deletion:", error);
+          toast.error("Error occurred during deletion: DeleteSheet", { id: "1" });
+        }
+      };
 
 
       useEffect(()=>{
