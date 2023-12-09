@@ -5,8 +5,6 @@ import toast, { Toaster } from 'react-hot-toast';
 import "react-toastify/dist/ReactToastify.css";
 import { Button } from "@material-tailwind/react";
 import { DialogDeleteSheet } from '@/components/Dialog';
-import { ref, uploadBytes,  list, deleteObject, listAll } from 'firebase/storage';
-import { storage } from "../../../../firebaseConfig";
 import { useDeleteSheet } from '@/hooks/useDeleteSheet';
   
  type Sheet = {
