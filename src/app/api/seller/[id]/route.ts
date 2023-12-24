@@ -1,4 +1,4 @@
-import { NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse } from 'next';
 import prisma from "../../../../lib/prismaDb";
 import { NextResponse } from "next/server"
 
@@ -50,7 +50,7 @@ export const GET = async (req: Request, res: NextApiResponse)=>{
         }
     }
 
-export const PUT = async (req: Request, res: NextApiResponse)=>{
+export const PUT = async (req: Request, res: NextApiResponse,)=>{
 
     try{
         const id = req.url.split("/seller/")[1];
@@ -63,7 +63,7 @@ export const PUT = async (req: Request, res: NextApiResponse)=>{
         return NextResponse.json({message: "Success",seller},{status:200});
 
     }catch(err){
-        return NextResponse.json({message: "Error creating",err},{status:500})
+        return NextResponse.json({message: "Error",err},{status:500})
     }finally{
         await prisma.$disconnect();
     }

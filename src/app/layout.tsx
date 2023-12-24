@@ -4,6 +4,7 @@ import {ComplexNavbar} from"../components/components_nav/ComplexNavbar";
 import ProviderWrapper from '@/context/ProviderWrapper';
 import { getServerSession } from "next-auth";
 import Head from 'next/head';
+import ToasterContext from '@/context/ToasterContext';
 
 import { Inter,Lato,Source_Sans_3   } from 'next/font/google'
 
@@ -32,6 +33,7 @@ export default async function RootLayout({children,}: {children: React.ReactNode
           <ComplexNavbar className='flex justify-center'/>
           <main className=" mx-auto min-h-screen min-w-full pt-20 z-10">{children}</main>
         </ProviderWrapper>
+        <ToasterContext/>
       </body>
     </html>
   )

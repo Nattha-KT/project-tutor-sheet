@@ -1,8 +1,6 @@
 // import EditSeller from "@/components/components_seller/EditSeller";
-import Footer from "@/components/components_home/Footer";
 import EditSeller from "@/app/seller/_components/EditSeller";
 import axios from "axios";
-import { getServerSession } from "next-auth";
 import React from "react";
 
 async function getBanks(){

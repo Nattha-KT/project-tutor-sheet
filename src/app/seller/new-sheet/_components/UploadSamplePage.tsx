@@ -1,6 +1,6 @@
 'use client'
-import { Button, Card, Input, List, message, Image, Progress } from 'antd'
-import React, { useState ,useEffect} from 'react'
+import { Button, Card, Input, List, message  } from 'antd'
+import React from 'react'
 
 type UploadSamplePageProps = {
   imageList: File[]

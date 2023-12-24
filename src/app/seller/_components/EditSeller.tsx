@@ -1,9 +1,7 @@
 "use client"
-import { Fragment, useEffect, useState } from "react";
-import { useRef } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from 'react-hot-toast';
-import axios from "axios";
 import {useSession} from "next-auth/react";
 
 type Banks = {
@@ -27,6 +25,7 @@ type Banks = {
   }
 
   const UpdateSeller = async (seller:Seller) => {
+    console.log(seller.id)
     const res = fetch(`http://localhost:3000/api/seller/${seller.id}`,{
       method: "PUT",
       body: JSON.stringify(seller),
@@ -46,7 +45,7 @@ export default  function EditSeller({ banks, data_seller }: EditSellerProps){
 
     
     const [seller ,setSeller] = useState<Seller>({
-        id: session?.user.sid,
+        id: "",
         pen_name: data_seller.pen_name,
         full_name: data_seller.full_name,
         phone:data_seller.phone,
@@ -55,7 +54,13 @@ export default  function EditSeller({ banks, data_seller }: EditSellerProps){
         address:data_seller.address,
     })
 
-
+    useEffect(() => {
+        setSeller( {
+            ...seller,
+            id : session?.user.sid
+        });
+    },[session])
+    
     const  handleInputChange = (e : React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>{
         const name = e.target.name;
         setSeller( {
@@ -67,16 +72,17 @@ export default  function EditSeller({ banks, data_seller }: EditSellerProps){
   const handleSubmit = async (e:any) => {
     e.preventDefault();
     if(seller){
+      console.log(seller);
       toast.loading("Sending request... 🚀👩🏾‍🚀",{id:"1"});
       const res = await UpdateSeller(seller);
-    //   console.log(res.seller.id);
-      if (res && res.message == "Error"){
+      console.log(res);
+      if (res && res.message === "Error"){
         toast.error("Error ! 🚀✖️",{id:"1"});
       }else{
-        await toast.success("Update successfully! 🚀✔️",{id:"1"})
+        toast.success("Update successfully! 🚀✔️",{id:"1"})
         setTimeout(() => {
-            router.push("/seller")
-        },500);
+            router.back();
+        },1000);
       }
       }else toast.error("Error !!  🚀✖️",{id:"1"});
 
@@ -220,8 +226,6 @@ export default  function EditSeller({ banks, data_seller }: EditSellerProps){
                     </div>
                     </div>
                 </div>
-
-
             </div>
             <div className="flex justify-between">
                 <button className=" btn  border border-white text-md p-2 px-4 rounded-lg mb-6 bg-amber-500 text-white hover:bg-amber-600">
@@ -240,7 +244,6 @@ export default  function EditSeller({ banks, data_seller }: EditSellerProps){
             </div>
         </div>
     </form>
-    <Toaster />
    </div>
 
 

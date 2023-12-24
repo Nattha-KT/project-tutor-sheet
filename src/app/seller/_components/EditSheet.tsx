@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import { PropSheet  } from '../../../../types/type'
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import "react-toastify/dist/ReactToastify.css";
 import { Button } from "@material-tailwind/react";
 import { DialogDeleteSheet } from '@/components/Dialog';
@@ -105,7 +105,6 @@ export default  function EditSheet({sheet}: {sheet:PropSheet}) {
   return (
 
     <form className='relative flex flex-col min-w-full space-y-6 bg-white drop-shadow-2xl md:flex-row md:space-y-0 rounded-xl lg: w-4/4' >
-        <Toaster/>
         <div  className="space-y-6 p-8 rounded-s-md">
             <div className="border-b border-gray-900/10 pb-2">
             <div className=' flex justify-center font-[1000] text-2xl text-gray-600 mb-6 gap-x-2'>
