@@ -2,9 +2,6 @@
 
 import EditSheet from "@/app/seller/_components/EditSheet"
 import { PropSheet } from "../../types/type"
-import { Button } from "@material-tailwind/react"
-import { Toaster } from "react-hot-toast"
-
 
 export default function Dialog({name_id}:{name_id:string}) {
     return (

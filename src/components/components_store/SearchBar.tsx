@@ -4,7 +4,8 @@ import {
     Navbar,
     IconButton,
     Button,
-    Input ,
+    Input, 
+    Tooltip,
   } from "@material-tailwind/react";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
 import DropdownFilter from './DropdownFilter';
@@ -84,9 +85,11 @@ export default function SearchBar({clasName,useDropdown,pathSearch}:{clasName: s
        
         </div>
         <div className="relative flex w-full gap-2 md:w-max">
-          <IconButton variant="text" className=' bg-gray-800 hover:bg-gray-700 '>
+        <Tooltip content ="Let us help you">
+        <a className=' rounded-lg w-10 flex justify-center items-center bg-gray-800 hover:bg-gray-700 ' href='/help'>
             <QuestionMarkCircleIcon  className="h-4 w-4 text-white " />
-          </IconButton>
+          </a>
+        </Tooltip>
           <Input
             type="search"
             onChange={handleInputChange}

@@ -2,8 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
-   previewFeatures = ["fullTextSearch"]
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
@@ -11,55 +11,56 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Sheet{
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  course_code String
-  name String
-  semester String
-  type String
-  year String
-  price Int
-  num_page Int
-  status_approve Boolean  @default(false)
-  class_details String
+model Sheet {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  course_code     String
+  name            String
+  semester        String
+  type            String
+  year            String
+  price           Int
+  num_page        Int
+  status_approve  Boolean  @default(false)
+  class_details   String
   content_details String
-  cover_page String?
-  samples_page String[]
-  file_path String?
-  date DateTime @default(now())
-  sid String @db.ObjectId
-  seller   Seller   @relation(fields: [sid], references: [id])
-  owner Owner[]
-  list List[]
+  cover_page      String?
+  samples_page    String[]
+  file_path       String?
+  date            DateTime @default(now())
+  sid             String   @db.ObjectId
+  seller          Seller   @relation(fields: [sid], references: [id])
+  owner           Owner[]
+  list            List[]
 }
 
-model Owner{
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+model Owner {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
   userId String @db.ObjectId
   user   User   @relation(fields: [userId], references: [id])
 
   sheetId String @db.ObjectId
-  sheet   Sheet   @relation(fields: [sheetId], references: [id])
+  sheet   Sheet  @relation(fields: [sheetId], references: [id])
 }
 
-model User{
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  name          String?
-  image         String?
-  email String     @unique
-  emailVerified DateTime?
-  password String?
+model User {
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  name           String?
+  image          String?
+  email          String    @unique
+  emailVerified  DateTime?
+  password       String?
   hashedPassword String?
 
   role Role @default(USER)
-  
-  owner Owner[]
-  favorite FevoriteList[]
-  accounts Account[]
-  sessions      Session[]
 
-  sid String? @db.ObjectId 
-  seller   Seller?   @relation(fields: [sid], references: [id])
+  owner     Owner[]
+  favorite  FevoriteList[]
+  accounts  Account[]
+  complaint Complaint[]
+  sessions  Session[]
+
+  sid    String? @db.ObjectId
+  seller Seller? @relation(fields: [sid], references: [id])
 }
 
 enum Role {
@@ -95,34 +96,44 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-
-model Seller{
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  pen_name String
+model Seller {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  pen_name  String
   full_name String
-  phone String
-  bank_name  String
-  bank_id String
+  phone     String
+  bank_name String
+  bank_id   String
   address   String
-  image String?
-  sheet Sheet[]
-  user User[]
+  image     String?
+  sheet     Sheet[]
+  user      User[]
 }
 
-model FevoriteList{
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  name String
+model Complaint {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  userId   String @db.ObjectId
+  head     String
+  category String
+  content  String
+  role     String
+  level    Int
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model FevoriteList {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  name   String
   userId String @db.ObjectId
   user   User   @relation(fields: [userId], references: [id])
-  list List[]
+  list   List[]
 }
 
-model List{
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  sheetId String @db.ObjectId
-  sheet   Sheet   @relation(fields: [sheetId], references: [id])
-  favoriteId String @db.ObjectId
-  favorite   FevoriteList   @relation(fields: [favoriteId], references: [id])
+model List {
+  id         String       @id @default(auto()) @map("_id") @db.ObjectId
+  sheetId    String       @db.ObjectId
+  sheet      Sheet        @relation(fields: [sheetId], references: [id])
+  favoriteId String       @db.ObjectId
+  favorite   FevoriteList @relation(fields: [favoriteId], references: [id])
 }
 
 // model filePdf{
@@ -130,22 +141,21 @@ model List{
 //   url   String
 // }
 
-model Post{
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  title String
+model Post {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
   description String
-  date DateTime @default(now())
+  date        DateTime @default(now())
 }
 
-model Faq{
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  title String
+model Faq {
+  id     String   @id @default(auto()) @map("_id") @db.ObjectId
+  title  String
   answer String
-  date DateTime @default(now())
+  date   DateTime @default(now())
 }
 
-model Bank{
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+model Bank {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
   name String
 }
-
