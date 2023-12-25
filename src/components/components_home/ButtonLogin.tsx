@@ -2,8 +2,8 @@ import { CursorArrowRaysIcon } from '@heroicons/react/24/outline'
 import { motion } from 'framer-motion'
 import React from 'react'
 import { useSession} from "next-auth/react";
-import LoginPage from '../components_login/LoginPage';
-import DialogLogin from '../../components/components_login/DialogLogin';
+import LoginPage from '../LoginForm';
+import Dialog from '../dialog/Dialog';
 
 
 export default function ButtonLogin() {
@@ -31,7 +31,7 @@ export default function ButtonLogin() {
               <CursorArrowRaysIcon className="h-[18px] w-[18px]"/>
                Sign In
              </motion.button>
-                <DialogLogin name_id='modal_button_login'/>
+                <Dialog name_id='modal_button_login' component={() => <LoginPage />}/>
           </div>
         ):(<div className="flex justify-center items-center ">
         <motion.a

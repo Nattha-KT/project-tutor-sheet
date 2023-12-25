@@ -1,8 +1,9 @@
 "use client"
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import {useSession} from "next-auth/react";
+import { UpdateSeller } from "@/services/seller/api";
 
 type Banks = {
     id: string
@@ -24,18 +25,6 @@ type Banks = {
     data_seller: Seller;
   }
 
-  const UpdateSeller = async (seller:Seller) => {
-    console.log(seller.id)
-    const res = fetch(`http://localhost:3000/api/seller/${seller.id}`,{
-      method: "PUT",
-      body: JSON.stringify(seller),
-      // @ts-ignore
-      "Content-Type":"application/json",
-    });
-    // console.log(res);
-    
-    return (await res).json();
-  };
 
 
 export default  function EditSeller({ banks, data_seller }: EditSellerProps){

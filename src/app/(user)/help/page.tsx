@@ -1,23 +1,13 @@
 'use client'
 import toast, { Toaster } from 'react-hot-toast';
-import { Help } from '../../../../types/type';
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from '@material-tailwind/react';
 import useHelp from '@/hooks/useHelp';
 import {useRouter} from 'next/navigation'
-import axios from 'axios';
 import { useSession } from "next-auth/react"
 import { useMemo } from 'react';
+import { UploadComplaint } from '@/services/user/api';
 
-const UploadComplaint = async (help:Help,userId:string) => {
-  const res = fetch("http://localhost:3000/api/help",{
-    method: "POST",
-    body: JSON.stringify({help,userId}),
-    // @ts-ignore
-    "Content-Type":"application/json",
-  });
-  return (await res).json();
-}
 
 export default function HelpComponent() {
     const router = useRouter()

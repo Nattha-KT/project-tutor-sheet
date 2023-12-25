@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import prisma from "../../../../lib/prismaDb";
+import prisma from "../../../../db/prismaDb";
 import { NextResponse } from "next/server"
 
 export async function main() {

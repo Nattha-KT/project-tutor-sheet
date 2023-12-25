@@ -1,7 +1,9 @@
 'use client'
 import Link from 'next/link';
 import React from 'react'
-import {DialogFaqAdd,DialogFaqEdit} from './DialogFaq';
+import AddFaq from './AddFaq'
+import { Dialog } from '@/components/dialog';
+import {DialogFaqEdit} from '@/components/dialog';
 type Faq = {
     id: string,
     title : string,
@@ -22,7 +24,7 @@ export default function DisplayFaq({ data }: { data: Faq[] }) {
           onClick={() => (document.getElementById('modal_faq_add') as HTMLDialogElement).showModal()}>
             ➕ADD FAQ
         </button>
-        <DialogFaqAdd/>
+        <Dialog className='md:min-w-[540px] shadow-none bg-opacity-0 bg-gray-50' component={AddFaq} name_id='modal_faq_add'/>
     </div>
       {/* Show more */}
     <div className="w-full  flex flex-col justify-center items-center min-h-screen">

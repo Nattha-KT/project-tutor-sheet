@@ -1,8 +1,7 @@
 'use client'
 import Image from 'next/image'
 import { Sheet,Seller } from '../../../types/type';
-import {Button,IconButton,} from "@material-tailwind/react";
-import {ShoppingCartIcon} from "@heroicons/react/24/outline";
+import {IconButton} from "@material-tailwind/react";
 import TooltipCustomStyles from './Tooltip';
 import { v4 as uuidv4 } from 'uuid';
 import { usePathname } from 'next/navigation'
@@ -22,7 +21,7 @@ interface ExtendedSheet extends Sheet {
   }
 
 
-export default function AllCard({filteredSheets}:SellerDashboardProps) {
+export default function FormCard({filteredSheets}:SellerDashboardProps) {
   const pathName = usePathname()
   
     

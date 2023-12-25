@@ -1,7 +1,7 @@
 
 import { Metadata } from "next"
 import Sidebar from '@/components/Sidebar'
-import Footer from "@/components/components_home/Footer"
+import Footer from "@/components/Footer"
 import ProviderWrapper from "@/context/ProviderWrapper"
 import { getServerSession } from "next-auth";
 
@@ -20,7 +20,6 @@ export default async function SellerLayout({children,}: {children: React.ReactNo
         {children}
       </div>
       </ProviderWrapper>
-      <Footer/>
     </div>
     
   )

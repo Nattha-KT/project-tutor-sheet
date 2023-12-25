@@ -7,6 +7,7 @@ import Head from 'next/head';
 import ToasterContext from '@/context/ToasterContext';
 
 import { Inter,Lato,Source_Sans_3   } from 'next/font/google'
+import Footer from '@/components/Footer';
 
 
 // const inter = Inter({ subsets: ["latin"] });
@@ -34,6 +35,7 @@ export default async function RootLayout({children,}: {children: React.ReactNode
           <main className=" mx-auto min-h-screen min-w-full pt-20 z-10">{children}</main>
         </ProviderWrapper>
         <ToasterContext/>
+        <Footer/>
       </body>
     </html>
   )

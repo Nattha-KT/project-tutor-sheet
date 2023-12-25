@@ -1,9 +1,9 @@
 'use client'
-import React, { use, useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import UploadSamplePage from '@/app/seller/new-sheet/_components/UploadSamplePage';
 import UploadCoverPage from '@/app/seller/new-sheet/_components/UploadCoverPage';
 import UploadFile from '@/app/seller/new-sheet/_components/UploadFile';
-import {message, Image, Progress } from 'antd'
+import {message } from 'antd'
 import { useUploadFileAll } from '@/hooks/useUploadFileAll';
 import {useSession} from "next-auth/react";
 import { v4 as uuidv4 } from 'uuid';
@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 export default function NewSheet() {
 
     const {data:session} = useSession();
-    const sellerId = session && session!.user.sid  ;
+    const sellerId = useMemo(()=>  session!.user.sid ,[session]) ;
     const [isUpload,setIsUpload] =useState(false)
     const [checkFile,setCheckFile] = useState(false);
     const [checkImage,setCheckImage] = useState(false);

@@ -4,8 +4,9 @@ import { PropSheet  } from '../../../../types/type'
 import toast from 'react-hot-toast';
 import "react-toastify/dist/ReactToastify.css";
 import { Button } from "@material-tailwind/react";
-import { DialogDeleteSheet } from '@/components/Dialog';
+import { DialogDeleteSheet } from '@/components/dialog';
 import { useDeleteSheet } from '@/hooks/useDeleteSheet';
+import { UpdateSheet } from '@/services/seller/api';
   
  type Sheet = {
     course_code:string,
@@ -16,20 +17,6 @@ import { useDeleteSheet } from '@/hooks/useDeleteSheet';
     class_details:string,
     content_details:string,
   }
-
-
-  const UpdateSheet = async (sheet:Sheet,id:string) => {
-    const res = fetch(`http://localhost:3000/api/sheets/by-id/${id}`,{
-      method: "PUT",
-      body: JSON.stringify(sheet),
-      // @ts-ignore
-      "Content-Type":"application/json",
-    });
-    // console.log(res);
-    
-    return (await res).json();
-  };
-
 
 
 export default  function EditSheet({sheet}: {sheet:PropSheet}) {

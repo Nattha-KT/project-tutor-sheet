@@ -4,42 +4,11 @@ import toast, { Toaster } from 'react-hot-toast';
 import "react-toastify/dist/ReactToastify.css";
 import { Fragment, useEffect } from "react";
 import { useRef } from "react";
-import { useRouter } from "next/navigation";
+import { UpdateFaq,getFaqById,DeleteFaq } from "@/services/admin/api";
 
 
 
-type Faq = {
-    id: string,
-    title : string,
-    answer : string,
-};
 
-const UpdateFaq = async (data:Faq) => {
-  const res = fetch(`http://localhost:3000/api/faq/${data.id}`,{
-    method: "PUT",
-    body: JSON.stringify({title:data.title,answer:data.answer}),
-    // @ts-ignore
-    "Content-Type":"application/json",
-  });
-  return (await res).json();
-};
-
-const DeleteFaq = async (id:string) => {
-  const res = fetch(`http://localhost:3000/api/faq/${id}`,{
-    method: "DELETE",
-    // @ts-ignore
-    "Content-Type":"application/json",
-  });
-
-  return (await res).json();
-};
-
-const getFaqById = async (id:string) => {
-    const res = await fetch(`http://localhost:3000/api/faq/${id}`);
-    const data = await res.json();
-    return  data.faq;
-
-}
 
 export default function EditFaq ({id}:{id:string}) {//{params}:{params:{id:string}}
   const titleRef = useRef<HTMLInputElement | null>(null);
@@ -79,15 +48,10 @@ export default function EditFaq ({id}:{id:string}) {//{params}:{params:{id:strin
 
   return (
     <Fragment>
-      <ToastContainer
-        position="top-center"
-        autoClose={1500}
-        theme="dark"
-      />
       <div className="w-full m-auto flex my-8 ">
         <div className="flex flex-col justify-center items-center m-auto">
-          <p className="text-2xl text-slate-500 font-bold p-3">EDIT-FAQ🤖</p>
-          <form onSubmit={handleUpdate}> 
+          <p className="text-2xl text-slate-800 bg-white rounded-lg font-bold p-3">Edit FAQ🤖</p>
+          <form onSubmit={handleUpdate} className=" w-auto md:w-[720px]"> 
             <input ref={titleRef} placeholder="Enter Title" type="text" className="rounded-md px-4 py-2 my-2 w-full shadow-md"/>
             <textarea ref={answerRef} placeholder="Enter Description" className="rounded-md px-4 py-2 w-full my-2 shadow-md" style={{ minHeight: '15rem' }}></textarea>
             <div className="flex-start">
@@ -101,8 +65,6 @@ export default function EditFaq ({id}:{id:string}) {//{params}:{params:{id:strin
           </form>
         </div>
       </div>
-   
-      <Toaster />
     </Fragment>
   );
 };

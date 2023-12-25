@@ -1,5 +1,5 @@
 'use client'
-import Footer from '@/components/components_home/Footer'
+import Footer from '@/components/Footer'
 import React,{useState, useEffect,useRef, useCallback} from 'react'
 import {motion} from 'framer-motion'
 import {BiChevronLeft,BiChevronRight} from 'react-icons/bi'
@@ -165,9 +165,6 @@ export default function Aboute() {
           </motion.div>
         </div>
       </section>  
-      <section>
-      <Footer/>
-      </section>
     </div>
   )
 }

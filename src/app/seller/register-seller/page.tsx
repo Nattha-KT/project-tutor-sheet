@@ -1,27 +1,12 @@
 import RegisterSeller from "../_components/RegisterSeller";
-import Footer from "@/components/components_home/Footer";
 import axios from "axios";
-import { getServerSession } from "next-auth";
 import React from "react";
-
-
-   
-async function fetchBanks(){
-  try {
-    const response = await axios.get("http://localhost:3000/api/banks");
-    const data = response.data;
-    const banks = data.banks;
-   return banks;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    return [];
-  }
- }
+import { getBanks } from "@/services/seller/api";
 
 
 export default async function Register(){
 
-    const data = await fetchBanks();
+    const data = await getBanks();
 
   return (
           <div>

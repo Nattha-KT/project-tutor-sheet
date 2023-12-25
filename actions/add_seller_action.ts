@@ -1,6 +1,6 @@
 "use server"
 
-import prisma from "@/lib/prismaDb";
+import prisma from "@/db/prismaDb";
 
 export const addSeller = async (formData:FormData) => {
 

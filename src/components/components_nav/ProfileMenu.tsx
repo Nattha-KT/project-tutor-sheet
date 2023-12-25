@@ -17,8 +17,10 @@ import {
     PowerIcon,    
   } from "@heroicons/react/24/outline";
 import { useSession, signIn, signOut } from "next-auth/react";
-import DialogLogin from "../../components/components_login/DialogLogin";
+
 import Image from "next/image"
+import LoginForm from "../LoginForm";
+import Dialog from "../dialog/Dialog";
 
 
 // profile menu component
@@ -56,13 +58,6 @@ const profileMenuItems = [
                     color="blue-gray"
                     className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
                   >
-                    {/* <Avatar
-                      variant="circular"
-                      size="md"
-                      alt="tania andrew"
-                      className="border border-gray-400 p-0.5"
-                      src={session?.user.image} 
-                    /> */}
                     <Image  width={50} height={50} alt="" src={session?.user.image}  className="border border-gray-400 p-0.5 rounded-full" />
                     <ChevronDownIcon
                       strokeWidth={2.5}
@@ -108,17 +103,16 @@ const profileMenuItems = [
                           className=" font-medium text-[16px]"
                           color={label === "Sign Out" ? "red" : "inherit"}
                         >
-                            <a key={label} href={path || "/"}>{label}</a>
+                          <a key={label} href={path || "/"}>{label}</a>
                         </Typography>
                      
                       </MenuItem>
                   
                   )}
                      <MenuItem
-                        onClick={closeMenu}className={`flex items-center gap-2 rounded hover:bg-gray-100 hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10`}>
+                        onClick={signOut}className={`flex items-center gap-2 rounded hover:bg-gray-100 hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10`}>
                         {React.createElement(PowerIcon, {className: `h-4 w-4 text-red-500`,strokeWidth: 2,})}
                         <Typography as="span"
-                          onClick={signOut}
                           variant="small"
                           className="font-medium text-[16px]"
                           color="red"
@@ -139,7 +133,7 @@ const profileMenuItems = [
                    </svg>
                    SignIn
                 </Button>
-                <DialogLogin name_id="my_modal_login_nav"/>
+                <Dialog name_id='my_modal_login_nav' component={() => <LoginForm />}/>
               </>
                 
                   

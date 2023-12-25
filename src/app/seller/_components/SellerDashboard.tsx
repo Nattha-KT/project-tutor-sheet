@@ -23,7 +23,7 @@ import {
 import Image from 'next/image';
 import { Sheet } from '../../../../types/type';
 import { v4 as uuidv4 } from 'uuid';
-import { DialogEditSheet } from '@/components/Dialog';
+import { DialogEditSheet } from '@/components/dialog';
 
 interface SheetsProps extends Sheet {
   id: string;

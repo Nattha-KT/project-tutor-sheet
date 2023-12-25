@@ -1,6 +1,5 @@
 'use client'
 import React,{useRef} from "react";
-import Link from 'next/link';
 import Image from 'next/image';
 import {motion,useScroll,useTransform,MotionValue, delay  } from 'framer-motion'
 
@@ -16,7 +15,7 @@ const content ={
   }
 }
 
-export default function Title({className}:{className:string}) {
+export default function Hero({className}:{className:string}) {
   const ref = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress }: { scrollYProgress: MotionValue<number> } = useScroll({
     target: ref,

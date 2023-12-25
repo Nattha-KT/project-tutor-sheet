@@ -1,11 +1,9 @@
 'use client'
-import Image from 'next/image'
 import { Sheet,Seller } from '../../../../../types/type';
-import { v4 as uuidv4 } from 'uuid';
 import  {useDropdownFilter}  from '@/hooks/useFilter';
 import React, { useEffect, useState } from 'react'
 import SearchBar from '@/components/components_store/SearchBar';
-import AllCard from '@/components/components_store/AllCard';
+import FormCard from '@/components/components_store/FormCard';
 
 interface ExtendedSheet extends Sheet {
     id: string;
@@ -37,7 +35,7 @@ export default function SheetCards ({dataSheets}:SellerDashboardProps) {
   return (
      <>
        <SearchBar clasName=' relative z-[20]' useDropdown={useDropdown} pathSearch={""}/>
-        <AllCard filteredSheets={filteredSheets}></AllCard>
+        <FormCard filteredSheets={filteredSheets}></FormCard>
      </>
   )
 }

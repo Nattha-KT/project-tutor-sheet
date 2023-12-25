@@ -25,7 +25,7 @@ export default async function Seller() {
 
   return (
  
-    <SellerDashboard dataSheets={...results.sheets} />
+    <SellerDashboard dataSheets={results.sheets} />
     
     );
 }
