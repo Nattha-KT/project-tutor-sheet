@@ -20,6 +20,7 @@ const SwiperImage:React.FC<ArrayStringComponentProps>=({images}) =>{
       <h1 className=" p-[1rem] py-0 font-[550] text-stone-800 text-[1.7rem]  text-center">
         Sample Image{" "}
       </h1>
+      <div className="  xl:ml-[-6.2rem]">
       <Swiper
         effect={"coverflow"}
         grabCursor={true}
@@ -53,6 +54,7 @@ const SwiperImage:React.FC<ArrayStringComponentProps>=({images}) =>{
           <div className="swiper-pagination"></div>
         </div>
       </Swiper>
+      </div>
     </div>
   );
 }
