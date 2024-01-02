@@ -14,9 +14,9 @@ import  {TypeDropdownFilter}  from '@/hooks/useFilter';
 
 const typeOption = [
   { value: 'default', label: 'default' },
-  { value: 'midterm', label: 'midterm' },
-  { value: 'final', label: 'final' },
-  { value: 'all term', label: 'all term' },
+  { value: 'Midterm', label: 'midterm' },
+  { value: 'Final', label: 'final' },
+  { value: 'All term', label: 'all term' },
 ];
 
 const semesterOption = [

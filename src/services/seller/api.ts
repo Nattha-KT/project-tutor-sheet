@@ -75,10 +75,35 @@ const UpdateSheet = async (sheet:Sheet,id:string) => {
   return (await res).json();
 };
 
+const  fetchSheetsBySid= async(sid: string) =>{
+  const res = await fetch(`http://localhost:3000/api/sheets/by-sid/${sid}`, {
+    cache: "no-store",
+    next: {
+      tags: ["sheets"],
+    },
+  });
+  const data = await res.json();
+  return data.results;
+}
+
+const fetchSheetBySearch = async(sid: string,take:number,skip:number,searchQuery:string)=>{
+  const res = await fetch(`http://localhost:3000/api/sheets/by-sid/${sid}/${take}/${skip}?search=${searchQuery}`, {
+    cache: "no-store",
+    next: {
+      tags: ["sheets"],
+    },
+  });
+  const data = await res.json();
+  return data.results;
+}
+
+
 
 export {
   UpdateSeller,
   getSellerByID,
   getBanks,
   UpdateSheet,
+  fetchSheetsBySid,
+  fetchSheetBySearch,
 }

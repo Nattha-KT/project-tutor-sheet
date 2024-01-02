@@ -1,6 +1,6 @@
 
-import Hero from "../components/components_home/Hero";
-import GuideTutorSheet from "@/components/components_home/Guide";
+import Hero from "../components/home/Hero";
+import GuideTutorSheet from "@/components/home/Guide";
 
 export default async function Home() {
 

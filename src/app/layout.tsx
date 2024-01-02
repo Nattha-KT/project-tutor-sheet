@@ -1,6 +1,6 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import {ComplexNavbar} from"../components/components_nav/ComplexNavbar";
+import {ComplexNavbar} from"../components/nav/ComplexNavbar";
 import ProviderWrapper from '@/context/ProviderWrapper';
 import { getServerSession } from "next-auth";
 import Head from 'next/head';

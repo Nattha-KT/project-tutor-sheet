@@ -1,26 +1,11 @@
 'use client'
-import { cache, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { ref, uploadBytes, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { storage } from "../../firebaseConfig";
 import { message } from 'antd';
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
-
-type Sheet={
-  course_code:string,
-  name:string,
-  semester:string,
-  type:string,
-  year: string,
-  price:number,
-  num_page: number,
-  class_details:string,
-  content_details:string,
-  cover_page: string,
-  samples_page: string[],
-  file_path:string,
-  sid:string,
-}
+import { Sheet } from "../../types/type";
 
 
 export const useUploadFileAll = (sellerId:string) => {
@@ -29,8 +14,7 @@ export const useUploadFileAll = (sellerId:string) => {
   const [imageList, setImageList] = useState<File[]>([]);
   const [success,setSuccess] = useState<boolean>(false)
   const [initialRender, setInitialRender] = useState(true);
-  // const [urlListImage, setUrlListImage] = useState<string[]>([]);
-  // const [urlImage, setUrlImage] = useState<string>();
+
   const [sheet,setSheet] = useState<Sheet>({
         course_code:"",
         name:"",
@@ -40,6 +24,7 @@ export const useUploadFileAll = (sellerId:string) => {
         price:0,
         num_page: 0,
         class_details:"",
+        suggestion:"",
         content_details:"",
         cover_page: "",
         samples_page: [],

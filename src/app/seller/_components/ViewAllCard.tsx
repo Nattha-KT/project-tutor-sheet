@@ -3,8 +3,8 @@ import { Sheet,Seller } from '../../../../types/type';
 import { v4 as uuidv4 } from 'uuid';
 import  {useDropdownFilter}  from '@/hooks/useFilter';
 import React, { useEffect, useState } from 'react'
-import SearchBar from '@/components/components_store/SearchBar';
-import FormCard from '@/components/components_store/FormCard';
+import SearchBar from '@/components/store/SearchBar';
+import FormCard from '@/components/store/FormCard';
 
 interface ExtendedSheet extends Sheet {
     id: string;

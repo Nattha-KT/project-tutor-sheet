@@ -10,8 +10,7 @@ export default function Dialog({ name_id, component, className }: DialogProps) {
     return (
       <dialog id={`${name_id}`} className="modal">
         <Toaster/>
-        <div className={cn("modal-box p-0 w-auto md:min-w-[740px] m-0",className
-        )}>
+        <div className={cn("modal-box p-0 w-auto md:min-w-[740px] m-0",className)}>
           {component()}
         </div>
         <form method="dialog" className="modal-backdrop">

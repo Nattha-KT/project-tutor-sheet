@@ -7,9 +7,10 @@ import { v4 as uuidv4 } from 'uuid';
 import { usePathname } from 'next/navigation'
 import ButtonCart from './ButtonCart';
 import ButtonEdit from './BuntonEdit';
+import { useRouter } from 'next/navigation';
 
 interface ExtendedSheet extends Sheet {
-    id: string;
+    id?: string;
     seller: Seller;
   }
   interface SellerDashboardProps {
@@ -17,21 +18,30 @@ interface ExtendedSheet extends Sheet {
   }
 
   const handleOnclick =() => {
-    console.log("Favorites clicked");
+    console.log("onclick heart")
   }
 
 
 export default function FormCard({filteredSheets}:SellerDashboardProps) {
   const pathName = usePathname()
+  const router = useRouter()
+
+
+  if(filteredSheets.length == 0){
+    return (
+      <div className='flex justify-center items-center'>
+      <Image width={400} height={400} src={"/emoji-sad.png"} alt='emoji'></Image>
+    </div>
+    );
+  }
   
     
   return (
-    <>
-      <div  key={uuidv4()} className=' h-auto max-w-7xl z-10 mx-auto px-5  justify-center  grid grid-cols-2  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-2 sm:gap-x-5 gap-y-10'>
-            {filteredSheets && filteredSheets.map((sheet)=>(
-            <div key={sheet.id} className="bg-white shadow-lg rounded-xl flex flex-col overflow-hidden max-h-[320px] sm:max-h-[420px] min-w-full  md:w-[280px]  order-first lg:order-none relative
+      <form  key={uuidv4()} className=' h-auto max-w-7xl z-10 mx-auto px-5  justify-center  grid grid-cols-2  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-2 sm:gap-x-5 gap-y-10'>
+        {filteredSheets && filteredSheets.map((sheet)=>(
+          <div key={sheet.id} className="bg-white shadow-lg rounded-xl flex flex-col overflow-hidden max-h-[320px] sm:max-h-[420px] min-w-full  md:w-[280px]  order-first lg:order-none relative
             transition-transform duration-300 hover:scale-[102%] hover:shadow-xl focus:outline-none ">
-              {pathName =="/store" && (
+              {pathName.includes("/store") && (
                 <div className="absolute z-[30] top-0 right-0 m-4">
                 <IconButton
                 size="sm"
@@ -52,7 +62,7 @@ export default function FormCard({filteredSheets}:SellerDashboardProps) {
             </div>
               )}
               <div className='hover:cursor-pointer z-10'>
-                <Image onClick={()=>{console.log("hello")}}  height={1000} width={1000} src={sheet.cover_page} alt="Abstract Design" className="w-full h-[150px] sm:h-60  object-cover "/>
+                <Image onClick={()=> router.push(`/store/${sheet.id}`)}  height={1000} width={1000} src={sheet.cover_page} alt="Abstract Design" className="w-full h-[150px] sm:h-60  object-cover "/>
               </div>
               <div className="py-4 px-4 flex flex-col flex-grow justify-between ">
                   <div>
@@ -73,12 +83,6 @@ export default function FormCard({filteredSheets}:SellerDashboardProps) {
               </div>
           </div>
         ))} 
-      </div>
-
-        {filteredSheets.length == 0 && (
-        <div className='flex justify-center items-center'>
-          <Image width={400} height={400} src={"/emoji-sad.png"} alt='emoji'></Image>
-        </div>)}
-    </>
+      </form>
   )
 }

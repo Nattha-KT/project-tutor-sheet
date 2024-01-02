@@ -11,6 +11,29 @@ const  getFaq = async ()=>{
     return data.faq;
   }
 
+   const  getSheetById = async (id:string)=>{
+    const res = await fetch(`http://localhost:3000/api/sheets/by-id/${id}`, {
+      cache: "no-store",
+      next: {
+        tags: ["sheets"],
+      },
+    });
+    const data = await res.json();
+    return data.sheetsById;
+  }
+
+  const  getSheetBySearch = async(take:number,skip:number,searchQuery:string) =>{
+    const res = await fetch(`http://localhost:3000/api/sheets/store/${take}/${skip}?search=${searchQuery}`, {
+      cache: "no-store",
+      next: {
+        tags: ["sheets"],
+      },
+    });
+    const data = await res.json();
+    return data.results;
+  }
+  
+  
 
 
   const UploadComplaint = async (help:Help,userId:string) => {
@@ -26,4 +49,7 @@ const  getFaq = async ()=>{
 export {
     getFaq,
     UploadComplaint,
+    getSheetById,
+    getSheetBySearch,
 }
+

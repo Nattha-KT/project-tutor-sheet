@@ -73,7 +73,7 @@ const TooltipCustomStyles: React.FC<TooptipProps> =({seller,date,content_details
             <CardBody className="mb-6 p-0">
               <Typography className=" ">
               <p className="font-normal text-base text-gray-700">
-                <span className="font-bold text-stone-800">Date:</span> {new Date(date).toDateString()}<br></br>
+                <span className="font-bold text-stone-800">Date:</span> {date && new Date(date).toDateString()}<br></br>
                 <span className="font-bold text-stone-800">Class Detail:</span> {class_details};<br></br>
                 <span className="font-bold text-stone-800">Content Detail:</span> {content_details}
               </p>

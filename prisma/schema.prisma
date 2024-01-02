@@ -24,6 +24,7 @@ model Sheet {
   class_details   String
   content_details String
   cover_page      String?
+  suggestion      String?
   samples_page    String[]
   file_path       String?
   date            DateTime @default(now())

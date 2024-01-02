@@ -1,7 +1,5 @@
 
 import { Metadata } from "next"
-import Sidebar from '@/components/Sidebar'
-import Footer from "@/components/Footer"
 import ProviderWrapper from "@/context/ProviderWrapper"
 import { getServerSession } from "next-auth";
 

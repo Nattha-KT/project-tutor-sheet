@@ -2,8 +2,8 @@
 import { Sheet,Seller } from '../../../../../types/type';
 import  {useDropdownFilter}  from '@/hooks/useFilter';
 import React, { useEffect, useState } from 'react'
-import SearchBar from '@/components/components_store/SearchBar';
-import FormCard from '@/components/components_store/FormCard';
+import SearchBar from '@/components/store/SearchBar';
+import FormCard from '@/components/store/FormCard';
 
 interface ExtendedSheet extends Sheet {
     id: string;
@@ -11,10 +11,6 @@ interface ExtendedSheet extends Sheet {
   }
   interface SellerDashboardProps {
     dataSheets: ExtendedSheet[];
-  }
-
-  const handleOnclick =() => {
-    console.log("image clicked");
   }
 
 

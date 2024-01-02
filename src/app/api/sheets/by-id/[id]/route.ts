@@ -16,7 +16,20 @@ export const GET = async (req: Request, res: NextApiResponse)=>{
         try{
             const id = req.url.split("/by-id/")[1];
             await main();
-            const sheetsById = await prisma.sheet.findMany({where:{id}});
+            const sheetsById = await prisma.sheet.findFirst(
+                {
+                    where:{id},
+                    include:{
+                        seller:{
+                            select:{
+                                full_name:true,
+                                pen_name:true,
+                                image:true,
+                            }
+                        }
+                    }
+                }
+                );
             if(!sheetsById)
                 return NextResponse.json({message: "Not Found"},{status:500});
             return NextResponse.json({message: "Success",sheetsById},{status:200});
