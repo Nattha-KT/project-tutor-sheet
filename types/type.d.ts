@@ -1,4 +1,5 @@
 export interface Sheet {
+  id?: string;
   course_code: string;
   name: string;
   semester: string;
@@ -15,9 +16,6 @@ export interface Sheet {
   samples_page: string[];
   file_path: string;
   sid: string;
-}
-export interface PropSheet extends Sheet {
-  id: string;
 }
 
 export interface Seller {

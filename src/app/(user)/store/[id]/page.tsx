@@ -1,6 +1,5 @@
 import  AccordionCustomDetails  from "@/components/sheet/AccordionCustomDetails";
 import CardProfile from "@/components/CardProfile";
-import CarouselCompo  from "@/components/Carousel";
 import { getSheetById } from "@/services/user/api";
 import Image from "next/image";
 import ShowMoreSheet from "@/components/sheet/ShowMoreSheet";

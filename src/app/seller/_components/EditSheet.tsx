@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { PropSheet  } from '../../../../types/type'
+import {Sheet as PropSheet }  from '../../../../types/type'
 import toast from 'react-hot-toast';
 import "react-toastify/dist/ReactToastify.css";
 import { Button } from "@material-tailwind/react";
@@ -46,11 +46,14 @@ export default  function EditSheet({sheet}: {sheet:PropSheet}) {
         e.preventDefault();
         if(updateSheet&&sheet){
           toast.loading("Sending request... 🚀👩🏾‍🚀",{id:"1"});
-          const res = await UpdateSheet(updateSheet,sheet.id);
+          const res = await UpdateSheet(updateSheet,sheet.id!);
           if (res && res.message == "Error"){
             toast.error("Error ! 🚀✖️",{id:"1"});
           }else{
             toast.success("Update successfully! 🚀✔️",{id:"1"})
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
           }
           }else toast.error("Error !!  🚀✖️",{id:"1"});
       };
@@ -60,7 +63,7 @@ export default  function EditSheet({sheet}: {sheet:PropSheet}) {
         try {
           toast.loading("Deleting request... 🚀👩🏾‍🚀", { id: "1" });
     
-          const deleteSheetPromise = DeleteSheet(sheet.id);
+          const deleteSheetPromise = DeleteSheet(sheet.id!);
           const deleteFilesPromise = deleteFilesInDirectory(sheet.file_path);
       
           // Wait for both promises to complete

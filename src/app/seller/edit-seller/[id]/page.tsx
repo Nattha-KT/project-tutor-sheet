@@ -1,7 +1,6 @@
 // import EditSeller from "@/components/components_seller/EditSeller";
 import EditSeller from "@/app/seller/_components/EditSeller";
 import { getBanks,getSellerByID } from "@/services/seller/api";
-import axios from "axios";
 import React from "react";
 
 
