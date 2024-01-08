@@ -1,18 +1,15 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model Sheet {
-  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  id              String   @id @default(cuid())
   course_code     String
   name            String
   semester        String
@@ -28,77 +25,67 @@ model Sheet {
   samples_page    String[]
   file_path       String?
   date            DateTime @default(now())
-  sid             String   @db.ObjectId
-  seller          Seller   @relation(fields: [sid], references: [id])
-  owner           Owner[]
+  sid             String
   list            List[]
+  owner           Owner[]
+  seller          Seller   @relation(fields: [sid], references: [id])
 }
 
 model Owner {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
-  userId String @db.ObjectId
-  user   User   @relation(fields: [userId], references: [id])
-
-  sheetId String @db.ObjectId
+  userId  String
+  sheetId String
   sheet   Sheet  @relation(fields: [sheetId], references: [id])
+  user    User   @relation(fields: [userId], references: [id])
+
+  @@id([userId, sheetId])
 }
 
 model User {
-  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  id             String         @id @default(cuid())
   name           String?
   image          String?
-  email          String    @unique
+  email          String         @unique
   emailVerified  DateTime?
   password       String?
   hashedPassword String?
-
-  role Role @default(USER)
-
-  owner     Owner[]
-  favorite  FevoriteList[]
-  accounts  Account[]
-  complaint Complaint[]
-  sessions  Session[]
-
-  sid    String? @db.ObjectId
-  seller Seller? @relation(fields: [sid], references: [id])
-}
-
-enum Role {
-  ADMIN
-  USER
-  SELLER
+  role           Role           @default(USER)
+  sid            String?
+  accounts       Account[]
+  complaint      Complaint[]
+  favorite       FavoriteList[]
+  owner          Owner[]
+  sessions       Session[]
+  seller         Seller?        @relation(fields: [sid], references: [id])
 }
 
 model Account {
-  id                String  @id @default(auto()) @map("_id") @db.ObjectId
-  userId            String  @db.ObjectId
+  id                String  @id @default(cuid())
+  userId            String
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.String
-  access_token      String? @db.String
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.String
+  id_token          String?
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
 
 model Session {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  id           String   @id @default(cuid())
   sessionToken String   @unique
-  userId       String   @db.ObjectId
+  userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Seller {
-  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  id        String  @id @default(cuid())
   pen_name  String
   full_name String
   phone     String
@@ -111,8 +98,8 @@ model Seller {
 }
 
 model Complaint {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-  userId   String @db.ObjectId
+  id       String @id @default(cuid())
+  userId   String
   head     String
   category String
   content  String
@@ -121,42 +108,43 @@ model Complaint {
   user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model FevoriteList {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
+model FavoriteList {
+  id     String @id @default(cuid())
   name   String
-  userId String @db.ObjectId
+  userId String
   user   User   @relation(fields: [userId], references: [id])
   list   List[]
 }
 
 model List {
-  id         String       @id @default(auto()) @map("_id") @db.ObjectId
-  sheetId    String       @db.ObjectId
+  id         String       @id @default(cuid())
+  sheetId    String
+  favoriteId String
+  favorite   FavoriteList @relation(fields: [favoriteId], references: [id])
   sheet      Sheet        @relation(fields: [sheetId], references: [id])
-  favoriteId String       @db.ObjectId
-  favorite   FevoriteList @relation(fields: [favoriteId], references: [id])
 }
 
-// model filePdf{
-//   id    String @id @default(auto()) @map("_id") @db.ObjectId
-//   url   String
-// }
-
 model Post {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(cuid())
   title       String
   description String
   date        DateTime @default(now())
 }
 
 model Faq {
-  id     String   @id @default(auto()) @map("_id") @db.ObjectId
+  id     String   @id @default(cuid())
   title  String
   answer String
   date   DateTime @default(now())
 }
 
 model Bank {
-  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  id   Int    @id @default(autoincrement())
   name String
+}
+
+enum Role {
+  ADMIN
+  USER
+  SELLER
 }

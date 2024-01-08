@@ -16,7 +16,7 @@ export default  function Register_Seller({ banks }: { banks: Banks[] }){
     // const {data:session,update,status} = useSession();
     const {checkbox,setCheckbox}= useCheckBox();
     const {seller,handleInputChange,AddSeller,updateUser} = useRegisterSeller();
-    console.log(checkbox);
+    // console.log(checkbox);
 
 
   const handleSubmit = async (e:any) => {
