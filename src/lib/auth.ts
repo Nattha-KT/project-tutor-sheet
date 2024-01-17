@@ -1,12 +1,10 @@
-import { NextAuthOptions } from "next-auth";
+import { NextAuthOptions, getServerSession } from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import GoogleProvider from "next-auth/providers/google";
 import FacebookProvider from "next-auth/providers/facebook";
-import prisma from '../db/prismaDb'
-
+import prisma from "../db/prismaDb";
 
 export const authOptions: NextAuthOptions = {
-
   adapter: PrismaAdapter(prisma),
   session: {
     strategy: "jwt",
@@ -18,27 +16,29 @@ export const authOptions: NextAuthOptions = {
     }),
     FacebookProvider({
       clientId: process.env.FACEBOOK_CLIENT_ID!,
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET!
-    })
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET!,
+    }),
   ],
   pages: {
-    signIn: '/login',
+    signIn: "/login",
   },
   callbacks: {
-
-    async jwt({ token, user,trigger, session }) {
-
+    async redirect({ url, baseUrl }) {
+      // ถ้า user ล็อกอินสำเร็จและต้องการกลับไปที่ path ปัจจุบัน (ยกเว้น /login) ให้ใช้ path ปัจจุบัน
+      return url.startsWith(baseUrl) && url !== `${baseUrl}/login` ? url : baseUrl;
+    },
+    async jwt({ token, user, trigger, session }) {
       if (trigger === "update") {
-          await prisma.user.update({
+        await prisma.user.update({
           where: { id: session.user.id },
           data: {
-            sid:session.user.sid,
+            sid: session.user.sid,
             role: session.user.role,
           },
         });
         return { ...token, ...session.user };
       }
-      
+
       const dbUser = await prisma.user.findFirst({
         where: {
           email: token.email!,
@@ -52,14 +52,14 @@ export const authOptions: NextAuthOptions = {
 
       return {
         id: dbUser.id,
-        sid: (dbUser.sid) ? dbUser.sid: " ",
+        sid: dbUser.sid ? dbUser.sid : " ",
         name: dbUser.name,
         email: dbUser.email,
         picture: dbUser.image,
         role: dbUser.role,
       };
     },
-    async session({ session,token  }) {
+    async session({ session, token }) {
       if (token) {
         session.user.id = token.id;
         session.user.sid = token.sid;
@@ -71,7 +71,9 @@ export const authOptions: NextAuthOptions = {
 
       return session;
     },
-   
   },
+  
   secret: process.env.NEXTAUTH_SECRET,
 };
+
+export const getAuthSession = () => getServerSession(authOptions);

@@ -4,7 +4,7 @@ import ProviderWrapper from "@/context/ProviderWrapper"
 import { getServerSession } from "next-auth";
 
 export const metadata: Metadata = {
-  title: 'Seller Sheet',
+  title: 'SUT-SHEET',
   description: 'Market for sell sheet summary',
 }
 

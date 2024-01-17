@@ -27,8 +27,8 @@ const  ShowMoreSheet:React.FC<ShowMoreProps>= ({dataSheets})=> {
   return (
       <Accordion open={openAcc1}>
         <AccordionHeader className="flex gap-x-4 justify-start" onClick={handleOpenAcc1}>
-          <ChevronDoubleDownIcon className="w-6 h-6"/>
-          {`Show more sheet by ${dataSheets[0].seller.pen_name}`}
+          <ChevronDoubleDownIcon className={` w-6 h-6 transform ${openAcc1 ? "rotate-180  " : ""}  duration-300 ease-in `}/>
+          {`Show more sheet by ${dataSheets && dataSheets[0].seller.pen_name}`}
         </AccordionHeader>
         <AccordionBody>
           <div className="flex justify-center w-full">

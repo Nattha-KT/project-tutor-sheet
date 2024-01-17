@@ -1,7 +1,7 @@
 "use server"
 
 import DisplayFaq from "./_components/DisplayFaq";
-import { getFaq } from "@/services/user/api";
+import { getFaq } from "@/services/server/user/api";
 
 export default async function ManageFaq() {
 

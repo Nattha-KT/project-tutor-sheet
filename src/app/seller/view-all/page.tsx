@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { authOptions } from '@/lib/auth';
 import { getServerSession } from "next-auth/next"
 import { Pagination } from '@/components/store/Pagination';
-import { fetchSheetBySearch } from '@/services/seller/api';
+import { fetchSheetBySearch } from '@/services/server/seller/api';
 
 
 

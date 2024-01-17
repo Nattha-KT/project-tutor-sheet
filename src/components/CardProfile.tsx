@@ -49,7 +49,7 @@ const  CardProfile: React.FC<TooptipProps> =({seller})=>{
             alt="tania andrew"
           />
           <div className="flex w-full flex-col gap-0 md:gap-0.5">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
               <Typography variant="h5" color="blue-gray" className=" text-lg md:text-2xl">
                 {seller.pen_name}
               </Typography>

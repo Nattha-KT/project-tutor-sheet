@@ -1,6 +1,6 @@
 // import EditSeller from "@/components/components_seller/EditSeller";
 import EditSeller from "@/app/seller/_components/EditSeller";
-import { getBanks,getSellerByID } from "@/services/seller/api";
+import { getBanks,getSellerByID } from "@/services/server/seller/api";
 import React from "react";
 
 

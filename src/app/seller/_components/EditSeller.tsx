@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from 'react-hot-toast';
 import {useSession} from "next-auth/react";
-import { UpdateSeller } from "@/services/seller/api";
+import { UpdateSeller } from "@/services/server/seller/api";
 
 type Banks = {
     id: string

@@ -19,7 +19,7 @@ import {
 import { useSession, signIn, signOut } from "next-auth/react";
 
 import Image from "next/image"
-import LoginForm from "../LoginForm";
+import LoginForm from "../Login/LoginForm";
 import Dialog from "../dialog/Dialog";
 
 

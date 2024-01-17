@@ -1,10 +1,10 @@
 
 import EditSheet from "@/app/seller/_components/EditSheet"
-import { PropSheet } from "../../../types/type"
+import { Sheet } from "../../../types/type"
 import { Toaster } from "react-hot-toast"
 
 
-export default function DialogEditSheet({name_id,sheet}:{name_id:string,sheet:PropSheet}) {
+export default function DialogEditSheet({name_id,sheet}:{name_id:string,sheet:Sheet}) {
 
     return (
       <dialog id={`${name_id}`} className="modal"> 

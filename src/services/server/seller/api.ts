@@ -53,7 +53,6 @@ type Sheet = {
 };
 
 const UpdateSeller = async (seller:Seller) => {
-  console.log(seller.id)
   const res = fetch(`http://localhost:3000/api/seller/${seller.id}`,{
     method: "PUT",
     body: JSON.stringify(seller),

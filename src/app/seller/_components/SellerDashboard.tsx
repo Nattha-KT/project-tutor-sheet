@@ -62,7 +62,7 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) =>  {
   const handleFilter = (approve: string, dataSheets: SheetsProps[]) => {
   
     const filter = dataSheets.filter((sheet) => {
-      if (approve === "all" || sheet.status_approve.toString() === approve) {
+      if (approve === "all" || sheet.status_approve!.toString() === approve) {
         return sheet.name.toLowerCase().includes(searchTerm.toLowerCase());
       }
       return false;
@@ -127,8 +127,9 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) =>  {
             </Typography>
           </div>
           <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-            <Button variant="outlined" size="md">
-             <a href="/seller/view-all"> view all</a>
+            <Button variant="outlined" size="md" onClick={()=>{window.location.href="/seller/view-all"}}>
+
+             view all
             </Button>
             <a className="btn bg-slate-800 hover:bg-slate-700 text-white flex items-center gap-3" href="/seller/new-sheet">
               <ClipboardDocumentIcon strokeWidth={2} className="h-4 w-4" />
@@ -230,7 +231,7 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) =>  {
                         color="blue-gray"
                         className="font-normal"
                       >
-                        {new Date(sheet.date).toDateString()}
+                        {new Date(sheet.date!).toDateString()}
                       </Typography>
                     </td>
                     <td className="p-4">

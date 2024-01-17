@@ -20,3 +20,11 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 export default prisma;
+
+export async function dbConnect() {
+  try {
+    await prisma.$connect();
+  } catch (err) {
+    return Error("Database connection Unsuccessful");
+  }
+}

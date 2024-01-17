@@ -4,7 +4,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import "react-toastify/dist/ReactToastify.css";
 import { Fragment } from "react";
 import { useRef } from "react";
-import { UploadSheet } from '@/services/admin/api';
+import { UploadSheet } from '@/services/server/admin/api';
 
 
 export default function AddFaq() {

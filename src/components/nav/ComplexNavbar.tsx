@@ -5,6 +5,7 @@ import {
   MobileNav,
   Typography,
   IconButton,
+  Collapse,
 } from "@material-tailwind/react";
 import {
     Bars2Icon,
@@ -63,9 +64,9 @@ export function ComplexNavbar( {className}:{className:string}) {
         </IconButton>
         <ProfileMenu />
       </div>
-      <MobileNav open={isNavOpen} className="overflow-scroll">
+      <Collapse   open={isNavOpen} className="overflow-scroll">
         <NavList />
-      </MobileNav>
+      </Collapse>
     </Navbar>
    </div>
   );

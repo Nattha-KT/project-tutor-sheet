@@ -4,9 +4,9 @@ import {Sheet as PropSheet }  from '../../../../types/type'
 import toast from 'react-hot-toast';
 import "react-toastify/dist/ReactToastify.css";
 import { Button } from "@material-tailwind/react";
-import { DialogDeleteSheet } from '@/components/dialog';
+import { DialogDelete } from '@/components/dialog';
 import { useDeleteSheet } from '@/hooks/useDeleteSheet';
-import { UpdateSheet } from '@/services/seller/api';
+import { UpdateSheet } from '@/services/server/seller/api';
   
  type Sheet = {
     course_code:string,
@@ -32,6 +32,8 @@ export default  function EditSheet({sheet}: {sheet:PropSheet}) {
     });
     const [years, setYears] = useState<number[]>([]);
     const {DeleteSheet,deleteFilesInDirectory}= useDeleteSheet();
+  const [deleteSheet,setDeleteSheet] = useState<boolean>(false);
+
 
 
     const  handleInputChange = (e : React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>{
@@ -88,6 +90,15 @@ export default  function EditSheet({sheet}: {sheet:PropSheet}) {
         const yearsArray = Array.from({ length: currentYear - startYear + 1 }, (_, index) => startYear + index);
         setYears(yearsArray);
     },[])
+
+    useEffect(()=>{
+        if(!deleteSheet) return
+        const deleteNow =async()=>{
+            await handleDelete()
+            setDeleteSheet(false);
+        }
+        deleteNow()
+    },[deleteSheet])
 
 
 
@@ -207,7 +218,6 @@ export default  function EditSheet({sheet}: {sheet:PropSheet}) {
                         </div>
                     </div>
                     
-
                     <div className="col-span-full">
                         <label htmlFor="address" className="block text-sm font-semibold leading-6 text-gray-500">
                             Class Details
@@ -254,7 +264,7 @@ export default  function EditSheet({sheet}: {sheet:PropSheet}) {
             <Button color="red" className='text-white hover:text-slate-900'
               onClick={() => (document.getElementById(`${sheet.id}_delete`) as HTMLDialogElement).showModal()}
             >Delete</Button>
-                <DialogDeleteSheet name_id={sheet.id+"_delete"} handleDelete={handleDelete}/>
+                <DialogDelete name_id={sheet.id+"_delete"} title='Sheet' setDeleted={setDeleteSheet}/>
             </div>
         </div>
     </form>

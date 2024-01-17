@@ -5,6 +5,7 @@
 import { signIn } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
 import { useScroll, MotionValue } from "framer-motion";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 
 interface ImageErrorEvent
@@ -16,17 +17,16 @@ const minRange = 1;
 const maxRange = 3;
 // import { UserCard } from "./userCard";
 
-function handleGoogleLogin() {
-  signIn("google", { callbackUrl: "http://localhost:3000" });
+function handleGoogleLogin(path: string) {
+  signIn("google", { callbackUrl: `http://localhost:3000${path}` });
 }
 
-function handleFacebookLogin() {
-  signIn("facebook", { callbackUrl: "http://localhost:3000" });
+function handleFacebookLogin(path: string) {
+  signIn("facebook", { callbackUrl: `http://localhost:3000${path}` });
 }
 
 export default function LoginForm() {
-  // get session from nextAuth
-
+  const pathname = usePathname();
   const [randomImage, setRandomImage] = useState<number>(1);
 
   useEffect(() => {
@@ -61,7 +61,7 @@ export default function LoginForm() {
 
         <div className="flex justify-between w-full py-4"></div>
         <button
-          onClick={() => handleFacebookLogin()}
+          onClick={() => handleFacebookLogin(pathname)}
           className="w-full border border-gray-300 text-md p-2 rounded-lg mb-6 hover:bg-black hover:text-white"
         >
           <Image
@@ -74,7 +74,7 @@ export default function LoginForm() {
           Sign in with Facebook
         </button>
         <button
-          onClick={() => handleGoogleLogin()}
+          onClick={() => handleGoogleLogin(pathname)}
           className="w-full border border-gray-300 text-md p-2 rounded-lg mb-6 hover:bg-black hover:text-white"
         >
           <Image

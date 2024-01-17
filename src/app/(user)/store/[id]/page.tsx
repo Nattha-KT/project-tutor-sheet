@@ -1,23 +1,38 @@
+
 import  AccordionCustomDetails  from "@/components/sheet/AccordionCustomDetails";
 import CardProfile from "@/components/CardProfile";
-import { getSheetById } from "@/services/user/api";
+import { getSheetById } from "@/services/server/user/api";
 import Image from "next/image";
 import ShowMoreSheet from "@/components/sheet/ShowMoreSheet";
-import { fetchSheetBySearch } from "@/services/seller/api";
+import { fetchSheetBySearch } from "@/services/server/seller/api";
 import Swiper from "@/components/Swiper";
+import Comment from "../_components/Comment";
+import { ViewColumnsIcon } from '@heroicons/react/24/outline'
+import { Metadata } from "next";
 
-export default async function InfoSheet({
-  params,
-}: {
-  params: { id: string };
-}) {
+export const metadata: Metadata = {
+  title: 'SUT-SHEET',
+  description: 'Market for sell sheet summary',
+}
+
+const dateFormatter = new Intl.DateTimeFormat(undefined, {
+  dateStyle: "medium",
+  timeStyle: "short",
+})
+
+
+export default async function InfoSheet({params,}: {params: { id: string };}) {
+
   const sheet = await getSheetById(params.id);
-  const sheetShow = await fetchSheetBySearch(sheet.sid,4,0,"")
- 
+ if(!sheet) return (
+  <div className=" bg-red-300 flex justify-center items-center text-3xl font-semibold">something wrong!</div>
+ )
+ const sheetShow = await fetchSheetBySearch(sheet.sid!,4,0,"")
+
 
   return (
-    <div className=" container flex flex-col px-5 sm:px-[70px] gap-y-6 flex-1 mb-4">
-      <div id="point-view" className=" flex flex-col lg:flex-row gap-y-16">
+    <div className=" container flex flex-col px-5 sm:px-[70px] gap-y-6 flex-1 mb-4 min-h-screen">
+      <section id="point-view" className=" flex flex-col lg:flex-row gap-y-16">
         <div
           id="profile-header"
           className="flex flex-[0.7] gap-x-5 flex-col items-center lg:items-start gap-y-6"
@@ -33,7 +48,7 @@ export default async function InfoSheet({
           </div>
           <div
             id="profile"
-            className="w-[80%] bg-stone-50/30 rounded-2xl shadow-lg px-3"
+            className="w-[80%] lg:w-[100%] 2xl:w-[80%] bg-stone-50/30 rounded-2xl shadow-lg px-3"
           >
             <CardProfile {...sheet.seller} {...sheet} />
           </div>
@@ -45,9 +60,7 @@ export default async function InfoSheet({
           <h2 className="text-[1.5rem] md:text-[1.8rem] font-bold text-gray-800 mb-2">{`${sheet.course_code} ${sheet.name}`}</h2>
           <div className="flex gap-x-7">
             <p className=" font-medium text-[1.1rem] md:text-[1.3rem] text-gray-500">{`${sheet.type}:  ${sheet.semester}/${sheet.year}`}</p>
-            <p className=" font-medium text-[1.1rem] md:text-[1.3rem] text-gray-500">{`Date: ${new Date(
-              sheet.date
-            ).toDateString()}`}</p>
+            <p className=" font-medium text-[1.1rem] md:text-[1.3rem] text-gray-500">{`Date: ${dateFormatter.format(Date.parse(sheet.date))}`}</p>
           </div>
           <div className=" font-medium text-[1.1rem]  md:text-[1.3rem] text-gray-500 flex flex-row items-center">
             <svg
@@ -94,20 +107,25 @@ export default async function InfoSheet({
             ]}
           />
         </div>
-      </div>
-      <div
+      </section>
+      <section
         id="carousel"
-        className="sm:bg-stone-200/30 w-auto rounded-xl flex justify-center items-center p-5"
+        className="sm:bg-stone-200/20 w-auto rounded-xl flex flex-col justify-center items-center p-5"
       >
-        {/* <CarouselCompo image={sheet.samples_page}/> */}
-        <Swiper images={sheet.samples_page} />
-      </div>
-      <div className=" bg-slate-50">
-        <ShowMoreSheet dataSheets={sheetShow.sheets} />
-      </div>
-      <div id="comment" className="bg-violet-200">
-        comment
-      </div>
+        <span className="flex items-center gap-x-4 text-xl font-[600] text-slate-800">
+          <ViewColumnsIcon className=" w-6 h-6 "/>
+          Sample Images
+        </span>
+        {/* <Swiper images={sheet.samples_page} /> */}
+      </section>
+      {sheetShow &&(
+        <section className=" bg-slate-50 mb-10">
+          <ShowMoreSheet dataSheets={sheetShow.sheets} />
+        </section>
+      )}
+      <section>
+        <Comment comments={sheet.comment}/>
+      </section>
     </div>
   );
 }

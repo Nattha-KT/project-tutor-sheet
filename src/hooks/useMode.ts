@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 const useMode = () => {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState("");
 
-  const handleChange = (e:any) => {
+  const handleChange = (e: any) => {
     setValue(e.target.value);
   };
 

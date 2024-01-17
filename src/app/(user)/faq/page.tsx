@@ -1,6 +1,6 @@
 "use server"
 import Faq from "@/app/(user)/faq/_components/Faq";
-import { getFaq } from "@/services/user/api";
+import { getFaq } from "@/services/server/user/api";
 
 export default async function FaqPage() {
 

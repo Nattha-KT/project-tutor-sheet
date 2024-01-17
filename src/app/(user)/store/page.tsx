@@ -4,7 +4,7 @@ import SheetCards from './_components/SheetCards';
 
 import { v4 as uuidv4 } from 'uuid';
 import { Pagination } from '@/components/store/Pagination';
-import { getSheetBySearch } from '@/services/user/api';
+import { getSheetBySearch } from '@/services/server/user/api';
 
 
 export type PageProps = {

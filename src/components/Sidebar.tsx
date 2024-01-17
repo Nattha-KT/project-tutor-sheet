@@ -32,7 +32,7 @@ function SideNavbar( {className}:{className:string}) {
     
     <>
     {session?.user.role == "SELLER" ||session?.user.role == "ADMIN" ? (
-        <Disclosure as="nav" className={`${className}`}>
+      <Disclosure as="nav" className={`${className}`}>
         <Disclosure.Button className=" fixed right-[15px] z-[1] inline-flex items-center peer justify-center rounded-md p-2 text-gray-800 hover:bg-gray-900
          hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white group"
          onClick={()=>HandleShowSide()}

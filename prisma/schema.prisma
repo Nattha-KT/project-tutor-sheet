@@ -9,7 +9,7 @@ datasource db {
 }
 
 model Sheet {
-  id              String   @id @default(cuid())
+  id              String    @id @default(cuid())
   course_code     String
   name            String
   semester        String
@@ -17,25 +17,26 @@ model Sheet {
   year            String
   price           Int
   num_page        Int
-  status_approve  Boolean  @default(false)
+  status_approve  Boolean   @default(false)
   class_details   String
   content_details String
   cover_page      String?
   suggestion      String?
   samples_page    String[]
   file_path       String?
-  date            DateTime @default(now())
+  date            DateTime  @default(now())
   sid             String
   list            List[]
   owner           Owner[]
-  seller          Seller   @relation(fields: [sid], references: [id])
+  comment         Comment[]
+  seller          Seller    @relation(fields: [sid], references: [id], onDelete: Cascade)
 }
 
 model Owner {
   userId  String
   sheetId String
-  sheet   Sheet  @relation(fields: [sheetId], references: [id])
-  user    User   @relation(fields: [userId], references: [id])
+  sheet   Sheet  @relation(fields: [sheetId], references: [id],onDelete: Cascade)
+  user    User   @relation(fields: [userId], references: [id],onDelete: Cascade)
 
   @@id([userId, sheetId])
 }
@@ -53,9 +54,11 @@ model User {
   accounts       Account[]
   complaint      Complaint[]
   favorite       FavoriteList[]
+  comment        Comment[]
+  like           Like[]
   owner          Owner[]
   sessions       Session[]
-  seller         Seller?        @relation(fields: [sid], references: [id])
+  seller         Seller?        @relation(fields: [sid], references: [id],onDelete: Cascade)
 }
 
 model Account {
@@ -97,6 +100,30 @@ model Seller {
   user      User[]
 }
 
+model Comment {
+  id        String    @id @default(cuid())
+  message   String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  sheet     Sheet     @relation(fields: [sheetId], references: [id], onDelete: Cascade)
+  sheetId   String
+  parent    Comment?  @relation("ParentChild", fields: [parentId], references: [id], onDelete: Cascade)
+  children  Comment[] @relation("ParentChild")
+  parentId  String?
+  likes     Like[]
+}
+
+model Like {
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  userId    String
+  commentId String
+
+  @@id([userId, commentId])
+}
+
 model Complaint {
   id       String @id @default(cuid())
   userId   String
@@ -112,7 +139,7 @@ model FavoriteList {
   id     String @id @default(cuid())
   name   String
   userId String
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id],onDelete: Cascade)
   list   List[]
 }
 
@@ -120,8 +147,8 @@ model List {
   id         String       @id @default(cuid())
   sheetId    String
   favoriteId String
-  favorite   FavoriteList @relation(fields: [favoriteId], references: [id])
-  sheet      Sheet        @relation(fields: [sheetId], references: [id])
+  favorite   FavoriteList @relation(fields: [favoriteId], references: [id],onDelete: Cascade)
+  sheet      Sheet        @relation(fields: [sheetId], references: [id],onDelete: Cascade)
 }
 
 model Post {

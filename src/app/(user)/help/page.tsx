@@ -6,7 +6,7 @@ import useHelp from '@/hooks/useHelp';
 import {useRouter} from 'next/navigation'
 import { useSession } from "next-auth/react"
 import { useMemo } from 'react';
-import { UploadComplaint } from '@/services/user/api';
+import { UploadComplaint } from '@/services/server/user/api';
 
 
 export default function HelpComponent() {
@@ -21,7 +21,6 @@ export default function HelpComponent() {
       if(help){
         toast.loading("Sending request... 🚀👩🏾‍🚀",{id:"1"});
         const response = await UploadComplaint(help,userId);
-        console.log(response)
         if (response.message == "Error"  ){
           toast.error("Error ! 🚀✖️",{id:"1"});
         }else{

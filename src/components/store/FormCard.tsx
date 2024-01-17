@@ -75,7 +75,7 @@ export default function FormCard({filteredSheets}:SellerDashboardProps) {
                     <div className="">{`${sheet.type} ${sheet.semester}/${sheet.year}`}</div>
                     </div>
                   </div>
-                {pathName ==="/store" ?
+                {pathName.includes("/store") ?
                   <ButtonCart price={sheet.price}/>
                   :
                   <ButtonEdit price={sheet.price}/>

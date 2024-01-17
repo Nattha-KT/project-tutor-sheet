@@ -4,7 +4,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import "react-toastify/dist/ReactToastify.css";
 import { Fragment, useEffect } from "react";
 import { useRef } from "react";
-import { UpdateFaq,getFaqById,DeleteFaq } from "@/services/admin/api";
+import { UpdateFaq,getFaqById,DeleteFaq } from "@/services/server/admin/api";
 
 
 
