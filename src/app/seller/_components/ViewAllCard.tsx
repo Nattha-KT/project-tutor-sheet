@@ -1,25 +1,22 @@
 'use client'
 import { Sheet,Seller } from '../../../../types/type';
-import { v4 as uuidv4 } from 'uuid';
 import  {useDropdownFilter}  from '@/hooks/useFilter';
 import React, { useEffect, useState } from 'react'
 import SearchBar from '@/components/store/SearchBar';
-import FormCard from '@/components/store/FormCard';
+import SheetCard from '@/components/store/SheetCard';
+import Image from 'next/image'
+
 
 interface ExtendedSheet extends Sheet {
     id: string;
     seller: Seller;
   }
-  interface SellerDashboardProps {
+  interface SheetsProps {
     dataSheets: ExtendedSheet[];
   }
 
-  const handleOnclick =() => {
-    console.log("image clicked");
-  }
 
-
-export default function ViewAllCard ({dataSheets}:SellerDashboardProps) {
+export default function ViewAllCard ({dataSheets}:SheetsProps) {
 
   const [filteredSheets, setFilteredSheets] = useState<ExtendedSheet[]>([]); 
 
@@ -36,7 +33,17 @@ export default function ViewAllCard ({dataSheets}:SellerDashboardProps) {
   return (
      <>
        <SearchBar clasName=' relative z-[20]' useDropdown={useDropdown} pathSearch='view-all'/>
-        <FormCard filteredSheets={filteredSheets}></FormCard>
+       {filteredSheets.length!==0 ? 
+        <section className=' h-auto max-w-7xl z-10 mx-auto px-5  justify-center  grid grid-cols-2  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-2 sm:gap-x-5 gap-y-10'>
+          { filteredSheets.map((sheet)=>(
+            <SheetCard key={sheet.id} filteredSheets={sheet}></SheetCard>
+          ))} 
+        </section>
+       :
+        <div className=' min-w-full flex justify-center items-center'>
+          <Image width={400} height={400} src={"/emoji-sad.png"} alt='emoji'/>
+        </div>
+       }
      </>
   )
 }

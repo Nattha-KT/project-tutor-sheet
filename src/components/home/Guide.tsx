@@ -10,11 +10,11 @@ import { useSession } from "next-auth/react";
 import content from "@/constant/home";
 import StoreButton from "../store/StoreButton";
 
-export default function GuideTutorSheet({ className }: { className: string}) {
+export default function GuideTutorSheet() {
   const { data: session } = useSession();
   return (
     <>
-      <section aria-label="RecomendedSection" className={`${className}`}>
+      <section aria-label="RecomendedSection" className={`pb-0 lg:pb-5`}>
         <div className=" container mx-auto w-11/12">
           <div className="2xl:flex justify-center mb-20 lg:mb-36 ">
             <div className=" lg:px-0 w-full 2xl:w-9/12 lg:flex-col gap-0 items-center">

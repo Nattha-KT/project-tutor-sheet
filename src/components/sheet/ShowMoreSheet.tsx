@@ -6,7 +6,7 @@ import {
   AccordionBody,
 } from "@material-tailwind/react";
 import { ChevronDoubleDownIcon } from '@heroicons/react/24/outline'
-import FormCard from "../store/FormCard";
+import SheetCard from "../store/SheetCard";
 import { Seller, Sheet } from "../../../types/type";
  
 interface DataSheet extends Sheet {
@@ -30,9 +30,11 @@ const  ShowMoreSheet:React.FC<ShowMoreProps>= ({dataSheets})=> {
           <ChevronDoubleDownIcon className={` w-6 h-6 transform ${openAcc1 ? "rotate-180  " : ""}  duration-300 ease-in `}/>
           {`Show more sheet by ${dataSheets && dataSheets[0].seller.pen_name}`}
         </AccordionHeader>
-        <AccordionBody>
-          <div className="flex justify-center w-full">
-            <FormCard filteredSheets={dataSheets}   />
+        <AccordionBody className={" overflow-x-auto"}>
+          <div className="h-auto  max-w-7xl z-10 mx-auto px-5  justify-center  grid grid-cols-2  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-2 sm:gap-x-5 gap-y-10">
+            {dataSheets && dataSheets.map((sheet) =>(
+              <SheetCard key={sheet.id} filteredSheets={sheet}   />
+            ))}
           </div>
         </AccordionBody>
       </Accordion>

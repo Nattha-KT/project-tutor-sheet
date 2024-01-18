@@ -1,6 +1,6 @@
 "use server"
 import React from 'react'
-import SheetCards from './_components/SheetCards';
+import StoreSheets from './_components/StoreSheets';
 
 import { v4 as uuidv4 } from 'uuid';
 import { Pagination } from '@/components/store/Pagination';
@@ -28,7 +28,7 @@ export default async function  Store(props:PageProps){
 
   return (
     <div key={uuidv4()} className=' container h-auto pb-10  min-w-fit min-h-[50vh] '>
-        {results && <SheetCards dataSheets={results.sheets}/>}
+        {results && <StoreSheets dataSheets={results.sheets}/>}
       <div className=' flex justify-center mt-16'>
         {results &&<Pagination  {...results.metaData} {...props.searchParams}/>}
       </div>

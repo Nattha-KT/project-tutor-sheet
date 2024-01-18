@@ -31,10 +31,10 @@ export default async function  ViewAllPage(props:PageProps){
     <div key={uuidv4()} className=' container h-auto pb-10 min-w-fit min-h-[50vh] '>
         {results && <ViewAllCard dataSheets={results.sheets}/>}
         <div className=' flex justify-center mt-16'>
-        {results && results.metaData && (
-          <Pagination {...results.metaData} {...props.searchParams} />
-        )}
-      </div>
+          {results && results.metaData && (
+            <Pagination {...results.metaData} {...props.searchParams} />
+          )}
+        </div>
     </div>
   )
 }

@@ -3,18 +3,19 @@ import { Sheet,Seller } from '../../../../../types/type';
 import  {useDropdownFilter}  from '@/hooks/useFilter';
 import React, { useEffect, useState } from 'react'
 import SearchBar from '@/components/store/SearchBar';
-import FormCard from '@/components/store/FormCard';
+import SheetCard from '@/components/store/SheetCard';
+import Image from 'next/image'
 
 interface ExtendedSheet extends Sheet {
     id: string;
     seller: Seller;
   }
-  interface SellerDashboardProps {
+  interface SheetsProps {
     dataSheets: ExtendedSheet[];
   }
 
 
-export default function SheetCards ({dataSheets}:SellerDashboardProps) {
+export default function StoreSheets ({dataSheets}:SheetsProps) {
 
   const [filteredSheets, setFilteredSheets] = useState<ExtendedSheet[]>([]); 
 
@@ -28,10 +29,21 @@ export default function SheetCards ({dataSheets}:SellerDashboardProps) {
   }, [year, price, semester, type, dataSheets]);
 
 
+
   return (
      <>
        <SearchBar clasName=' relative z-[20]' useDropdown={useDropdown} pathSearch={""}/>
-        <FormCard filteredSheets={filteredSheets}></FormCard>
+       {filteredSheets.length!==0 ? 
+        <section className=' h-auto max-w-7xl z-10 mx-auto px-5  justify-center  grid grid-cols-2  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-2 sm:gap-x-5 gap-y-10'>
+          { filteredSheets.map((sheet)=>(
+            <SheetCard key={sheet.id} filteredSheets={sheet}></SheetCard>
+          ))} 
+        </section>
+       :
+        <div className=' min-w-full flex justify-center items-center'>
+          <Image width={400} height={400} src={"/emoji-sad.png"} alt='emoji'/>
+        </div>
+       }
      </>
   )
 }

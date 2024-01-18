@@ -1,4 +1,4 @@
-// services/api.ts
+'use server'
 import axios from 'axios';
 
 type Seller={

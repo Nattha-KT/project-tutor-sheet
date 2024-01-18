@@ -11,6 +11,7 @@ import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
 import DropdownFilter from './DropdownFilter';
 import { useRouter } from 'next/navigation';
 import  {TypeDropdownFilter}  from '@/hooks/useFilter';
+import { v4 as uuidv4 } from 'uuid';
 
 const typeOption = [
   { value: 'default', label: 'default' },
@@ -78,10 +79,10 @@ export default function SearchBar({clasName,useDropdown,pathSearch}:{clasName: s
           </svg>
           </a>
         <div className="ml-auto gap-1 md:mr-4 gap-x-2 flex-1 grid grid-cols-2 sm:md:grid-cols-4 md:grid-cols-4 lg:grid-cols-7">
-            <DropdownFilter options={typeOption} onSelect={setType} name ={type == "default"? "Type": type}/>
-            <DropdownFilter options={yearsOption} onSelect={setYear} name ={year == "default"? "Years": year}/>
-            <DropdownFilter options={priceOption} onSelect={setPrice} name ={price  == "default"? "Price": price}/>
-            <DropdownFilter options={semesterOption} onSelect={setSemester} name ={semester  == "default"? "Semester": semester}/>
+            <DropdownFilter key={uuidv4()} options={typeOption} onSelect={setType} name ={type == "default"? "Type": type}/>
+            <DropdownFilter  key={uuidv4()}  options={yearsOption} onSelect={setYear} name ={year == "default"? "Years": year}/>
+            <DropdownFilter  key={uuidv4()} options={priceOption} onSelect={setPrice} name ={price  == "default"? "Price": price}/>
+            <DropdownFilter  key={uuidv4()} options={semesterOption} onSelect={setSemester} name ={semester  == "default"? "Semester": semester}/>
        
         </div>
         <div className="relative flex w-full gap-2 md:w-max">

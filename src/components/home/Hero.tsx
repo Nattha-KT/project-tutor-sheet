@@ -15,7 +15,7 @@ const content ={
   }
 }
 
-export default function Hero({className}:{className:string}) {
+export default function Hero() {
   const ref = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress }: { scrollYProgress: MotionValue<number> } = useScroll({
     target: ref,
@@ -25,7 +25,7 @@ export default function Hero({className}:{className:string}) {
   const imageScroll2 = useTransform(scrollYProgress, [0, 1], ['100%', '-50%']);
 
   return (
-    <section id="Title" className={`${className}`} ref={ref}>
+    <section id="Title" className={`pb-0 lg:pb-10`} ref={ref}>
     
         <div className="2xl:flex justify-center w-11/12 mx-auto h-[450px] 2xl:min-h-[800px] pt-2">
           <div className="lg:w-4/12 z-[3] relative">

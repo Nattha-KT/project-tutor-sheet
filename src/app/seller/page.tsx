@@ -1,19 +1,19 @@
-
+"use server"
 
 import SellerDashboard from '@/app/seller/_components/SellerDashboard'
 
 import { authOptions } from '@/lib/auth';
 import { fetchSheetsBySid } from '@/services/server/seller/api';
 import { getServerSession } from "next-auth/next"
-
-
-
+import { redirect } from 'next/navigation';
 
 export default async function Seller() {
 
   const session = await getServerSession(authOptions);
+  
+  if(!session) {redirect("/");}
+  
   const results = await fetchSheetsBySid(session?.user.sid || '');
-
 
   return (
  
