@@ -8,7 +8,9 @@ export default async function ManageFaq() {
 const data = await getFaq();
 
   return (
-   <DisplayFaq data={data} />
+   <div className=" container min-w-full">
+    <DisplayFaq data={data} />
+   </div>
   )
 }
 

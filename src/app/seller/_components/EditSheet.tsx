@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Button } from "@material-tailwind/react";
 import { DialogDelete } from '@/components/dialog';
 import { useDeleteSheet } from '@/hooks/useDeleteSheet';
-import { UpdateSheet } from '@/services/server/seller/api';
+import { DeleteSheet, UpdateSheet } from '@/services/client/seller/api';
   
  type Sheet = {
     course_code:string,
@@ -31,7 +31,7 @@ export default  function EditSheet({sheet}: {sheet:PropSheet}) {
         content_details:sheet.content_details,
     });
     const [years, setYears] = useState<number[]>([]);
-    const {DeleteSheet,deleteFilesInDirectory}= useDeleteSheet();
+    const {deleteFilesInDirectory}= useDeleteSheet();
   const [deleteSheet,setDeleteSheet] = useState<boolean>(false);
 
 

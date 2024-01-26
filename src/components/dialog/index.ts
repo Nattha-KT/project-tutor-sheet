@@ -1,7 +1,8 @@
 import Dialog from "./Dialog";
-import  DialogEditSheet  from "./EditSheet";
+import  DialogEditSheet  from "./DialogEditSheet";
 import  DialogDelete from "./ConfirmDelete";
-import { DialogFaqEdit } from "./FaqEdit";
+import { DialogFaqEdit } from "./DialogEditFaq";
+import DialogEditSeller from "./DialogEditSeller";
 
 
 export {
@@ -9,4 +10,5 @@ export {
     DialogDelete,
     DialogEditSheet,
     DialogFaqEdit,
+    DialogEditSeller,
 }

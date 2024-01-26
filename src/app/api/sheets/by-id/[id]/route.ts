@@ -141,12 +141,12 @@ export const DELETE = async (req: Request, res: NextApiResponse) => {
   try {
     const id = req.url.split("/by-id/")[1];
     await main();
-    const faq = await prisma.sheet.delete({ where: { id } });
+    const sheet = await prisma.sheet.delete({ where: { id } });
 
-    return NextResponse.json({ message: "Success", faq }, { status: 200 });
+    return NextResponse.json({ message: "Success", sheet }, { status: 200 });
   } catch (err) {
     return NextResponse.json(
-      { message: "Error creating", err },
+      { message: "Error Delete Sheet", err },
       { status: 500 }
     );
   } finally {

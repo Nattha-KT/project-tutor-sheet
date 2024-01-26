@@ -4,7 +4,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import "react-toastify/dist/ReactToastify.css";
 import { Fragment, useEffect } from "react";
 import { useRef } from "react";
-import { UpdateFaq,getFaqById,DeleteFaq } from "@/services/server/admin/api";
+import { UpdateFaq,getFaqById,DeleteFaq } from "@/services/client/admin/api";
 
 
 
@@ -50,17 +50,16 @@ export default function EditFaq ({id}:{id:string}) {//{params}:{params:{id:strin
     <Fragment>
       <div className="w-full m-auto flex my-8 ">
         <div className="flex flex-col justify-center items-center m-auto">
-          <p className="text-2xl text-slate-800 bg-white rounded-lg font-bold p-3">Edit FAQ🤖</p>
           <form onSubmit={handleUpdate} className=" w-auto md:w-[720px]"> 
             <input ref={titleRef} placeholder="Enter Title" type="text" className="rounded-md px-4 py-2 my-2 w-full shadow-md"/>
             <textarea ref={answerRef} placeholder="Enter Description" className="rounded-md px-4 py-2 w-full my-2 shadow-md" style={{ minHeight: '15rem' }}></textarea>
             <div className="flex-start">
-            <button  className="font-semibold px-4 py-1 shadow-xl bg-slate-200 rounded-lg m-auto hover:bg-blue-100 mr-10 mt-2"> 
-              Update
-            </button>
-            <button  onClick={handleDelete} className="font-semibold px-4 py-1 shadow-xl bg-slate-200 rounded-lg m-auto hover:bg-red-100"> 
-              Delete
-            </button>
+              <button  className="font-semibold px-4 py-1 shadow-xl bg-slate-200 rounded-lg m-auto hover:bg-blue-100 mr-10 mt-2"> 
+                Update
+              </button>
+              <button  onClick={handleDelete} className="font-semibold px-4 py-1 shadow-xl bg-slate-200 rounded-lg m-auto hover:bg-red-100"> 
+                Delete
+              </button>
             </div>
           </form>
         </div>

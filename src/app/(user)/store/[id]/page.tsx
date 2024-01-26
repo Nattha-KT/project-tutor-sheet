@@ -90,7 +90,7 @@ export default async function InfoSheet({params,}: {params: { id: string };}) {
           <ViewColumnsIcon className=" w-6 h-6 "/>
           Sample Images
         </span>
-        {/* <Swiper images={sheet.samples_page} /> */}
+        <Swiper images={sheet.samples_page} />
       </section>
       {sheetShow &&(
         <section className=" bg-slate-50 mb-10">

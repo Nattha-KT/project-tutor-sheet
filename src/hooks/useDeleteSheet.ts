@@ -8,15 +8,6 @@ import {
 } from "firebase/storage";
 import { storage } from "../../firebaseConfig";
 
-const DeleteSheet = async (id: string) => {
-  const res = fetch(`http://localhost:3000/api/sheets/by-id/${id}`, {
-    method: "DELETE",
-    // @ts-ignore
-    "Content-Type": "application/json",
-  });
-
-  return (await res).json();
-};
 
 const deleteFilesInDirectory = async (path: string): Promise<void> => {
   //Example_path/Seller/sid/uuid/cover-page/money.png
@@ -47,7 +38,6 @@ const deleteFilesInDirectory = async (path: string): Promise<void> => {
 
 export const useDeleteSheet = () => {
   return {
-    DeleteSheet,
     deleteFilesInDirectory,
   };
 };

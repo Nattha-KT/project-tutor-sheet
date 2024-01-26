@@ -7,7 +7,7 @@ import {
   useState,
 } from "react";
 import { CommentType } from "../../types/type";
-import { deleteComment } from "@/services/server/user/api";
+import { deleteComment } from "@/services/client/user/api";
 import toast from "react-hot-toast";
 
 type CommentProps = {

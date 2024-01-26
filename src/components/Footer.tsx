@@ -15,7 +15,7 @@ const LINKS = [
   },
   {
     title: "Resource",
-    items:  [{name:"Help",href:"/helper"},
+    items:  [{name:"Help",href:"/help"},
             {name:"FAQ",href:"/faq"},
             {name:"About Us",href:"/about-us"},],
   },

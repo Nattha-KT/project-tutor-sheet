@@ -8,6 +8,7 @@ import {
     Typography,
     Avatar,
   } from "@material-tailwind/react";
+import { getSession, useSession } from "next-auth/react";
 
   function StarIcon() {
     return (

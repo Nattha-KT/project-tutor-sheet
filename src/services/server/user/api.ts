@@ -6,16 +6,7 @@ import { authOptions } from "@/lib/auth";
 
 ////// NOTE: If you want to call handle function on the client component, You should create function handler in client side
 
-const getFaq = async () => {
-  const res = await fetch("http://localhost:3000/api/faq", {
-    cache: "no-store", // bypass its cache when making the HTTP request to the specified URL.
-    next: {
-      tags: ["faq"],
-    },
-  });
-  const data = await res.json();
-  return data.faq;
-};
+
 
 const getSheetById = async (id: string) => {
   const res = await fetch(`http://localhost:3000/api/sheets/by-id/${id}`, {
@@ -47,58 +38,21 @@ const getSheetBySearch = async (
   return data.results;
 };
 
-const UploadComplaint = async (help: Help, userId: string) => {
-  const res = fetch("http://localhost:3000/api/help", {
-    method: "POST",
-    body: JSON.stringify({ help, userId }),
-    // @ts-ignore
-    "Content-Type": "application/json",
+const getFaq = async () => {
+  const res = await fetch("http://localhost:3000/api/faq", {
+    cache: "no-store", 
+    next: {
+      tags: ["faq"],
+    },
   });
-  return (await res).json();
-};
-
-const PostComment = async (
-  message: string,
-  userId: string,
-  sheetId: string,
-  parentId?: string
-) => {
-  const res = fetch("http://localhost:3000/api/comments", {
-    method: "POST",
-    body: JSON.stringify({ message, userId, sheetId, parentId }),
-    // @ts-ignore
-    "Content-Type": "application/json",
-  });
-  return (await res).json();
-};
-
-const deleteComment = async (id: string) => {
-  const res = fetch(`http://localhost:3000/api/comments/${id}`, {
-    method: "DELETE",
-    // @ts-ignore
-    "Content-Type": "application/json",
-  });
-  return (await res).json();
-};
-
-const updateComment = async (id: string, message: string) => {
-  const res = fetch(`http://localhost:3000/api/comments/${id}`, {
-    method: "PUT",
-    body: JSON.stringify({ id, message }),
-    // @ts-ignore
-    "Content-Type": "application/json",
-  });
-  return (await res).json();
+  const data = await res.json();
+  return data.faq;
 };
 
 
 
 export {
-  getFaq,
-  UploadComplaint,
   getSheetById,
   getSheetBySearch,
-  PostComment,
-  deleteComment,
-  updateComment,
+  getFaq
 };

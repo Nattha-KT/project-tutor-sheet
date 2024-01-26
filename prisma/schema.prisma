@@ -50,7 +50,7 @@ model User {
   password       String?
   hashedPassword String?
   role           Role           @default(USER)
-  sid            String?
+  sid            String?        @unique
   accounts       Account[]
   complaint      Complaint[]
   favorite       FavoriteList[]
@@ -58,7 +58,7 @@ model User {
   like           Like[]
   owner          Owner[]
   sessions       Session[]
-  seller         Seller?        @relation(fields: [sid], references: [id],onDelete: Cascade)
+  seller         Seller?        @relation(fields: [sid], references: [id])
 }
 
 model Account {
@@ -131,7 +131,7 @@ model Complaint {
   category String
   content  String
   role     String
-  level    Int
+  level    String
   user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 

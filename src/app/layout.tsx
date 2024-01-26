@@ -2,12 +2,12 @@ import './globals.css'
 import type { Metadata } from 'next'
 import {ComplexNavbar} from"../components/nav/ComplexNavbar";
 import ProviderWrapper from '@/context/ProviderWrapper';
-import { getServerSession } from "next-auth";
 import Head from 'next/head';
 import ToasterContext from '@/context/ToasterContext';
 
 import { Inter,Lato,Source_Sans_3   } from 'next/font/google'
 import Footer from '@/components/Footer';
+import { getAuthSession } from '@/lib/auth';
 
 
 // const inter = Inter({ subsets: ["latin"] });
@@ -22,17 +22,19 @@ export const metadata: Metadata = {
 }
 
 export default async function RootLayout({children,}: {children: React.ReactNode}) {
-  const session = await getServerSession();
+  const session = await getAuthSession();
   return (
     <html lang="en">
-      <Head>
+      <head>
         {/* เพิ่ม link เพื่อกำหนด favicon */}
-        <link rel="icon" href="favicon.ico" />
-      </Head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+      </head>
       <body className={`${lato.className}`}>
         <ProviderWrapper session={session}>
-          <ComplexNavbar className='flex justify-center'/>
-          <main className=" mx-auto min-h-screen min-w-full pt-20 z-10">{children}</main>
+          <div className=' mb-20'>
+            <ComplexNavbar className='flex justify-center'/>
+          </div>
+          <main className=" mx-auto min-h-screen min-w-full z-10">{children}</main>
         </ProviderWrapper>
         <ToasterContext/>
         <Footer/>

@@ -4,8 +4,8 @@ import {
   PaperAirplaneIcon,
   ChatBubbleOvalLeftEllipsisIcon,
 } from "@heroicons/react/24/outline";
-import {  useEffect, useMemo, useState } from "react";
-import { PostComment, updateComment } from "@/services/server/user/api";
+import {  useMemo, useState } from "react";
+import { PostComment, updateComment } from "@/services/client/user/api";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import toast from "react-hot-toast";

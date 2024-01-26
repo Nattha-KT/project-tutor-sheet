@@ -1,19 +1,16 @@
-// import EditSeller from "@/components/components_seller/EditSeller";
+'use server'
 import EditSeller from "@/app/seller/_components/EditSeller";
-import { getBanks,getSellerByID } from "@/services/server/seller/api";
+import { getAuthSession } from "@/lib/auth";
+import { getBanks, getSellerByID } from "@/services/server/seller/api";
 import React from "react";
 
-
-
-export default async function Edit( {params}:{params:{id:string}}){
-
-    const banks = await getBanks();
-    const data = await getSellerByID(params.id);
+export default async function Edit({ params }: { params: { id: string } }) {
+  const banks = await getBanks();
+  const res = await getSellerByID(params.id);
 
   return (
-          <div>
-            <EditSeller banks={banks} data_seller={data.seller} />
-          </div>
-  )
+    <div className="flex justify-center items-center z-10 mb-6">
+      <EditSeller banks={banks} data_seller={res.seller} />
+    </div>
+  );
 }
-

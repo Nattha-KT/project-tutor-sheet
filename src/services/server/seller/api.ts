@@ -1,28 +1,6 @@
 'use server'
 import axios from 'axios';
 
-type Seller={
-  id:string
-  pen_name: string,
-  full_name: string,
-  phone:string,
-  bank_name: string,
-  bank_id: string
-  address:string,
-}
-
-type Sheet = {
-  course_code:string,
-  name:string,
-  semester:string,
-  type:string,
-  year: string,
-  class_details:string,
-  content_details:string,
-}
-
-
-
  const getBanks = async () => {
   try {
     const response = await axios.get("http://localhost:3000/api/banks");
@@ -41,7 +19,7 @@ type Sheet = {
     const res = await fetch(`http://localhost:3000/api/seller/${id}`, {
       cache: "no-store",
       next: {
-        tags: ["blog"],
+        tags: ["seller"],
       },
     });
     const data = await res.json();
@@ -52,27 +30,8 @@ type Sheet = {
   }
 };
 
-const UpdateSeller = async (seller:Seller) => {
-  const res = fetch(`http://localhost:3000/api/seller/${seller.id}`,{
-    method: "PUT",
-    body: JSON.stringify(seller),
-    // @ts-ignore
-    "Content-Type":"application/json",
-  });
-  return (await res).json();
-};
 
-const UpdateSheet = async (sheet:Sheet,id:string) => {
-  const res = fetch(`http://localhost:3000/api/sheets/by-id/${id}`,{
-    method: "PUT",
-    body: JSON.stringify(sheet),
-    // @ts-ignore
-    "Content-Type":"application/json",
-  });
-  // console.log(res);
-  
-  return (await res).json();
-};
+
 
 const  fetchSheetsBySid= async(sid: string) =>{
   const res = await fetch(`http://localhost:3000/api/sheets/by-sid/${sid}`, {
@@ -99,10 +58,8 @@ const fetchSheetBySearch = async(sid: string,take:number,skip:number,searchQuery
 
 
 export {
-  UpdateSeller,
   getSellerByID,
   getBanks,
-  UpdateSheet,
   fetchSheetsBySid,
   fetchSheetBySearch,
 }

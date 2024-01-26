@@ -1,9 +1,10 @@
 'use client'
-import Link from 'next/link';
 import React from 'react'
 import AddFaq from './AddFaq'
 import { Dialog } from '@/components/dialog';
 import {DialogFaqEdit} from '@/components/dialog';
+import { PencilSquareIcon,PlusCircleIcon } from '@heroicons/react/24/outline';
+import { QuestionMarkCircleIcon} from '@heroicons/react/24/solid';
 type Faq = {
     id: string,
     title : string,
@@ -14,22 +15,22 @@ type Faq = {
 export default function DisplayFaq({ data }: { data: Faq[] }) {
   return (
     <div className="w-full h-full ">
-      <div className="md:w-2/4 sm:w-3/4 m-auto p-4 my-5 rounded-lg bg-slate-700 drop-shadow-xl shadow-slate-700">
-        <h1 className="text-white text-center text-2 font-bold ">
-        Manage frequently asked questions 🤖💻</h1>
-      </div>
-      {/* Link to add sheet */}
-      <div className="flex my-5 flex-center">
-          <button  className=" rounded-3xl px-4 py-2 drop-shadow-lg text-center m-auto text-md bg-slate-600 font-semibold text-white hover:bg-slate-800 "
+      <div className=" flex justify-between md:w-2/4 sm:w-3/4 m-auto p-2 my-5 rounded-lg  shadow-lg bg-white ">
+        <h1 className="flex-1 flex gap-1 items-center text-base font-sans font-extrabold ">
+          <QuestionMarkCircleIcon className=' h-6 w-6'/>
+          FAQ
+        </h1>
+        <button  className="btn flex items-center shadow-lg text-center m-auto text-md bg-slate-800 rounded-lg font-medium text-white hover:bg-slate-700 "
             onClick={() => (document.getElementById('modal_faq_add') as HTMLDialogElement).showModal()}>
-              ➕ADD FAQ
-          </button>
-          <Dialog className='md:min-w-[540px] shadow-none bg-opacity-0 bg-gray-50' component={AddFaq} name_id='modal_faq_add'/>
+              <PlusCircleIcon className=' w-6 h-6'/>
+              เพิ่มข้อมูล
+        </button>
+        <Dialog className='md:min-w-[540px] shadow-none bg-opacity-0 bg-gray-50' component={AddFaq} name_id='modal_faq_add'/>
       </div>
         {/* Show more */}
       <div className="w-full  flex flex-col items-center min-h-screen">
           { data && data?.map((faq:any)=>(
-            <div key={faq.id} className=" w-3/4 p-4 rounded-2xl mx-3 my-2 bg-white shadow-lg flex flex-col justify-center">
+            <div key={faq.id} className=" sm:w-3/4 p-2 sm:p-4 rounded-2xl mx-3 my-2 bg-white shadow-lg flex flex-col max-h-[15rem] sm:max-h-max overflow-y-auto">
               {/* Title and Course code */}
               <div className="flex items-center my-3">
                 <div className="mr-auto">
@@ -39,7 +40,7 @@ export default function DisplayFaq({ data }: { data: Faq[] }) {
                 onClick={() => {
                   (document.getElementById(`modal_faq_edit_${faq.id}`) as HTMLDialogElement).showModal()
                 }}>
-                  Edit
+                  <PencilSquareIcon className=' h-6 w-6'/>
                 </button>
                 <DialogFaqEdit id={faq.id}/>
               </div>

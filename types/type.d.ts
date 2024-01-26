@@ -6,7 +6,7 @@ export interface Sheet {
   type: string;
   year: string;
   price: number;
-  status_approve?: string;
+  status_approve?: boolean;
   num_page: number;
   class_details: string;
   content_details: string;
@@ -19,13 +19,14 @@ export interface Sheet {
 }
 
 export interface Seller {
+  id?: string;
   pen_name: string;
   full_name: string;
   phone: string;
   bank_name: string;
   bank_id: string;
   address: string;
-  image: string;
+  image: string ;
 }
 
 export interface Help {

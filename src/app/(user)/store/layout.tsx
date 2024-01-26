@@ -2,6 +2,7 @@
 import { Metadata } from "next"
 import ProviderWrapper from "@/context/ProviderWrapper"
 import { getServerSession } from "next-auth";
+import { getAuthSession } from "@/lib/auth";
 
 export const metadata: Metadata = {
   title: 'SUT-SHEET',
@@ -9,15 +10,12 @@ export const metadata: Metadata = {
 }
 
 export default async function StoreLayout({children,}: {children: React.ReactNode}) {
-  const session = await getServerSession();
+  const session = await getAuthSession();
   return (
-    <div >
       <ProviderWrapper session={session} >
-      <div className=" mx-auto  pt-10 flex justify-center container min-w-full">
-        {children}
-      </div>
+        <div className=" mx-auto  pt-10 flex justify-center container min-w-full">
+          {children}
+        </div>
       </ProviderWrapper>
-    </div>
-    
   )
 }

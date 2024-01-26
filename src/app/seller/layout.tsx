@@ -15,11 +15,11 @@ export default async function SellerLayout({children,}: {children: React.ReactNo
   return (
     <div >
       <Sidebar className="absolute"/>
-      <ProviderWrapper session={session} >
-      <div className=" mx-auto  pt-10 flex justify-center container min-w-full">
-        {children}
-      </div>
-      </ProviderWrapper>
+        <ProviderWrapper session={session} >
+          <div className=" mx-auto  pt-10 flex justify-center container min-w-full">
+            {children}
+          </div>
+        </ProviderWrapper>
     </div>
     
   )
