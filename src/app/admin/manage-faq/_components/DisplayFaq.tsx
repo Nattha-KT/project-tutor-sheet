@@ -15,10 +15,10 @@ type Faq = {
 export default function DisplayFaq({ data }: { data: Faq[] }) {
   return (
     <div className="w-full h-full ">
-      <div className=" flex justify-between md:w-2/4 sm:w-3/4 m-auto p-2 my-5 rounded-lg  shadow-lg bg-white ">
-        <h1 className="flex-1 flex gap-1 items-center text-base font-sans font-extrabold ">
+      <div className=" flex justify-between md:w-2/4 sm:w-3/4 m-auto p-2 my-5 rounded-lg  shadow-md bg-white ">
+        <h1 className="flex-1 flex gap-1 items-center text-lg  font-bold ">
           <QuestionMarkCircleIcon className=' h-6 w-6'/>
-          FAQ
+          FAQs
         </h1>
         <button  className="btn flex items-center shadow-lg text-center m-auto text-md bg-slate-800 rounded-lg font-medium text-white hover:bg-slate-700 "
             onClick={() => (document.getElementById('modal_faq_add') as HTMLDialogElement).showModal()}>
@@ -30,7 +30,7 @@ export default function DisplayFaq({ data }: { data: Faq[] }) {
         {/* Show more */}
       <div className="w-full  flex flex-col items-center min-h-screen">
           { data && data?.map((faq:any)=>(
-            <div key={faq.id} className=" sm:w-3/4 p-2 sm:p-4 rounded-2xl mx-3 my-2 bg-white shadow-lg flex flex-col max-h-[15rem] sm:max-h-max overflow-y-auto">
+            <div key={faq.id} className=" sm:w-3/4 p-2 sm:p-4 rounded-2xl mx-3 my-2 bg-white shadow-md flex flex-col max-h-[15rem] sm:max-h-max overflow-y-auto">
               {/* Title and Course code */}
               <div className="flex items-center my-3">
                 <div className="mr-auto">

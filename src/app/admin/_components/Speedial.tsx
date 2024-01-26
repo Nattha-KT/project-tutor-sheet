@@ -14,6 +14,7 @@ import {
   ComputerDesktopIcon,
   CheckBadgeIcon,
   QuestionMarkCircleIcon,
+  RectangleStackIcon
 } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 
@@ -55,6 +56,11 @@ export function AdminSpeedDial() {
             <Tooltip content={"Approve Sheet"} placement="left">
               <SpeedDialAction onClick={() => router.push("/admin/approve")}>
                 <CheckBadgeIcon className="h-5 w-5" />
+              </SpeedDialAction>
+            </Tooltip>
+            <Tooltip content={"Complain management"} placement="left">
+              <SpeedDialAction onClick={() => router.push("/admin/complaint")}>
+                <RectangleStackIcon className="h-5 w-5" />
               </SpeedDialAction>
             </Tooltip>
           </SpeedDialContent>

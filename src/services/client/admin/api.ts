@@ -41,10 +41,23 @@ const UpdateFaq = async (data:Faq) => {
       return  data.faq;
   }
 
+    
+  const DeleteComplaint = async (cid:string[]) => {
+    const res = fetch(`http://localhost:3000/api/complaint`,{
+      method: "DELETE",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ ids: cid }),
+    });
+    return (await res).json();
+  };
+
 
   export  {
     UploadFaq,
     UpdateFaq,
     DeleteFaq,
     getFaqById,
+    DeleteComplaint,
   }

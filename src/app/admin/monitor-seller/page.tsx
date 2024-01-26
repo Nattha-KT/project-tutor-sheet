@@ -1,6 +1,6 @@
 'use server'
 import React from 'react'
-import MonitorSeller from '../_components/MinitorSeller'
+import MonitorSeller from './_components/MinitorSeller'
 import getSeller from '../../../../actions/get-seller-action'
 
 

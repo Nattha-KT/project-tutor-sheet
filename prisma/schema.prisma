@@ -127,6 +127,7 @@ model Like {
 model Complaint {
   id       String @id @default(cuid())
   userId   String
+  createdAt DateTime  @default(now())
   head     String
   category String
   content  String

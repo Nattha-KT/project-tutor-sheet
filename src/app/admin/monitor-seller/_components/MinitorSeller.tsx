@@ -21,7 +21,7 @@ import {
   Tooltip,
 } from "@material-tailwind/react";
 import Image from "next/image";
-import { Seller } from "../../../../types/type";
+import { Seller } from "../../../../../types/type";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
