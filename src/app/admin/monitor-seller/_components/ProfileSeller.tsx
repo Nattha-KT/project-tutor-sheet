@@ -2,10 +2,9 @@
 import EditSeller from '@/app/seller/_components/EditSeller';
 import { RatingStar } from '@/components/RatingStar';
 import { DialogDelete,DialogEditSeller } from '@/components/dialog';
-import { DeleteSeller } from '@/services/client/seller/api';
+import { DeleteSellerByAdmin } from '@/services/client/admin/api';
 import { getBanks } from '@/services/server/seller/api';
 import { PencilSquareIcon, TrashIcon, BookOpenIcon,CreditCardIcon,BuildingLibraryIcon,IdentificationIcon} from '@heroicons/react/24/outline';
-import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import React, { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
@@ -18,7 +17,7 @@ type Banks = {
 const handleDelete = async (sid:string) => {
  
     toast.loading("Deleting request... 🚀👩🏾‍🚀", { id: "1" });
-    const res = await DeleteSeller(sid);
+    const res = await DeleteSellerByAdmin(sid);
     if(res.message !== "Success") {
         toast.error("Error occurred during deletion: DeleteSheet", { id: "1" });
     }else{

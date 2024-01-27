@@ -1,9 +1,9 @@
 
 import { Metadata } from "next"
 import Sidebar from '@/components/Sidebar'
-import Footer from "@/components/Footer"
 import ProviderWrapper from "@/context/ProviderWrapper"
 import { getServerSession } from "next-auth";
+import { SellerSpeedDial } from "./_components/SellerSpeedial";
 
 export const metadata: Metadata = {
   title: 'Seller Sheet',
@@ -14,9 +14,10 @@ export default async function SellerLayout({children,}: {children: React.ReactNo
   const session = await getServerSession();
   return (
     <div >
-      <Sidebar className="absolute"/>
+      {/* <Sidebar className="absolute"/> */}
         <ProviderWrapper session={session} >
-          <div className=" mx-auto  pt-10 flex justify-center container min-w-full">
+        <SellerSpeedDial />
+          <div className=" mx-auto  pt-6 flex justify-center container min-w-full">
             {children}
           </div>
         </ProviderWrapper>

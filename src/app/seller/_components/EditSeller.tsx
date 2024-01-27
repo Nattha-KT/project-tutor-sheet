@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from 'react-hot-toast';
 import {useSession} from "next-auth/react";
-import { UpdateSeller } from "@/services/client/seller/api";
+import { UpdateSellerByAdmin } from "@/services/client/admin/api";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import { PencilSquareIcon as PencilSquareSolidIcon } from "@heroicons/react/24/solid";
 import ButtonBack from "@/components/ButtonBack";
+import { UpdateSeller } from "@/services/client/seller/api";
 
 type Banks = {
     id: string
@@ -14,7 +15,6 @@ type Banks = {
   }
 
   type Seller={
-    id:string
     pen_name: string,
     full_name: string,
     phone:string,
@@ -36,9 +36,8 @@ export default  function EditSeller({ banks, data_seller }: EditSellerProps){
     const router = useRouter();
     
 
-    
+    const [sid ,setSid]= useState<string>("")
     const [seller ,setSeller] = useState<Seller>({
-        id: "",
         pen_name: data_seller?.pen_name ||"",
         full_name: data_seller?.full_name,
         phone:data_seller?.phone,
@@ -49,10 +48,7 @@ export default  function EditSeller({ banks, data_seller }: EditSellerProps){
 
     useEffect(() => {
         const id = session?.user.role === "ADMIN" ? data_seller!.id : session?.user.sid
-        setSeller( {
-            ...seller,
-            id : id
-        });
+       setSid(id)
     },[session])
     
     const  handleInputChange = (e : React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>{
@@ -67,7 +63,7 @@ export default  function EditSeller({ banks, data_seller }: EditSellerProps){
     e.preventDefault();
     if(seller){
       toast.loading("Sending request... 🚀👩🏾‍🚀",{id:"1"});
-      const res = await UpdateSeller(seller);
+      const res = session?.user.role === "ADMIN" ? await UpdateSellerByAdmin(seller,sid):await UpdateSeller(seller);
       if (res && res.message === "Error"){
         toast.error("Error ! 🚀✖️",{id:"1"});
       }else{

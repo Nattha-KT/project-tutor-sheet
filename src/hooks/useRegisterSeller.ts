@@ -13,16 +13,7 @@ type Seller = {
   image: string;
 };
 
-const AddSeller = async (seller: Seller) => {
-  const res = fetch("http://localhost:3000/api/seller", {
-    method: "POST",
-    body: JSON.stringify(seller),
-    // @ts-ignore
-    "Content-Type": "application/json",
-    //   'Authorization': `Bearer ${token}`, // Include the token in the Authorization header
-  });
-  return (await res).json();
-};
+
 
 export default function useRegisterSeller() {
   const { data: session, update, status } = useSession();
@@ -75,7 +66,6 @@ export default function useRegisterSeller() {
   };
 
   return {
-    AddSeller,
     updateUser,
     handleInputChange,
     seller,

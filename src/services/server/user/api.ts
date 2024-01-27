@@ -1,8 +1,5 @@
 "use server";
-import { getServerSession } from "next-auth";
-import { Help } from "../../../../types/type";
 import { headers } from "next/headers";
-import { authOptions } from "@/lib/auth";
 
 ////// NOTE: If you want to call handle function on the client component, You should create function handler in client side
 

@@ -1,6 +1,7 @@
 import { NextApiResponse } from "next";
 import prisma from "../../../../../db/prismaDb";
 import { NextResponse,NextRequest  } from "next/server"
+import { getAuthSession } from "@/lib/auth";
 
 export async function main() {
     try{

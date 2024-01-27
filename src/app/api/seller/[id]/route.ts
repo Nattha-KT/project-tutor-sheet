@@ -20,19 +20,19 @@ type Seller={
     address:string,
   }
 
-export const POST = async (req: Request, res: Response)=>{
-    try{
-        const {pen_name,full_name,phone,bank_name,bank_id,address}:Seller = await req.json();
-        await main();
-        const seller = await prisma.seller.create({data:{pen_name,full_name,phone,bank_name,bank_id,address}})
-        return NextResponse.json({message:"Success",seller},{status:200});
-        }catch(err){
-            return   NextResponse.json({message:"Error",err},{status:500});
-        }finally{
-            await prisma.$disconnect();
-        }
+// export const POST = async (req: Request, res: Response)=>{
+//     try{
+//         const {pen_name,full_name,phone,bank_name,bank_id,address}:Seller = await req.json();
+//         await main();
+//         const seller = await prisma.seller.create({data:{pen_name,full_name,phone,bank_name,bank_id,address}})
+//         return NextResponse.json({message:"Success",seller},{status:200});
+//         }catch(err){
+//             return   NextResponse.json({message:"Error",err},{status:500});
+//         }finally{
+//             await prisma.$disconnect();
+//         }
     
-    }
+//     }
 
 
 export const GET = async (req: Request)=>{
@@ -53,6 +53,8 @@ export const GET = async (req: Request)=>{
 
 export const PUT = async (req: Request,)=>{
 
+    //route นี้อย่าลืมว่าต้องเชคก่อนว่าใช่ admin ไหม
+
     try{
         const id = req.url.split("/seller/")[1];
         const {pen_name,full_name,phone,bank_name,bank_id,address}:Seller = await req.json();
@@ -72,6 +74,9 @@ export const PUT = async (req: Request,)=>{
 };
 
 export const DELETE = async (req: Request) => {
+
+    //route นี้อย่าลืมว่าต้องเชคก่อนว่าใช่ admin ไหม
+
     try {
       const id = req.url.split("/seller/")[1];
       await main();

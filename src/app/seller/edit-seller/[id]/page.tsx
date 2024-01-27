@@ -4,9 +4,9 @@ import { getAuthSession } from "@/lib/auth";
 import { getBanks, getSellerByID } from "@/services/server/seller/api";
 import React from "react";
 
-export default async function Edit({ params }: { params: { id: string } }) {
+export default async function Edit() {
   const banks = await getBanks();
-  const res = await getSellerByID(params.id);
+  const res = await getSellerByID();
 
   return (
     <div className="flex justify-center items-center z-10 mb-6">

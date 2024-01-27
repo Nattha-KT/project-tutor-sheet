@@ -3,6 +3,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import CheckBox from "@/components/CheckBox";
 import useCheckBox from "@/hooks/useCheckBox";
 import useRegisterSeller from "@/hooks/useRegisterSeller";
+import { AddSeller } from '@/services/client/seller/api';
 
 
 type Banks = {
@@ -15,7 +16,7 @@ export default  function Register_Seller({ banks }: { banks: Banks[] }){
 
     // const {data:session,update,status} = useSession();
     const {checkbox,setCheckbox}= useCheckBox();
-    const {seller,handleInputChange,AddSeller,updateUser} = useRegisterSeller();
+    const {seller,handleInputChange,updateUser} = useRegisterSeller();
     // console.log(checkbox);
 
 

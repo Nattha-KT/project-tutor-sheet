@@ -1,5 +1,15 @@
 "use client"
 
+
+type Seller={
+  pen_name: string,
+  full_name: string,
+  phone:string,
+  bank_name: string,
+  bank_id: string
+  address:string,
+}
+
 const UploadFaq = async ({title,answer}:{title:String,answer:String}) => {
     const res = fetch("http://localhost:3000/api/faq",{
       method: "POST",
@@ -53,6 +63,27 @@ const UpdateFaq = async (data:Faq) => {
     return (await res).json();
   };
 
+  
+  const DeleteSellerByAdmin = async (id: string) => {
+    const res = fetch(`http://localhost:3000/api/seller/${id}`, {
+      method: "DELETE",
+      // @ts-ignore
+      "Content-Type": "application/json",
+    });
+  
+    return (await res).json();
+  };
+
+  const UpdateSellerByAdmin = async (seller:Seller,sid:string) => {
+    const res = fetch(`http://localhost:3000/api/seller/${sid}`,{
+      method: "PUT",
+      body: JSON.stringify(seller),
+      // @ts-ignore
+      "Content-Type":"application/json",
+    });
+    return (await res).json();
+  };
+
 
   export  {
     UploadFaq,
@@ -60,4 +91,6 @@ const UpdateFaq = async (data:Faq) => {
     DeleteFaq,
     getFaqById,
     DeleteComplaint,
+    DeleteSellerByAdmin,
+    UpdateSellerByAdmin,
   }

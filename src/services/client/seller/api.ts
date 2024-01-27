@@ -1,14 +1,5 @@
 "use client"
 
-type Seller={
-    id:string
-    pen_name: string,
-    full_name: string,
-    phone:string,
-    bank_name: string,
-    bank_id: string
-    address:string,
-  }
   type Sheet = {
     course_code:string,
     name:string,
@@ -19,13 +10,23 @@ type Seller={
     content_details:string,
   }
 
+  type Seller = {
+    pen_name: string;
+    full_name: string;
+    phone: string;
+    bank_name: string;
+    bank_id: string;
+    address: string;
+    image?: string;
+  };
 
-const UpdateSeller = async (seller:Seller) => {
-    const res = fetch(`http://localhost:3000/api/seller/${seller.id}`,{
-      method: "PUT",
+  const AddSeller = async (seller: Seller) => {
+    const res = fetch("http://localhost:3000/api/seller", {
+      method: "POST",
       body: JSON.stringify(seller),
       // @ts-ignore
-      "Content-Type":"application/json",
+      "Content-Type": "application/json",
+      //   'Authorization': `Bearer ${token}`, // Include the token in the Authorization header
     });
     return (await res).json();
   };
@@ -52,22 +53,24 @@ const UpdateSeller = async (seller:Seller) => {
     return (await res).json();
   };
 
-  const DeleteSeller = async (id: string) => {
-    const res = fetch(`http://localhost:3000/api/seller/${id}`, {
-      method: "DELETE",
+  const UpdateSeller = async (seller:Seller) => {
+    const res = fetch(`http://localhost:3000/api/seller`,{
+      method: "PUT",
+      body: JSON.stringify(seller),
       // @ts-ignore
-      "Content-Type": "application/json",
+      "Content-Type":"application/json",
     });
-  
     return (await res).json();
   };
+
+
   
   
   
 
   export {
-    UpdateSeller,
     UpdateSheet,
     DeleteSheet,
-    DeleteSeller,
+    AddSeller,
+    UpdateSeller,
 }

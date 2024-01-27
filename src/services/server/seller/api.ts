@@ -1,5 +1,6 @@
 'use server'
 import axios from 'axios';
+import { headers } from 'next/headers';
 
  const getBanks = async () => {
   try {
@@ -14,23 +15,34 @@ import axios from 'axios';
 };
 
 
- const getSellerByID = async (id: string) => {
+ const getSellerByID = async () => {
   try {
-    const res = await fetch(`http://localhost:3000/api/seller/${id}`, {
+    const res = await fetch(`http://localhost:3000/api/seller`, {
       cache: "no-store",
       next: {
         tags: ["seller"],
       },
+      headers: headers(),
     });
     const data = await res.json();
     return data;
   } catch (err) {
     console.error("Error fetching data:", err);
-    return [];
+    return ;
   }
 };
 
-
+const  fetchSheetSid= async() =>{
+  const res = await fetch(`http://localhost:3000/api/sheets/seller`, {
+    cache: "no-store",
+    next: {
+      tags: ["sheets"],
+    },
+    headers: headers(),
+  });
+  const data = await res.json();
+  return data.sheets;
+}
 
 
 const  fetchSheetsBySid= async(sid: string) =>{
@@ -41,7 +53,7 @@ const  fetchSheetsBySid= async(sid: string) =>{
     },
   });
   const data = await res.json();
-  return data.results;
+  return data.sheets;
 }
 
 const fetchSheetBySearch = async(sid: string,take:number,skip:number,searchQuery:string)=>{
@@ -62,4 +74,5 @@ export {
   getBanks,
   fetchSheetsBySid,
   fetchSheetBySearch,
+  fetchSheetSid,
 }
