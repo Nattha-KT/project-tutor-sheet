@@ -18,7 +18,7 @@ interface ExtendedSheet extends Sheet {
   }
 
 
-export default function SheetCard({filteredSheets}:{filteredSheets:ExtendedSheet}) {
+export default function SheetCard({sheet}:{sheet:ExtendedSheet}) {
   const pathName = usePathname()
   const router = useRouter()
 
@@ -47,23 +47,23 @@ export default function SheetCard({filteredSheets}:{filteredSheets:ExtendedSheet
     </div>
       )}
       <div className='hover:cursor-pointer z-10'>
-        <Image onClick={()=> router.push(`/store/${filteredSheets.id}`)}  height={1000} width={1000} src={filteredSheets.cover_page} alt="Abstract Design" className="w-full h-[150px] sm:h-60  object-cover "/>
+        <Image onClick={()=> router.push(`/store/${sheet.id}`)}  height={1000} width={1000} src={sheet.cover_page} alt="Abstract Design" className="w-full h-[150px] sm:h-60  object-cover "/>
       </div>
       <div className="py-4 px-4 flex flex-col flex-grow justify-between ">
           <div>
             <div className='flex justify-between'>
-                <h2 className="text-[14px] sm:text-[17px] text-gray-800 font-semibold mb-2">{filteredSheets.name}</h2> 
-                <TooltipCustomStyles {...filteredSheets.seller} {...filteredSheets}/>
+                <h2 className="text-[14px] sm:text-[17px] text-gray-800 font-semibold mb-2">{sheet.name}</h2> 
+                <TooltipCustomStyles {...sheet.seller} {...sheet}/>
             </div>
             <div className='flex flex-col sm:flex-row sm:justify-between text-gray-500 leading-relaxed text-md font-medium text-[13px] sm:text-[16px]'>
-            <div className="">{`${filteredSheets.course_code}`}</div>
-            <div className="">{`${filteredSheets.type} ${filteredSheets.semester}/${filteredSheets.year}`}</div>
+            <div className="">{`${sheet.course_code}`}</div>
+            <div className="">{`${sheet.type} ${sheet.semester}/${sheet.year}`}</div>
             </div>
           </div>
         {pathName.includes("/store") ?
-          <ButtonCart price={filteredSheets.price}/>
+          <ButtonCart price={sheet.price}/>
           :
-          <ButtonEdit price={filteredSheets.price}/>
+          <ButtonEdit price={sheet.price}/>
         }
       </div>
     </div>

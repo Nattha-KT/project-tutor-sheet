@@ -31,9 +31,9 @@ const  ShowMoreSheet:React.FC<ShowMoreProps>= ({dataSheets})=> {
           {`Show more sheet by ${dataSheets && dataSheets[0].seller.pen_name}`}
         </AccordionHeader>
         <AccordionBody className={" overflow-x-auto"}>
-          <div className="h-auto  max-w-7xl z-10 mx-auto px-5  justify-center  grid grid-cols-2  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-2 sm:gap-x-5 gap-y-10">
+          <div className="h-auto max-h-[19.5rem] sm:max-h-none  max-w-7xl z-10 mx-auto px-5 py-4  grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-2 sm:gap-x-5 gap-y-4 overflow-y-auto">
             {dataSheets && dataSheets.map((sheet) =>(
-              <SheetCard key={sheet.id} filteredSheets={sheet}   />
+              <SheetCard key={sheet.id} sheet={sheet}   />
             ))}
           </div>
         </AccordionBody>

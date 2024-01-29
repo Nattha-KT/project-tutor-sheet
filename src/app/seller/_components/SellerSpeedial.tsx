@@ -12,7 +12,8 @@ import {
   PlusIcon,
   PresentationChartBarIcon,
   PencilSquareIcon,
-  DocumentPlusIcon
+  DocumentPlusIcon,
+  UserCircleIcon
 } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
@@ -39,6 +40,11 @@ export function SellerSpeedDial() {
             <Tooltip content={"Transation"} placement="left">
               <SpeedDialAction onClick={() => router.push("#")}>
                 <PresentationChartBarIcon className="h-5 w-5" />
+              </SpeedDialAction>
+            </Tooltip>
+            <Tooltip content={"Profile Seller"} placement="left">
+              <SpeedDialAction onClick={() => window.location.href =`/seller/profile`}>
+                <UserCircleIcon className="h-5 w-5" />
               </SpeedDialAction>
             </Tooltip>
             <Tooltip content={"Edit Prosile Seller"} placement="left">

@@ -13,7 +13,7 @@ export default async function StoreLayout({children,}: {children: React.ReactNod
   const session = await getAuthSession();
   return (
       <ProviderWrapper session={session} >
-        <div className=" mx-auto  pt-10 flex justify-center container min-w-full">
+        <div className=" mx-auto  pt-10 flex justify-center container min-w-full min-h-screen">
           {children}
         </div>
       </ProviderWrapper>

@@ -1,7 +1,6 @@
-"use server";
 
 import SellerDashboard from "@/app/seller/_components/SellerDashboard";
-import { fetchSheetSid, fetchSheetsBySid } from "@/services/server/seller/api";
+import { fetchSheetSid } from "@/services/server/seller/api";
 import StatDashboardSeller from "./_components/StatDashboardSeller";
 import StateBalance from "@/components/transaction/StateBalance";
 import SomethingWrong from "@/components/error-page/SomethingWrong";

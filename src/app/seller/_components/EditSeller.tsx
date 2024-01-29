@@ -68,9 +68,6 @@ export default  function EditSeller({ banks, data_seller }: EditSellerProps){
         toast.error("Error ! 🚀✖️",{id:"1"});
       }else{
         toast.success("Update successfully! 🚀✔️",{id:"1"})
-        setTimeout(() => {
-            router.back();
-        },1000);
       }
       }else toast.error("Error !!  🚀✖️",{id:"1"});
 

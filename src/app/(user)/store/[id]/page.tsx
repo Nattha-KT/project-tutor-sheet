@@ -9,6 +9,7 @@ import Swiper from "@/components/Swiper";
 import Comment from "../_components/Comment";
 import { ViewColumnsIcon,BookOpenIcon,ShoppingCartIcon } from '@heroicons/react/24/outline'
 import { Metadata } from "next";
+import { Rate } from "antd";
 
 export const metadata: Metadata = {
   title: 'SUT-SHEET',
@@ -21,7 +22,7 @@ const dateFormatter = new Intl.DateTimeFormat(undefined, {
 })
 
 
-export default async function InfoSheet({params,}: {params: { id: string };}) {
+export default async function InfoSheet({params}: {params: { id: string }}) {
 
   const sheet = await getSheetById(params.id);
  if(!sheet) return (
@@ -31,11 +32,11 @@ export default async function InfoSheet({params,}: {params: { id: string };}) {
 
 
   return (
-    <div className=" container flex flex-col px-5 sm:px-[70px] gap-y-6 flex-1 mb-4 min-h-screen">
+    <div className=" container flex flex-col px-5 sm:px-[3.5rem] gap-y-6 flex-1 mb-4 min-h-screen">
       <section id="point-view" className=" flex flex-col lg:flex-row gap-y-16">
         <div
           id="profile-header"
-          className="flex flex-[0.7] gap-x-5 flex-col items-center lg:items-start gap-y-6"
+          className="flex flex-[0.7] gap-x-5 flex-col items-center gap-y-6"
         >
           <div id="cover-page" className="flex justify-center lg:justify-start">
             <Image
@@ -55,20 +56,24 @@ export default async function InfoSheet({params,}: {params: { id: string };}) {
         </div>
         <div
           id="content"
-          className="flex-1 flex flex-col p-2 md:pl-5 md:py-0 gap-0.5 md:gap-y-2"
+          className="flex-1 flex flex-col p-2 md:pl-10 xl:pl-5 md:py-0 gap-0.5 md:gap-y-2"
         >
           <h2 className="text-[1.5rem] md:text-[1.8rem] font-bold text-gray-800 mb-2">{`${sheet.course_code} ${sheet.name}`}</h2>
-          <div className="flex gap-x-7">
+          <div className="flex flex-col sm:flex-row gap-x-7">
             <p className=" font-medium text-[1.1rem] md:text-[1.3rem] text-gray-500">{`${sheet.type}:  ${sheet.semester}/${sheet.year}`}</p>
             <p className=" font-medium text-[1.1rem] md:text-[1.3rem] text-gray-500">{`Date: ${dateFormatter.format(Date.parse(sheet.date))}`}</p>
           </div>
           <div className=" font-medium text-[1.1rem]  md:text-[1.3rem] text-gray-500 flex flex-row items-center">
             <BookOpenIcon className=" w-6 h-6"/>
             {` : ${sheet.num_page}`}
+            <div className=" text-sm text-gray-500  ml-[2rem] flex items-center gap-2">
+              <Rate allowHalf disabled defaultValue={4.5} className=""/>
+              {`(4.5) reviews`}
+            </div>
           </div>
-          <div className="flex flex-col md:items-start items-center mb-6  gap-y-5 md:gap-x-10 border-solid border-t-[1px] py-5 border-gray-200">
+          <div className="flex flex-col lg:items-start items-center mb-6  gap-y-5 md:gap-x-10 border-solid border-t-[1px] py-5 border-gray-200">
             <p className=" text-[1.2rem] md:text-[1.3rem] text-gray-600 font-semibold">{`Price: ${sheet.price}฿`}</p>
-            <button className="btn border-0 max-w-[60%] px-16 text-white bg-amber-500 hover:bg-amber-400 rounded-xl shadow-xl">
+            <button className="btn border-0 max-w-[60%] px-auto sm:px-16 text-white bg-amber-500 hover:bg-amber-400 rounded-xl shadow-xl">
               <ShoppingCartIcon className=" w-6 h-6"/>
               Cart
             </button>
@@ -88,7 +93,7 @@ export default async function InfoSheet({params,}: {params: { id: string };}) {
       >
         <span className="flex items-center gap-x-4 text-xl font-[600] text-slate-800">
           <ViewColumnsIcon className=" w-6 h-6 "/>
-          Sample Images
+          Previews
         </span>
         <Swiper images={sheet.samples_page} />
       </section>

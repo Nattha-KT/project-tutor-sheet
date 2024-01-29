@@ -47,9 +47,22 @@ const getFaq = async () => {
 };
 
 
+const getSellerBySid = async (sid: string) => {
+  const res = await fetch(`http://localhost:3000/api/seller/${sid}`, {
+    cache: "no-store",
+    next: {
+      tags: ["seller"],
+    },
+  });
+  const data = await res.json();
+  return data;
+};
+
+
 
 export {
   getSheetById,
   getSheetBySearch,
-  getFaq
+  getFaq,
+  getSellerBySid
 };

@@ -39,10 +39,28 @@ export const GET = async (req: Request)=>{
         try{
             const id = req.url.split("/seller/")[1];
             await main();
-            const seller = await prisma.seller.findFirst({where:{id}});
-            if(!seller)
-                return NextResponse.json({message: "Not Found"},{status:500});
-            return NextResponse.json({message: "Success",seller},{status:200});
+            const seller = await prisma.seller.findFirst({
+                where:{id},
+                include:{
+                    sheet:true,
+                    _count:{
+                        select:{
+                            sheet:true,
+                        }
+                    }
+                }
+            });
+
+            if (!seller) {
+                return NextResponse.json({ message: "Not Found" }, { status: 500 });
+            }
+          
+            const totalSheets = seller._count.sheet; // นับทั้งหมด
+            const approvedSheets = await prisma.sheet.count({
+              where: { sid: id, status_approve: true },
+            }); 
+
+            return NextResponse.json( { message: "Success", totalSheets, approvedSheets,seller },{status:200});
     
         }catch(err){
             return NextResponse.json({message: "Error creating",err},{status:500})

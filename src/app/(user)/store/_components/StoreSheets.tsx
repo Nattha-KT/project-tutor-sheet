@@ -36,7 +36,7 @@ export default function StoreSheets ({dataSheets}:SheetsProps) {
        {filteredSheets.length!==0 ? 
         <section className=' h-auto max-w-7xl z-10 mx-auto px-5  justify-center  grid grid-cols-2  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-2 sm:gap-x-5 gap-y-10'>
           { filteredSheets.map((sheet)=>(
-            <SheetCard key={sheet.id} filteredSheets={sheet}></SheetCard>
+            <SheetCard key={sheet.id} sheet={sheet}></SheetCard>
           ))} 
         </section>
        :

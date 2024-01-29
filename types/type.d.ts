@@ -27,6 +27,8 @@ export interface Seller {
   bank_id: string;
   address: string;
   image: string ;
+  about_me?:string
+  sheet?:Sheet[];
 }
 
 export interface Help {

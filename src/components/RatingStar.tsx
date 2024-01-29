@@ -10,8 +10,8 @@ export function RatingStar() {
         <Rating value={4} className=" text-gray-600" readonly  ratedColor="amber" unratedColor="amber" />
         {`(${4}.7)`}
        </div>
-      <Typography color="blue-gray" className=" font-normal text-gray-700 overflow-x-hidden">
-        134 Reviews
+      <Typography color="blue-gray" className=" font-normal  text-gray-600 overflow-x-hidden">
+        star rating
       </Typography>
     </div>
   );

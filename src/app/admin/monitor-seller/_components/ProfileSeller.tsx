@@ -145,7 +145,7 @@ export default function ProfileSeller({seller}:{seller:any}) {
               <div id="detail-account" className=' flex flex-col border border-stone-200 flex-1   rounded-xl'>
                   <div className='flex items-center gap-x-1 p-2 text-base font-medium text-white bg-stone-700 rounded-t-md'>
                       <BuildingLibraryIcon className=' w-5 h-5'/>
-                      Personal information
+                      Bank account 
                   </div>
                   <div className='flex flex-col px-2 sm:px-4   py-4 gap-y-4 '>
                       <Image src={"/Icons/all-bank.png"} width={150} height={150} alt='all-bank'/>

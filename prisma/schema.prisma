@@ -94,6 +94,7 @@ model Seller {
   phone     String
   bank_name String
   bank_id   String
+  about_me  String?
   address   String
   image     String?
   sheet     Sheet[]

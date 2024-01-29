@@ -6,8 +6,8 @@ import { getServerSession } from "next-auth";
 import { SellerSpeedDial } from "./_components/SellerSpeedial";
 
 export const metadata: Metadata = {
-  title: 'Seller Sheet',
-  description: 'Market for sell sheet summary',
+  title: 'SELLER',
+  description: 'For managing your own store ',
 }
 
 export default async function SellerLayout({children,}: {children: React.ReactNode}) {

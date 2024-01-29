@@ -11,13 +11,14 @@
   }
 
   type Seller = {
-    pen_name: string;
-    full_name: string;
-    phone: string;
-    bank_name: string;
-    bank_id: string;
-    address: string;
+    pen_name?: string;
+    full_name?: string;
+    phone?: string;
+    bank_name?: string;
+    bank_id?: string;
+    address?: string;
     image?: string;
+    about_me?:string
   };
 
   const AddSeller = async (seller: Seller) => {
@@ -63,6 +64,16 @@
     return (await res).json();
   };
 
+  const DeleteSeller = async () => {
+    const res = fetch(`http://localhost:3000/api/seller/`, {
+      method: "DELETE",
+      // @ts-ignore
+      "Content-Type": "application/json",
+    });
+  
+    return (await res).json();
+  };
+
 
   
   
@@ -73,4 +84,5 @@
     DeleteSheet,
     AddSeller,
     UpdateSeller,
+    DeleteSeller,
 }

@@ -37,6 +37,7 @@ export const GET = async (req: Request, res: NextApiResponse) => {
       include: {
         seller: {
           select: {
+            id: true,
             full_name: true,
             pen_name: true,
             image: true,
