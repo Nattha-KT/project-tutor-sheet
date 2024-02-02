@@ -1,6 +1,7 @@
 import React from 'react'
 import ComplaintManagement from './_components/ComplaintManagement'
 import { getComplaint } from '@/services/server/admin/api'
+import SomethingWrong from '@/components/error-page/SomethingWrong'
 
 
 export default async function ComplainPage() {
@@ -8,7 +9,7 @@ export default async function ComplainPage() {
     const res = await getComplaint()
     
     if(res.message !=="Success"){
-        return <h1 className=' text-5xl text-center font-sans font-extrabold text-red-700'>SOMETHING WRONG</h1>
+        return <SomethingWrong/>
     }
 
   return (

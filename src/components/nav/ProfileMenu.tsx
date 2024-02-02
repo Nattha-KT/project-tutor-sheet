@@ -17,6 +17,7 @@ import {
   PowerIcon,
   ArrowPathIcon,
   RocketLaunchIcon,
+  UserCircleIcon,
 } from "@heroicons/react/24/outline";
 import { useSession, signIn, signOut } from "next-auth/react";
 
@@ -61,8 +62,9 @@ export default function ProfileMenu() {
             </Button>
           </MenuHandler>
 
-          <MenuList>
-            <div className="bg-gray-100 py-2 rounded-xl text-center text-base font-medium text-gray-800 mb-2">
+          <MenuList className=" rounded-2xl">
+            <div className="flex gap-1 items-center p-1 rounded-xl text-center text-sm font-normal text-gray-600 mb-2">
+              <UserCircleIcon className=" w-6 h-6"/>
               {session?.user.name}
             </div>
             <MenuItem

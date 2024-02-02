@@ -43,7 +43,7 @@ const TABS = [
     value: "true",
   },
   {
-    label: "Unapproved",
+    label: "Pending",
     value: "false",
   },
 ];
@@ -52,8 +52,8 @@ const TABS = [
 const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredSheets, setFilteredSheets] = useState<Sheet[]>([]);
-  const [totalPages, setTotalPages] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
+  const [totalPages, setTotalPages] = useState(1);
   const itemsPerPage = 5;
   const [approve, setApprove] = useState("all");
   const TABLE_HEAD = ["Course Name", "Price", "Status", "Date", ""];
@@ -104,7 +104,7 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) => {
       <CardHeader floated={false} shadow={false} className="rounded-none">
         <div className="mb-8 flex items-center flex-col sm:flex-row md:justify-between gap-2 sm:gap-8">
           <div>
-            <div className=" flex gap-4 items-center">
+            <div className=" flex gap-4 justify-center sm:justify-start items-center">
               <h1 className=" text-2xl font-sans font-bold text-slate-800">
                 HANDLE SHEET
               </h1>
@@ -112,9 +112,13 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) => {
             </div>
             <Typography
               color="gray"
-              className="mt-1 font-normal text-center sm:text-left"
+              className="mt-1 font-normal text-base text-center sm:text-left"
             >
-              See information about all sheets
+              See information about all sheets <br/>
+             <span className=" text-xs text-gray-500">
+              *When the sheet you uploaded is not approved The sheet will be removed and 
+                there is no need to be alarmed if the sheet is not found in waiting status.
+             </span>
             </Typography>
           </div>
           <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
@@ -231,8 +235,8 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) => {
                         <Chip
                           variant="ghost"
                           size="sm"
-                          value={sheet.status_approve ? "approve" : "approve"}
-                          color={sheet.status_approve ? "green" : "red"}
+                          value={sheet.status_approve ? "approve" : "pending"}
+                          color={sheet.status_approve ? "green" : "blue"}
                         />
                       </div>
                     </td>

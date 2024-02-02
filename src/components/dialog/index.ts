@@ -3,7 +3,7 @@ import  DialogEditSheet  from "./DialogEditSheet";
 import  DialogDelete from "./ConfirmDelete";
 import { DialogFaqEdit } from "./DialogEditFaq";
 import DialogEditSeller from "./DialogEditSeller";
-
+import ViewerPDF from "./DialogShowPdf";
 
 export {
     Dialog,
@@ -11,4 +11,5 @@ export {
     DialogEditSheet,
     DialogFaqEdit,
     DialogEditSeller,
+    ViewerPDF,
 }

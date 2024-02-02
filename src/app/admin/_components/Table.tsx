@@ -52,8 +52,8 @@ export default function Table({ sheets }: any) {
                   </span>
                 </td>
                 <td className="">
-                  <div className=" border-2 border-red-200 bg-red-100 rounded-lg p-1 text-red-500 shadow-xs text-center text-sm">
-                    unapprove
+                  <div className=" border-2 border-sky-200 bg-sky-100 rounded-lg p-1 text-sky-500 shadow-xs text-center text-sm">
+                    Pending
                   </div>
                 </td>
               </tr>

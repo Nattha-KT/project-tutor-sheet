@@ -5,6 +5,7 @@ import { NextResponse } from "next/server"
 import { Sheet } from "@prisma/client";
 
 
+
 export async function main() {
     try{
         await prisma.$connect();
@@ -48,4 +49,52 @@ export const POST = async (req: Request, res: Response)=>{
     }
 
 
+    export const DELETE = async (req: Request)=>{
 
+        //route นี้อย่าลืมว่าต้องเชคก่อนว่าใช่ admin ไหม
+
+        try{
+            const {ids} = await req.json();
+            await main();
+            await prisma.sheet.deleteMany({
+                where: {
+                    id: {
+                        in: ids,
+                    },
+                },
+            });
+    
+            return NextResponse.json({message: "Success"},{status:200});
+    
+        }catch(err){
+            console.log(err);
+            return NextResponse.json({message: "Error Delete Sheets"},{status:500})
+        }finally{
+            await prisma.$disconnect();
+        }
+    
+    };
+    
+
+    export const PUT = async (req: Request,)=>{
+
+        //route นี้อย่าลืมว่าต้องเชคก่อนว่าใช่ admin ไหม
+    
+        try{
+            const {ids} = await req.json();
+            await main();
+            await prisma.sheet.updateMany({
+                data:{status_approve :true, },
+                where :{id:{
+                    in:ids
+                }},
+            });
+            return NextResponse.json({message: "Success"},{status:200});
+    
+        }catch(err){
+            return NextResponse.json({message: "Error",err},{status:500})
+        }finally{
+            await prisma.$disconnect();
+        }
+    
+    };

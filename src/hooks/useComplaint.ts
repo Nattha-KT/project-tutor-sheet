@@ -50,6 +50,7 @@ const useComplaint = (complaint: ComplaintProps[]) => {
     setComplaintList((prev) => {
       return prev.filter((data) => !id.includes(data.id));
     });
+    setListChoise([])
   };
 
   const handleDeleteSelected = async () => {

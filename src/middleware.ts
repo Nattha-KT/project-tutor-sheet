@@ -17,7 +17,7 @@ export default withAuth(
 
     if (
       request.nextUrl.pathname.startsWith("/seller") &&
-      (request.nextauth.token?.role !== "SELLER")
+      !((request.nextauth.token?.role === "SELLER") || (request.nextauth.token?.role === "ADMIN"))
     ) {
       return NextResponse.rewrite(
         new URL("/seller/register-seller", request.url)

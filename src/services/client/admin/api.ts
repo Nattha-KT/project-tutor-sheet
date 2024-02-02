@@ -63,6 +63,18 @@ const UpdateFaq = async (data:Faq) => {
     return (await res).json();
   };
 
+      
+  const DeleteSheets = async (id:string[]) => {
+    const res = fetch(`http://localhost:3000/api/sheets`,{
+      method: "DELETE",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ ids: id }),
+    });
+    return (await res).json();
+  };
+
   
   const DeleteSellerByAdmin = async (id: string) => {
     const res = fetch(`http://localhost:3000/api/seller/${id}`, {
@@ -84,6 +96,17 @@ const UpdateFaq = async (data:Faq) => {
     return (await res).json();
   };
 
+  const UpdateStatusSheets = async (id:string[]) => {
+    const res = fetch(`http://localhost:3000/api/sheets`,{
+      method: "PUT",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ ids: id }),
+    });
+    return (await res).json();
+  };
+
 
   export  {
     UploadFaq,
@@ -93,4 +116,6 @@ const UpdateFaq = async (data:Faq) => {
     DeleteComplaint,
     DeleteSellerByAdmin,
     UpdateSellerByAdmin,
+    DeleteSheets,
+    UpdateStatusSheets,
   }

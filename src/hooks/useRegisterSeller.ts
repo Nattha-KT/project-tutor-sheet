@@ -27,6 +27,7 @@ export default function useRegisterSeller() {
     address: "",
     image: "",
   });
+  const [checkbox, setCheckbox] = useState<boolean>(false);
 
   useEffect(() => {
     // เมื่อ session มีค่าและ image ไม่ได้ถูกตั้งค่าใน state แล้ว
@@ -68,6 +69,8 @@ export default function useRegisterSeller() {
   return {
     updateUser,
     handleInputChange,
+    setCheckbox,
     seller,
+    checkbox,
   };
 }

@@ -36,9 +36,12 @@ yarn-error.log*
 next-env.d.ts
 
 #test features 
-/src/app/(routes)/test/**
+/src/app/(user)/test/**
 
 
 #Features that may be required
 /src/components/antiques/
+
+#Firebase Account Key
+serviceAccountKey.json
 

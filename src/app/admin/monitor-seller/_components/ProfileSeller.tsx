@@ -1,60 +1,14 @@
 'use client'
-import EditSeller from '@/app/seller/_components/EditSeller';
 import { RatingStar } from '@/components/RatingStar';
 import { DialogDelete,DialogEditSeller } from '@/components/dialog';
-import { DeleteSellerByAdmin } from '@/services/client/admin/api';
-import { getBanks } from '@/services/server/seller/api';
+import useProfileSeller from '@/hooks/useProfileSeller';
 import { PencilSquareIcon, TrashIcon, BookOpenIcon,CreditCardIcon,BuildingLibraryIcon,IdentificationIcon} from '@heroicons/react/24/outline';
 import Image from 'next/image';
-import React, { useCallback, useEffect, useState } from 'react'
-import toast from 'react-hot-toast';
 
-type Banks = {
-    id: string
-    name: string
-}
-
-const handleDelete = async (sid:string) => {
- 
-    toast.loading("Deleting request... 🚀👩🏾‍🚀", { id: "1" });
-    const res = await DeleteSellerByAdmin(sid);
-    if(res.message !== "Success") {
-        toast.error("Error occurred during deletion: DeleteSheet", { id: "1" });
-    }else{
-        toast.success("Deleted! 🚀✔️", { id: "1" });
-       setTimeout(() => {
-        window.location.href="/admin/monitor-seller"
-       }, 1000);
-      }
-  };
 
 export default function ProfileSeller({seller}:{seller:any}) {
 
-    const [banks, setBank] = useState<Banks[]>([])
-    const [confirmDelete,setConfirmDelete] =useState<boolean>(false)
-    // console.log(confirmDelete)
-
-    const fetchBank = useCallback(async()=>{
-        const res = await getBanks()
-        if(!res) return ;
-        setBank(res)
-    },[])
-   
-   
-    useEffect(() => {
-        fetchBank()
-    }, [])
-
-    useEffect(()=>{
-        if(!confirmDelete) return
-        const deleteNow =async()=>{
-            await handleDelete(seller.id)
-            setConfirmDelete(false);
-        }
-        deleteNow()
-    },[confirmDelete])
-
-
+  const {banks,setConfirmDelete} = useProfileSeller(seller)
 
   return (
   <div className=' container min-w-full bg-slate-200/60 rounded-lg min-h-screen '>

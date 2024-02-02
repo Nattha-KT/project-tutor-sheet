@@ -3,5 +3,6 @@
     "vscode-pets.position": "explorer",
     "vscode-pets.petType": "chicken",
     "vscode-pets.petColor": "purple",
-    "vscode-pets.theme": "none"
+    "vscode-pets.theme": "none",
+    "CodeGPT.apiKey": "CodeGPT Plus Beta"
 }

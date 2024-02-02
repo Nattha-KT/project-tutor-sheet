@@ -16,12 +16,12 @@ const deleteFilesInDirectory = async (path: string): Promise<void> => {
   try {
     const items = await listAll(storageRef);
 
-    // ==Note== ถ้าเข้ามาถึงไฟล์หลัก เช่น image-sample ก็จะไม่ทำงานเนื่องจาก prefixes(folder) Array(0) อย่าลืมเชคว่ามี items(files) ไหม
+    // ==Note== ถ้าเข้ามาถึงไฟล์หลัก เช่น image-sample ก็จะไม่ทำงานเนื่องจาก prefixes(folder) มีArrayเป็น(0) อย่าลืมเชคว่ามี items(files) ไหม
     for (const subdirectory of items.prefixes) {
       await deleteFilesInDirectory(subdirectory.fullPath);
     }
 
-    //==Note== เมื่อไม่มี item(fild) ในpathนั้นก็จะ-map-ไม่ได้ ข้างในก็จะไม่ถูกทำ
+    //==Note== เมื่อไม่มี item(file) ในpathนั้นก็จะ-map-ไม่ได้ ข้างในก็จะไม่ถูกทำ
     await Promise.all(
       items.items.map(async (item) => {
         await deleteObject(item);

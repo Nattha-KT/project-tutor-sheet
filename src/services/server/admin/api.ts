@@ -13,6 +13,22 @@ const getComplaint = async () => {
     }
   };
 
+  const getSheets = async () => {
+    const res = await fetch(
+      `http://localhost:3000/api/sheets`,
+      {
+        cache: "no-store",
+        next: {
+          tags: ["sheets"],
+        },
+      }
+    );
+    const data = await res.json();
+    return data.sheets;
+  };
+  
+
   export {
     getComplaint,
+    getSheets,
   }

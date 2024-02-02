@@ -54,7 +54,7 @@ export function AdminSpeedDial() {
               </SpeedDialAction>
             </Tooltip>
             <Tooltip content={"Approve Sheet"} placement="left">
-              <SpeedDialAction onClick={() => router.push("/admin/approve")}>
+              <SpeedDialAction onClick={() => router.push("/admin/approvals")}>
                 <CheckBadgeIcon className="h-5 w-5" />
               </SpeedDialAction>
             </Tooltip>
