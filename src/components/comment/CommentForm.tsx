@@ -39,7 +39,6 @@ export default function CommentForm({state,formSmall,initialMessage,parentId,set
     try {
       setLoading(true);
       const res = await PostComment(message, userId, sheetId,parentId);
-      console.log(res);
       if (res.err) throw new Error("Cannot add comment");
       if (res.message === "Success") {
         createLocalComment(res.comment);
@@ -95,7 +94,6 @@ export default function CommentForm({state,formSmall,initialMessage,parentId,set
           className={`${formSmall ?"h-[2rem] w-[2rem]":" h-[2rem] w-[2rem] sm:h-[3rem] sm:w-[3rem] "} rounded-full z-[60]`}
         />
         <textarea
-          autoFocus
           placeholder="เขียนความคิดเห็น.."
           value={message}
           onChange={(e) => setMessage(e.target.value)}

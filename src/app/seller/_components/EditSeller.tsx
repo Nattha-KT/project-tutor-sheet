@@ -6,7 +6,7 @@ import {useSession} from "next-auth/react";
 import { UpdateSellerByAdmin } from "@/services/client/admin/api";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import { PencilSquareIcon as PencilSquareSolidIcon } from "@heroicons/react/24/solid";
-import ButtonBack from "@/components/ButtonBack";
+import ButtonBack from "@/components/buttons/ButtonBack";
 import { UpdateSeller } from "@/services/client/seller/api";
 
 type Banks = {

@@ -15,6 +15,7 @@ export async function main() {
 export const GET = async (req: NextRequest , res: NextApiResponse)=>{
 
         try{
+            const session = await getAuthSession();
             const searchQuery = req.nextUrl.searchParams.get("search");
             const slug = req.url.split("/sheets/by-sid/")[1];
             const sid = slug.split("/")[0];
@@ -55,7 +56,29 @@ export const GET = async (req: NextRequest , res: NextApiResponse)=>{
                         }
                     }
                 }
-            });
+            }).then(async (sheets) => {
+              if (!sheets) return;
+              if (!session) return sheets;
+        
+              const favorite = await prisma.favorite.findMany({
+                where: {
+                  userId: session.user.id,
+                  sheetId: {in: sheets.map((sheet)=>sheet.id)},
+                },
+              });
+        
+              const sheetWithFavorite = await Promise.all(sheets.map(async sheet => {
+                const mapFavByMe = favorite.find(fav => fav.sheetId === sheet.id);
+                return {
+                  ...sheet,
+                  favorite:mapFavByMe?true:false,
+                };
+              }));
+            
+              return sheetWithFavorite;
+            
+            });        
+            
             const total = await prisma.sheet.count({where:{
                 sid: {
                   equals: sid, 

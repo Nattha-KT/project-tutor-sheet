@@ -2,8 +2,8 @@
 import { Metadata } from "next"
 import Sidebar from '@/components/Sidebar'
 import ProviderWrapper from "@/context/ProviderWrapper"
-import { getServerSession } from "next-auth";
 import { SellerSpeedDial } from "./_components/SellerSpeedial";
+import { getAuthSession } from "@/lib/auth";
 
 export const metadata: Metadata = {
   title: 'SELLER',
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 }
 
 export default async function SellerLayout({children,}: {children: React.ReactNode}) {
-  const session = await getServerSession();
+  const session = await getAuthSession();
   return (
     <div >
       {/* <Sidebar className="absolute"/> */}

@@ -98,13 +98,13 @@ export const DELETE = async (req: Request) => {
     try {
       const id = req.url.split("/seller/")[1];
       await main();
-      const res = await prisma.user.update({
+      const res = await prisma.user.updateMany({
           data: { role: "USER" as Role},
           where: { sid: id },
         });
-      const seller = await prisma.seller.delete({ where: { id } });
+      await prisma.seller.delete({ where: { id } });
   
-      return NextResponse.json({ message: "Success",seller }, { status: 200 });
+      return NextResponse.json({ message: "Success",res }, { status: 200 });
     } catch (err) {
       return NextResponse.json(
         { message: "Error Delete Seller", err },

@@ -44,8 +44,7 @@ export default function ProfileMenu() {
             <Button
               variant="text"
               color="blue-gray"
-              className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
-            >
+              className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"  placeholder={undefined}            >
               <Image
                 width={50}
                 height={50}
@@ -62,12 +61,13 @@ export default function ProfileMenu() {
             </Button>
           </MenuHandler>
 
-          <MenuList className=" rounded-2xl">
+          <MenuList className=" rounded-2xl"  placeholder={undefined}>
             <div className="flex gap-1 items-center p-1 rounded-xl text-center text-sm font-normal text-gray-600 mb-2">
               <UserCircleIcon className=" w-6 h-6"/>
               {session?.user.name}
             </div>
             <MenuItem
+              placeholder={undefined}
               onClick={() => {
                 closeMenu();
                 (
@@ -83,6 +83,7 @@ export default function ProfileMenu() {
                 strokeWidth: 2,
               })}
               <Typography
+                placeholder={undefined}
                 as="span"
                 variant="small"
                 className=" text-[16px] font-medium"
@@ -92,9 +93,10 @@ export default function ProfileMenu() {
             </MenuItem>
 
             <MenuItem
+             placeholder={undefined}
              onClick={() => {
               closeMenu;
-              window.location.href = "/";
+              window.location.href = `/favorite`;
             }}
               className={`flex items-center gap-2 rounded hover:bg-gray-100 text-slate-500`}
             >
@@ -103,6 +105,7 @@ export default function ProfileMenu() {
                 strokeWidth: 2,
               })}
               <Typography
+                placeholder={undefined}
                 as="span"
                 variant="small"
                 className=" text-[16px] font-medium"
@@ -113,6 +116,7 @@ export default function ProfileMenu() {
 
             {admin && (
               <MenuItem
+                placeholder={undefined}
                 onClick={() => {
                   closeMenu;
                   window.location.href = "/admin";
@@ -124,6 +128,7 @@ export default function ProfileMenu() {
                   strokeWidth: 2,
                 })}
                 <Typography
+                  placeholder={undefined}
                   as="span"
                   variant="small"
                   className=" text-[16px] font-medium"
@@ -133,6 +138,7 @@ export default function ProfileMenu() {
               </MenuItem>
             )}
             <MenuItem
+              placeholder={undefined}
               onClick={signOut}
               className={`flex items-center gap-2 rounded hover:bg-gray-100 hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10`}
             >
@@ -141,6 +147,7 @@ export default function ProfileMenu() {
                 strokeWidth: 2,
               })}
               <Typography
+                placeholder={undefined}
                 as="span"
                 variant="small"
                 className="font-medium text-[16px]"
@@ -154,6 +161,7 @@ export default function ProfileMenu() {
       ) : (
         <>
           <Button
+            placeholder={undefined}
             className="flex items-center gap-1 p-3  font-normal rounded-full lg:ml-auto text-sm hover:font-semibold"
             onClick={() =>
               (

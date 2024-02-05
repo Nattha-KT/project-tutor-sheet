@@ -1,15 +1,15 @@
-
+'use server'
 import SellerDashboard from "@/app/seller/_components/SellerDashboard";
 import { fetchSheetSid } from "@/services/server/seller/api";
 import StatDashboardSeller from "./_components/StatDashboardSeller";
 import StateBalance from "@/components/transaction/StateBalance";
 import SomethingWrong from "@/components/error-page/SomethingWrong";
 
-export default async function Seller() {
+export default async function SellerPage() {
 
   const results = await fetchSheetSid();
 
-  if (!results) return <SomethingWrong />;
+  if (!results) return <><SomethingWrong /></>;
 
   return (
     <div

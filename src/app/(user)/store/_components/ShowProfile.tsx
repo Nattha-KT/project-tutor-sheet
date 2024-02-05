@@ -128,17 +128,19 @@ export default function ShowProfile({data}:{data: ProfileSellerProps}) {
                 </div>
             </div>
         </div> 
-        <Accordion open={openAcc1}>
-            <AccordionHeader className="flex  gap-x-4 justify-center text-gray-500 font-semibold text-md border-none" onClick={handleOpenAcc1}>
+        <Accordion open={openAcc1}  placeholder={undefined}>
+            <AccordionHeader className="flex  gap-x-2 justify-center text-gray-500 font-semibold text-md border-none" 
+                onClick={handleOpenAcc1}  placeholder={undefined}>
+            {`------`}
             <ChevronDoubleDownIcon 
                 className={`  w-6 h-6 transform ${openAcc1 ? "rotate-180  " : ""}  duration-300 ease-in`}/>
-            {`Show more`}
+            {`Show more ------`}
             </AccordionHeader>
         </Accordion>
       </section>
 
       <section id='show-more' className=' bg-transparent'>
-        <Accordion open={openAcc1}>
+        <Accordion open={openAcc1}  placeholder={undefined}>
             <AccordionBody className={" overflow-x-auto"}>
             <div className=" max-h-[19.5rem] sm:max-h-none  z-10 px-5 py-4  grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-2 sm:gap-x-5 gap-y-4 overflow-y-auto">
                 {filteredSheets && filteredSheets.slice(0, 4).map((sheet) =>(

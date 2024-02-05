@@ -1,17 +1,10 @@
 import { NextApiResponse } from "next";
 // import prisma from "../../../../lib/prismaDb";
-import prisma from "@/db/prismaDb";
+import prisma, { dbConnect } from "@/db/prismaDb";
 import { NextResponse } from "next/server";
 import { getAuthSession } from "@/lib/auth";
 import { Role } from "@prisma/client";
 
-export async function main() {
-  try {
-    await prisma.$connect();
-  } catch (err) {
-    return Error("Database connection Unsuccessful");
-  }
-}
 
 type Seller = {
   pen_name: string;
@@ -33,7 +26,7 @@ export const GET = async (req: Request) => {
         { status: 401 }
       );
     }
-    await main();
+    await dbConnect();
     const seller = await prisma.seller.findFirst({
       where: { id },
       include: {
@@ -81,7 +74,7 @@ export const POST = async (req: Request, res: Response) => {
       address,
       image,
     }: Seller = await req.json();
-    await main();
+    await dbConnect();
     const seller = await prisma.seller.create({
       data: { pen_name, full_name, phone, bank_name, bank_id, address, image },
     });
@@ -105,7 +98,7 @@ export const PUT = async (req: Request) => {
     const id = session?.user.sid;
     const { pen_name, full_name, phone, bank_name, bank_id, address,about_me } =
       await req.json();
-    await main();
+    await dbConnect();
     const seller = await prisma.seller.update({
       data: { pen_name, full_name, phone, bank_name, bank_id, address,about_me },
       where: { id },
@@ -130,14 +123,14 @@ export const DELETE = async (req: Request) => {
       );
     }
     const id = session?.user.sid;
-    await main();
-    const res = await prisma.user.update({
+    await dbConnect();
+    const res = await prisma.user.updateMany({
       data: { role: "USER" as Role },
       where: { sid: id },
     });
-    const seller = await prisma.seller.delete({ where: { id } });
+    await prisma.seller.delete({ where: { id } });
 
-    return NextResponse.json({ message: "Success", seller }, { status: 200 });
+    return NextResponse.json({ message: "Success", res }, { status: 200 });
   } catch (err) {
     return NextResponse.json(
       { message: "Error Delete Seller", err },

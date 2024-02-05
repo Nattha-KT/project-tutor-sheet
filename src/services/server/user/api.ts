@@ -7,7 +7,6 @@ import { headers } from "next/headers";
 
 const getSheetById = async (id: string) => {
   const res = await fetch(`http://localhost:3000/api/sheets/by-id/${id}`, {
-    cache: "no-store",
     next: {
       tags: ["sheets"],
     },
@@ -29,6 +28,7 @@ const getSheetBySearch = async (
       next: {
         tags: ["sheets"],
       },
+      headers: headers(),
     }
   );
   const data = await res.json();

@@ -9,7 +9,7 @@ export default async function ComplainPage() {
     const res = await getComplaint()
     
     if(res.message !=="Success"){
-        return <SomethingWrong/>
+        return<><SomethingWrong/></>
     }
 
   return (

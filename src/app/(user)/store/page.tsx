@@ -21,10 +21,8 @@ export default async function  Store(props:PageProps){
   // console.log(filterMode);
   const take = PAGE_SIZE;
 	const skip = (pageNumber - 1) * take; // Calculate skip based on page number.
-
-
+  
   const results = await getSheetBySearch(take,skip,searchQuery as string) ;
-
 
   return (
     <div key={uuidv4()} className=' container h-auto pb-10  min-w-fit min-h-[50vh] '>

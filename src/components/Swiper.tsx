@@ -1,7 +1,7 @@
 'use client'
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import { v4 as uuidv4 } from 'uuid';
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
@@ -39,7 +39,7 @@ const SwiperImage:React.FC<ArrayStringComponentProps>=({images}) =>{
         >
           {images &&
             images.map((image) => (
-              <SwiperSlide>
+              <SwiperSlide key={uuidv4()}>
                 <Image
                   width={1000}
                   height={1000}

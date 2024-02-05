@@ -62,6 +62,7 @@ const fetchSheetBySearch = async(sid: string,take:number,skip:number,searchQuery
     next: {
       tags: ["sheets"],
     },
+    headers: headers(),
   });
   const data = await res.json();
   return data.results;

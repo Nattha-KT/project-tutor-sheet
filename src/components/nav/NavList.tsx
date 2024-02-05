@@ -49,6 +49,7 @@ const navListItems = [
       <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center z-50">
         {navListItems.map(({ label, icon,path }, key) => (
           <Typography
+            placeholder={undefined}
             key={label}
             as="a"
             href={path}
@@ -56,7 +57,7 @@ const navListItems = [
             color="blue-gray"
             className="text-md font-[550] hover:font-[700] "
           >
-            <MenuItem className="flex items-center gap-2 lg:rounded-full">
+            <MenuItem placeholder={undefined} className="flex items-center gap-2 lg:rounded-full">
               {React.createElement(icon, { className: "h-[18px] w-[18px]" })}{" "}
               {label}
             </MenuItem>

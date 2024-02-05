@@ -1,17 +1,7 @@
-import { NextApiResponse } from "next";
-// import prisma from "../../../../lib/prismaDb";
+import { dbConnect } from '@/db/prismaDb';
 import prisma from "@/db/prismaDb";
 import { NextResponse } from "next/server";
-import { Sheet } from "@prisma/client";
 import { getAuthSession } from "@/lib/auth";
-
-export async function main() {
-  try {
-    await prisma.$connect();
-  } catch (err) {
-    return Error("Database connection Unsuccessful");
-  }
-}
 
 export const GET = async () => {
   try {
@@ -23,9 +13,9 @@ export const GET = async () => {
         { status: 401 }
       );
     }
-    await main();
+    await dbConnect();
     const sheets = await prisma.sheet.findMany({
-      where: { sid },
+      where: { sid:sid },
     });
     return NextResponse.json({ message: "Success", sheets }, { status: 200 });
   } catch (err) {

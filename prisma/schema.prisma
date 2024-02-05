@@ -9,7 +9,7 @@ datasource db {
 }
 
 model Sheet {
-  id              String    @id @default(cuid())
+  id              String     @id @default(cuid())
   course_code     String
   name            String
   semester        String
@@ -17,48 +17,48 @@ model Sheet {
   year            String
   price           Int
   num_page        Int
-  status_approve  Boolean   @default(false)
+  status_approve  Boolean    @default(false)
   class_details   String
   content_details String
   cover_page      String?
   suggestion      String?
   samples_page    String[]
   file_path       String?
-  date            DateTime  @default(now())
+  date            DateTime   @default(now())
   sid             String
-  list            List[]
+  favorite        Favorite[]
   owner           Owner[]
   comment         Comment[]
-  seller          Seller    @relation(fields: [sid], references: [id], onDelete: Cascade)
+  seller          Seller     @relation(fields: [sid], references: [id], onDelete: Cascade)
 }
 
 model Owner {
   userId  String
   sheetId String
-  sheet   Sheet  @relation(fields: [sheetId], references: [id],onDelete: Cascade)
-  user    User   @relation(fields: [userId], references: [id],onDelete: Cascade)
+  sheet   Sheet  @relation(fields: [sheetId], references: [id], onDelete: Cascade)
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, sheetId])
 }
 
 model User {
-  id             String         @id @default(cuid())
+  id             String      @id @default(cuid())
   name           String?
   image          String?
-  email          String         @unique
+  email          String      @unique
   emailVerified  DateTime?
   password       String?
   hashedPassword String?
-  role           Role           @default(USER)
-  sid            String?        @unique
+  role           Role        @default(USER)
+  sid            String?     
   accounts       Account[]
   complaint      Complaint[]
-  favorite       FavoriteList[]
+  favorite       Favorite[]
   comment        Comment[]
   like           Like[]
   owner          Owner[]
   sessions       Session[]
-  seller         Seller?        @relation(fields: [sid], references: [id])
+  seller         Seller?     @relation(fields: [sid], references: [id])
 }
 
 model Account {
@@ -126,31 +126,24 @@ model Like {
 }
 
 model Complaint {
-  id       String @id @default(cuid())
-  userId   String
-  createdAt DateTime  @default(now())
-  head     String
-  category String
-  content  String
-  role     String
-  level    String
-  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String   @id @default(cuid())
+  userId    String
+  createdAt DateTime @default(now())
+  head      String
+  category  String
+  content   String
+  role      String
+  level     String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model FavoriteList {
-  id     String @id @default(cuid())
-  name   String
-  userId String
-  user   User   @relation(fields: [userId], references: [id],onDelete: Cascade)
-  list   List[]
-}
+model Favorite {
+  userId  String
+  sheetId String
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sheet   Sheet  @relation(fields: [sheetId], references: [id], onDelete: Cascade)
 
-model List {
-  id         String       @id @default(cuid())
-  sheetId    String
-  favoriteId String
-  favorite   FavoriteList @relation(fields: [favoriteId], references: [id],onDelete: Cascade)
-  sheet      Sheet        @relation(fields: [sheetId], references: [id],onDelete: Cascade)
+  @@id([userId, sheetId])
 }
 
 model Post {

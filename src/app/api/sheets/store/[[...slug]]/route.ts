@@ -1,6 +1,7 @@
 import { NextApiResponse } from "next";
 import prisma from "../../../../../db/prismaDb";
 import { NextResponse, NextRequest } from "next/server";
+import { getAuthSession } from "@/lib/auth";
 
 export async function main() {
   try {
@@ -12,6 +13,7 @@ export async function main() {
 
 export const GET = async (req: NextRequest, res: NextApiResponse) => {
   try {
+    const session = await getAuthSession();
     const searchQuery = req.nextUrl.searchParams.get("search");
     // const filterByAll = req.nextUrl.searchParams.get("filter");
     const slug = req.url.split("/store/")[1];
@@ -72,7 +74,29 @@ export const GET = async (req: NextRequest, res: NextApiResponse) => {
         },
       },
       
-    );
+    ).then(async (sheets) => {
+      if (!sheets) return;
+      if (!session) return sheets;
+
+      const favorite = await prisma.favorite.findMany({
+        where: {
+          userId: session.user.id,
+          sheetId: {in: sheets.map((sheet)=>sheet.id)},
+        },
+      });
+
+      const sheetWithFavorite = await Promise.all(sheets.map(async sheet => {
+        const mapFavByMe = favorite.find(fav => fav.sheetId === sheet.id);
+        return {
+          ...sheet,
+          favorite:mapFavByMe?true:false,
+        };
+      }));
+    
+      return sheetWithFavorite;
+    
+    });
+
     const totalItems = await prisma.sheet.count({
       where: {
         ...(searchQuery
@@ -113,6 +137,7 @@ export const GET = async (req: NextRequest, res: NextApiResponse) => {
           : {}),
       },
     });
+
     const results = {
       sheets: sheetsBySid,
       metaData: {
@@ -120,7 +145,7 @@ export const GET = async (req: NextRequest, res: NextApiResponse) => {
         totalPages: take != 0 ? Math.ceil(totalItems / take) : 0,
       },
     };
-
+    
     if (!sheetsBySid)
       return NextResponse.json({ message: "Not Found" }, { status: 500 });
     return NextResponse.json({ message: "Success", results }, { status: 200 });

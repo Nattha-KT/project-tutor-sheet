@@ -10,7 +10,7 @@ import {
 import { HandThumbUpIcon as Like } from "@heroicons/react/24/solid";
 import { CommentType } from "../../../types/type";
 import ChildComment from "./ChildComment";
-import IconButton from "../IconButton";
+import IconButton from "../buttons/IconButton";
 import { UseCommentType } from "@/hooks/useComment";
 import { useSession } from "next-auth/react";
 import CommentForm from "./CommentForm";

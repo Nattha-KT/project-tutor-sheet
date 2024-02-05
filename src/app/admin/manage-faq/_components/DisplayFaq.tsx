@@ -25,7 +25,7 @@ export default function DisplayFaq({ data }: { data: Faq[] }) {
               <PlusCircleIcon className=' w-6 h-6'/>
               เพิ่มข้อมูล
         </button>
-        <Dialog className='md:min-w-[540px] shadow-none bg-opacity-0 bg-gray-50' component={AddFaq} name_id='modal_faq_add'/>
+        <Dialog className='md:min-w-[720px] shadow-none bg-opacity-0 bg-gray-50' component={AddFaq} name_id='modal_faq_add'/>
       </div>
         {/* Show more */}
       <div className="w-full  flex flex-col items-center min-h-screen">

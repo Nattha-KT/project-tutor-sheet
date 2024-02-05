@@ -1,3 +1,4 @@
+'use client'
 import { Fragment, useEffect, useState } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
@@ -44,7 +45,7 @@ type DropdownProps ={
         <Menu.Items className="absolute z-[100] right-0  mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1 ">
             {options && options.map(({label,value}) => (
-                <Menu.Item>
+                <Menu.Item key={label}>
                 {({ active }) => (
                   <option
                     key={label}

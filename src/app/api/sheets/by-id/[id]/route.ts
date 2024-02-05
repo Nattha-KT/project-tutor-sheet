@@ -63,6 +63,28 @@ export const GET = async (req: Request, res: NextApiResponse) => {
           commentId: { in: sheet.comment.map(comment => comment.id) },
         },
       });
+
+      const sheetShow = await prisma.sheet.findMany({
+        where: { 
+          sid: sheet.sid,
+          id: {
+            not: sheet.id,
+          }, 
+        },
+        include:{
+          seller:{
+              select:{
+                  full_name:true,
+                  pen_name:true,
+                  image:true,
+              }
+          }
+      },
+        orderBy: {
+          id: 'asc', // 'desc' ถ้าต้องการสุ่มจากมากไปน้อย
+        },
+        take: 4, 
+      });
     
       const commentsWithLikes = await Promise.all(sheet.comment.map(async comment => {
         const { _count, ...commentFields } = comment;
@@ -73,10 +95,19 @@ export const GET = async (req: Request, res: NextApiResponse) => {
           likeCount: _count.likes,
         };
       }));
+
+      const favorite = await prisma.favorite.findFirst({
+        where: {
+          userId: session.user.id,
+          sheetId: sheet.id,
+        },
+      });
     
       return {
         ...sheet,
         comment: commentsWithLikes,
+        favorite: favorite?true:false,
+        sheetShow:sheetShow
       };
     });
 

@@ -57,10 +57,35 @@ const toggleCommentLike = async (id: string) => {
     return (await res).json();
   };
   
+  const FavoriteSheet = async ( SheetId: string) => {
+    const res = fetch(`http://localhost:3000/api/favorite/${SheetId}`, {
+      method: "POST",
+      // @ts-ignore
+      "Content-Type": "application/json",
+    });
+    return (await res).json();
+  };
+
+    
+  const GetFavoriteSheet = async ( ) => {
+    const res = await fetch(`http://localhost:3000/api/favorite`, {
+      cache: "no-store",
+      next: {
+        tags: ["favorite"],
+      },
+    });
+    const data = await res.json();
+    return data.dataSheets;
+  };
+
+  
+
 export {
     toggleCommentLike,
     UploadComplaint,
     deleteComment,
     updateComment,
     PostComment,
+    FavoriteSheet,
+    GetFavoriteSheet,
   };
