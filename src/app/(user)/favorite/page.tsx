@@ -46,7 +46,6 @@ export default function FavoritePage() {
     setFilteredSheets(filter);
     return filter;
   };
-  
 
   const fetchSheetLove = async () => {
     const res = await getFavoriteSheet();
