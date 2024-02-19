@@ -6,17 +6,24 @@ import ButtonCart from './ButtonCart';
 import ButtonEdit from './BuntonEdit';
 import { usePathname, useRouter } from 'next/navigation'
 import HeartBtn from '../buttons/HeartBtn';
-
+import { v4 as uuidv4 } from "uuid";
+import { Rate } from 'antd';
 
 interface ExtendedSheet extends Sheet {
     id?: string;
     seller: Seller;
     favorite?:boolean
+    inCart?:boolean
+    owner?:boolean
+    ratingSheet?:number,
+    ratingSeller?:number
   }
 
 
 export default function SheetCard({sheet}:{sheet:ExtendedSheet}) {
   const pathName = usePathname()
+
+  console.log(sheet)
   
 
   return (
@@ -30,23 +37,34 @@ export default function SheetCard({sheet}:{sheet:ExtendedSheet}) {
         </div>
       )}
       <div className='hover:cursor-pointer z-10'>
-        <Image onClick={()=> window.location.href=`/store/info-sheet/${sheet.id}`}  height={1000} width={1000} src={sheet.cover_page} alt="Abstract Design" className="w-full h-[150px] sm:h-60  object-cover "/>
+        <Image onClick={()=> window.location.href=`/store/info-sheet/${sheet.id}`}  height={1000} width={1000} src={sheet.cover_page} alt="Abstract Design" 
+        className="w-full h-[8.5rem] sm:h-60  object-cover "/>
       </div>
-      <div className="py-4 px-4 flex flex-col flex-grow justify-between ">
-          <div>
-            <div className='flex justify-between'>
-                <h2 className="text-[14px] sm:text-[17px] text-gray-800 font-semibold mb-2">{sheet.name}</h2> 
+      <div className=" px-3 py-3 sm:py-4 sm:px-4 flex flex-col ">
+          <div id='card-content'>
+            <div className='flex justify-between mb-1'>
+                <span className=" text-sm sm:text-base text-gray-800 font-semibold  truncate w-[80%]">{sheet.name}</span> 
                 <TooltipCustomStyles {...sheet.seller} {...sheet}/>
             </div>
-            <div className='flex flex-col sm:flex-row sm:justify-between text-gray-500 leading-relaxed text-md font-medium text-[13px] sm:text-[16px]'>
-            <div className="">{`${sheet.course_code}`}</div>
-            <div className="">{`${sheet.type} ${sheet.semester}/${sheet.year}`}</div>
+            <div className='flex flex-col sm:flex-row sm:justify-between text-gray-500 leading-relaxed text-xs sm:text-base font-medium '>
+              <span >{`${sheet.course_code}`}</span>
+              <span >{`${sheet.type} ${sheet.semester}/${sheet.year}`}</span>
             </div>
           </div>
+          <div className=' flex justify-between items-center mb-2'>
+            <span className="  text-gray-500 leading-relaxed text-[13px] sm:text-[17px] font-semibold">{`${sheet.price} ฿`}</span>
+            <Rate
+            className=' text-xs md:text-sm pb-1'
+                key={uuidv4()}
+                disabled
+                allowHalf
+                defaultValue={sheet.ratingSheet ?sheet.ratingSheet :0}
+              />
+          </div>
         {pathName.includes("/store") ?
-          <ButtonCart price={sheet.price}/>
+          <ButtonCart sheetId={sheet.id!} inCart={sheet.inCart!} owner={sheet.owner!}  />
           :
-          <ButtonEdit price={sheet.price}/>
+          <ButtonEdit sheet={sheet}/>
         }
       </div>
     </div>

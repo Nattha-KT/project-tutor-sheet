@@ -1,7 +1,7 @@
 'use client'
 import { Button, Card, Input, List, message  } from 'antd'
 import React from 'react'
-
+import Image from 'next/image'
 type UploadSamplePageProps = {
   imageList: File[]
   setImageList: React.Dispatch<React.SetStateAction<File[]>>
@@ -69,7 +69,7 @@ const UploadImage = ({imageList,setImageList,buttonDelete,setCheckImageList}: Up
                   />
                  </List.Item>
                 <div className=''>
-                  <img src={URL.createObjectURL(image_File)} alt="" className='md:w-auto md:h-auto md:max-w-[150px] md:max-h-[150px] md:block rounded-lg' />
+                <Image width={1000}  height={1000} src={URL.createObjectURL(image_File)} alt="" className='md:w-auto md:h-auto md:max-w-[150px] md:max-h-[150px] md:block rounded-lg object-cover' />
                   <div className="text-right mt-2">
                     <Button
                       type="primary"

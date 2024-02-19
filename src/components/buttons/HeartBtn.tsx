@@ -1,5 +1,5 @@
 "use client";
-import { FavoriteSheet } from "@/services/client/user/api";
+import { addFavoriteSheet } from "@/services/client/user/api";
 import { IconButton, Tooltip } from "@material-tailwind/react";
 import { useSession } from "next-auth/react";
 import React, { useState } from "react";
@@ -14,7 +14,6 @@ export default function HeartBtn({
 }) {
   const [heart, setHeart] = useState<boolean>(favorite);
   const { data: session } = useSession();
-  console.log(favorite)
 
   const handleHeart = async () => {
     if (!session) {
@@ -22,7 +21,7 @@ export default function HeartBtn({
       return;
     }
     setHeart((prev) => !prev);
-    await FavoriteSheet(sheetId);
+    await addFavoriteSheet(sheetId);
   };
 
   return (

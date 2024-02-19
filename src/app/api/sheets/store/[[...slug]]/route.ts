@@ -62,10 +62,12 @@ export const GET = async (req: NextRequest, res: NextApiResponse) => {
                 ],
               }
             : {}),
+            status_approve:true,
         },
         include: {
           seller: {
             select: {
+              id:true,
               full_name: true,
               pen_name: true,
               image: true,
@@ -78,22 +80,55 @@ export const GET = async (req: NextRequest, res: NextApiResponse) => {
       if (!sheets) return;
       if (!session) return sheets;
 
-      const favorite = await prisma.favorite.findMany({
-        where: {
-          userId: session.user.id,
-          sheetId: {in: sheets.map((sheet)=>sheet.id)},
-        },
-      });
+      const [favorites, carts, ownerships,ratingAll] = await Promise.all([
+        prisma.favorite.findMany({
+          where: {
+            userId: session.user.id,
+            sheetId: { in: sheets.map(sheet => sheet.id) },
+          },
+        }),
+        prisma.cart.findMany({
+          where: {
+            userId: session.user.id,
+            sheetId: { in: sheets.map(sheet => sheet.id) },
+          },
+        }),
+        prisma.ownership.findMany({
+          where: {
+            userId: session.user.id,
+            sheetId: { in: sheets.map(sheet => sheet.id) },
+          },
+        }),
+        prisma.rating.findMany(),
+      ]);
 
-      const sheetWithFavorite = await Promise.all(sheets.map(async sheet => {
-        const mapFavByMe = favorite.find(fav => fav.sheetId === sheet.id);
+
+      const sheetsCustom = await Promise.all(sheets.map(async sheet => {
+        const mapFavByUser= favorites.find(fav => fav.sheetId === sheet.id);
+        const mapCartByUser= carts.find(cart => cart.sheetId === sheet.id);
+        const mapOwnership= ownerships.find(ownership => ownership.sheetId === sheet.id);
+        const mapSheetRatings= ratingAll.filter(rating => (rating.sheetId === sheet.id)&&(rating.category === "sheet"));
+        const mapSellerRatings= ratingAll.filter(rating => (rating.sid === sheet.seller.id )&&(rating.category === "seller"));
+
+        const averageSheetRating = mapSheetRatings.reduce((acc, curr) => acc + curr.point, 0)/mapSheetRatings.length;
+        const averageSellerRating = mapSellerRatings.reduce((acc, curr) => acc + curr.point, 0)/mapSellerRatings.length;
+
+        // console.log("averageSheetRating :",averageSheetRating ? averageSheetRating:0)
+        // console.log("averageSellerRating",averageSellerRating ? averageSellerRating:0)
+        
         return {
           ...sheet,
-          favorite:mapFavByMe?true:false,
+          favorite:mapFavByUser?true:false,
+          inCart:mapCartByUser?true:false,
+          owner:mapOwnership?true:false,
+          ratingSheet:averageSheetRating? averageSheetRating:0,
+          ratingSeller:averageSellerRating? averageSellerRating:0,
+          reviewserSheet:mapSheetRatings.length,
+          reviewserSeller:mapSellerRatings.length,
         };
       }));
     
-      return sheetWithFavorite;
+      return sheetsCustom;
     
     });
 
@@ -150,6 +185,7 @@ export const GET = async (req: NextRequest, res: NextApiResponse) => {
       return NextResponse.json({ message: "Not Found" }, { status: 500 });
     return NextResponse.json({ message: "Success", results }, { status: 200 });
   } catch (err) {
+    console.log("error Occur between fetch data")
     return NextResponse.json(
       { message: "Error creating", err },
       { status: 500 }

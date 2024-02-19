@@ -1,7 +1,9 @@
 "use client";
 import React from "react";
-import { Button, Result } from "antd";
+import { Result } from "antd";
 import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/outline";
+import LoginForm from "../Login/LoginForm";
+import { Dialog } from "../dialog";
 type Props = {};
 
 export default function Unauthorized({}: Props) {
@@ -15,7 +17,7 @@ export default function Unauthorized({}: Props) {
           <div className=" flex items-center justify-center">
             <button
               className=" btn  bg-sky-300 text-white p-2 flex itemconter gap-1 text-center hover:bg-sky-400 rounded-xl hover:translate-y-[-0.4rem] "
-              onClick={() => window.location.reload()}
+              onClick={() =>(document.getElementById("btn_unauthorized_login") as HTMLDialogElement).showModal()}
             >
               <ArrowRightOnRectangleIcon className=" h-6 w-6" />
               Sign In
@@ -23,6 +25,7 @@ export default function Unauthorized({}: Props) {
           </div>
         }
       />
+      <Dialog name_id="btn_unauthorized_login" component={() => <LoginForm />} />
     </div>
   );
 }

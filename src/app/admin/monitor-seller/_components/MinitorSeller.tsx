@@ -29,9 +29,10 @@ interface MonitorProps extends Seller {
   sellers: Seller[];
 }
 
-export default function MonitorSeller({ sellers }: any) {
+export default function MonitorSeller({ sellers,managementData }: any) {
 
-  const router = useRouter()
+  console.log(sellers)
+  console.log(managementData)
 
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredSheets, setFilteredSheets] = useState<any[]>([]);

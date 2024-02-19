@@ -18,6 +18,16 @@ export interface Sheet {
   sid: string;
 }
 
+export interface Rating {
+  id: string;
+  category: string;
+  point: number;
+  userId: string;
+  orderId: string;
+  sheetId: string | null;
+  sid: string;
+}
+
 export interface Seller {
   id?: string;
   pen_name: string;
@@ -26,9 +36,9 @@ export interface Seller {
   bank_name: string;
   bank_id: string;
   address: string;
-  image: string ;
-  about_me?:string
-  sheet?:Sheet[];
+  image: string;
+  about_me?: string;
+  sheet?: Sheet[];
 }
 
 export interface Help {
@@ -57,5 +67,4 @@ export interface CommentType extends User {
 
   likeCount?: number;
   likedByMe?: boolean;
-  
 }

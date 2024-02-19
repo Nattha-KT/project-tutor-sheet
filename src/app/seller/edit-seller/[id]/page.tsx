@@ -1,12 +1,14 @@
-'use server'
 import EditSeller from "@/app/seller/_components/EditSeller";
-import { getAuthSession } from "@/lib/auth";
-import { getBanks, getSellerByID } from "@/services/server/seller/api";
+import {  getSellerByID } from "@/services/server/seller/api";
+import { getBanks } from "@/services/server/user/api";
 import React from "react";
 
 export default async function Edit() {
-  const banks = await getBanks();
-  const res = await getSellerByID();
+
+  const [banks,res] = await Promise.all([
+    getBanks(),
+    getSellerByID(),
+  ])
 
   return (
     <div className="flex justify-center items-center z-10 mb-6">

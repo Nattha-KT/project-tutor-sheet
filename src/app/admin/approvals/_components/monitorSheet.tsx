@@ -1,13 +1,16 @@
 "use client";
 import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
-import { CheckBadgeIcon, MagnifyingGlassIcon, TrashIcon } from "@heroicons/react/24/outline";
+import {
+  CheckBadgeIcon,
+  MagnifyingGlassIcon,
+  TrashIcon,
+} from "@heroicons/react/24/outline";
 import { DialogDelete } from "@/components/dialog";
 import { Seller } from "../../../../../types/type";
 import useApprove from "@/hooks/useApprove";
 import { Input, Tab, Tabs, TabsHeader } from "@material-tailwind/react";
-import { v4 as uuidv4 } from 'uuid';
-import usePullFiles from "@/hooks/usePullFile";
+import { v4 as uuidv4 } from "uuid";
 import DialogShowPdf from "../../../../components/dialog/DialogShowPdf";
 
 type Sheet = {
@@ -65,36 +68,38 @@ export default function Approve({ sheets }: { sheets: Sheet[] }) {
     isMainCheckboxChecked,
   } = useApprove(sheets);
 
-
-
   return (
     <div className=" container min-w-full">
-      <div id="filter-sheets" className="mb-2  p-4  gap-y-3 items-center flex flex-col-reverse md:flex-row justify-between">
-      <Tabs value="all" className="w-full md:w-max">
-            <TabsHeader className=" bg-stone-200">
-              {TABS.map(({ label, value }) => (
-                <Tab
-                  key={uuidv4()}
-                  value={value}
-                  onClick={() => {
-                    settabControl(value);
-                  }}
-                >
-                  &nbsp;&nbsp;{label}&nbsp;&nbsp;
-                </Tab>
-              ))}
-            </TabsHeader>
-          </Tabs>
+      <div
+        id="filter-sheets"
+        className="mb-2  p-4  gap-y-3 items-center flex flex-col-reverse md:flex-row justify-between"
+      >
+        <Tabs value="all" className="w-full md:w-max">
+          <TabsHeader className=" bg-stone-200" placeholder={undefined}>
+            {TABS.map(({ label, value }) => (
+              <Tab
+                key={uuidv4()}
+                value={value}
+                onClick={() => {
+                  settabControl(value);
+                }}
+                placeholder={undefined}
+              >
+                &nbsp;&nbsp;{label}&nbsp;&nbsp;
+              </Tab>
+            ))}
+          </TabsHeader>
+        </Tabs>
         <div className="w-full md:w-72 ">
-            <Input
-              label="Search"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className=""
-              icon={<MagnifyingGlassIcon className="h-5 w-5" />}
-              crossOrigin={undefined}
-            />
-          </div>
+          <Input
+            label="Search"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className=""
+            icon={<MagnifyingGlassIcon className="h-5 w-5" />}
+            crossOrigin={undefined}
+          />
+        </div>
       </div>
       <div className="overflow-x-auto rounded-xl shadow-sm">
         <table className="table ">
@@ -122,7 +127,9 @@ export default function Approve({ sheets }: { sheets: Sheet[] }) {
                   <>
                     <button
                       className="p-2 rounded-md gap-1 border-none bg-green-600 flex items-center text-xs text-white hover:bg-green-500 shadow-sm "
-                      onClick={() => {handleUpdateStatus()}}
+                      onClick={() => {
+                        handleUpdateStatus();
+                      }}
                     >
                       <CheckBadgeIcon className=" w-4 h-4" />
                       approve
@@ -201,7 +208,10 @@ export default function Approve({ sheets }: { sheets: Sheet[] }) {
                       details
                     </button>
                   </th>
-                  <DialogShowPdf name_id={`Show-pdf-sheet-${data.id}`} pdfUrl={`${groupUrl[data.id]}`}/>
+                  <DialogShowPdf
+                    name_id={`Show-pdf-sheet-${data.id}`}
+                    pdfUrl={`${groupUrl[data.id]}`}
+                  />
                 </tr>
               ))}
           </tbody>

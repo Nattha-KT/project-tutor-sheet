@@ -18,7 +18,7 @@ interface ShowMoreProps {
 
 const  ShowMoreSheet:React.FC<ShowMoreProps>= ({dataSheets})=> {
   const [openAcc1, setOpenAcc1] = React.useState(true);
-  // console.log(dataSheets);
+  console.log(dataSheets);
  
  
   const handleOpenAcc1 = () => setOpenAcc1((cur) => !cur);

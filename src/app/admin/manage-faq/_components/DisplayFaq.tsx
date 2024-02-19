@@ -13,6 +13,7 @@ type Faq = {
 
 
 export default function DisplayFaq({ data }: { data: Faq[] }) {
+
   return (
     <div className="w-full h-full ">
       <div className=" flex justify-between md:w-2/4 sm:w-3/4 m-auto p-2 my-5 rounded-lg  shadow-md bg-white ">

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Seller } from "../../types/type";
 import { useDeleteSheet } from "./useDeleteSheet";
-import usePullFiles from "./usePullFile";
+import useFile from "./useFile";
 
 type Sheet= {
     id: string;
@@ -37,7 +37,7 @@ const useApprove = (sheets: Sheet[]) => {
 
 
   const {deleteFilesInDirectory}= useDeleteSheet();
-  const  {getUrlFile} = usePullFiles()
+  const  {getUrlFile} = useFile()
   
 
   const isMainCheckboxChecked = listChoise.length === sheets.length;

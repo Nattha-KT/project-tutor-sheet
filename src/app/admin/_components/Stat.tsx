@@ -2,7 +2,9 @@ import React from "react";
 
 type Props = {};
 
-export default function Stat({}: Props) {
+export default function Stat({managementData}: {managementData:any}) {
+
+  console.log("managementData",managementData)
   return (
     <div className="stats flex flex-col  md:flex-row  gap-3  bg-transparent py-5 min-w-full">
       <div className="stat bg-white shadow-md rounded-xl ">
@@ -43,7 +45,7 @@ export default function Stat({}: Props) {
           </svg>
         </div>
         <div className="stat-title">New Users</div>
-        <div className="stat-value">4,200</div>
+        <div className="stat-value">{managementData.countUser}</div>
         <div className="stat-desc">↗︎ 400 (22%)</div>
       </div>
 
@@ -63,8 +65,8 @@ export default function Stat({}: Props) {
             ></path>
           </svg>
         </div>
-        <div className="stat-title">New Registers</div>
-        <div className="stat-value">1,200</div>
+        <div className="stat-title">New Seller</div>
+        <div className="stat-value">{managementData.countSeller}</div>
         <div className="stat-desc">↘︎ 90 (14%)</div>
       </div>
     </div>

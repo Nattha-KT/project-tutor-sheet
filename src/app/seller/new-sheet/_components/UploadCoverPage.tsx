@@ -3,6 +3,7 @@ import { Button, Card, Input, List, message } from 'antd'
 // import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import React from 'react'
 // import { storage } from '../../../../../firebaseConfig'
+import Image from 'next/image'
 
 type UploadImageProps={
   image : File|null,
@@ -61,7 +62,7 @@ const UploadCoverPage = ({image,setImage,buttonDelete,setCheckImage}:UploadImage
                     description={`Size: ${image.size}`}
                   />
                  </List.Item>
-                 <img src={URL.createObjectURL(image)} alt="" className='md:w-auto md:h-auto md:max-w-[150px] md:max-h-[150px] md:block rounded-lg' />
+                 <Image width={1000}  height={1000} src={URL.createObjectURL(image)} alt="" className='md:w-auto md:h-auto md:max-w-[150px] md:max-h-[150px] md:block rounded-lg object-cover' />
 
                 <div className="text-right mt-2">
                   <Button

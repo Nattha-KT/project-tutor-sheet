@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import prisma from "../../../../db/prismaDb";
 import { NextResponse } from "next/server"
 import { Role } from '@prisma/client';
+import { getAuthSession } from '@/lib/auth';
 
 export async function main() {
     try{
@@ -20,22 +21,11 @@ type Seller={
     address:string,
   }
 
-// export const POST = async (req: Request, res: Response)=>{
-//     try{
-//         const {pen_name,full_name,phone,bank_name,bank_id,address}:Seller = await req.json();
-//         await main();
-//         const seller = await prisma.seller.create({data:{pen_name,full_name,phone,bank_name,bank_id,address}})
-//         return NextResponse.json({message:"Success",seller},{status:200});
-//         }catch(err){
-//             return   NextResponse.json({message:"Error",err},{status:500});
-//         }finally{
-//             await prisma.$disconnect();
-//         }
-    
-//     }
 
-
+//Note!!!!! เส้นนี้้ถูกใช้ใน Role User เพื่อโชวหน้าโปรไฟล์นะ
 export const GET = async (req: Request)=>{
+
+    const session = await getAuthSession();
         try{
             const id = req.url.split("/seller/")[1];
             await main();
@@ -49,7 +39,74 @@ export const GET = async (req: Request)=>{
                         }
                     }
                 }
-            });
+            }).then(async (seller)=>{
+                if(!seller) return null;
+                if (!session) return seller;
+
+                const [favorites, carts, ownerships,ratingSeller,ratingAll] = await Promise.all([
+
+                    prisma.favorite.findMany({
+                        where: {
+                          userId: session.user.id,
+                          sheetId: { in: seller.sheet.map(sheet => sheet.id) },
+                        },
+                    }),
+                    prisma.cart.findMany({
+                    where: {
+                        userId: session.user.id,
+                        sheetId: { in: seller.sheet.map(sheet => sheet.id) },
+                    },
+                    }),
+                    prisma.ownership.findMany({
+                    where: {
+                        userId: session.user.id,
+                        sheetId: { in: seller.sheet.map(sheet => sheet.id) },
+                    },
+                    }),
+
+                    prisma.rating.findMany({where:{
+                    sid:seller.id,
+                    category:"seller"
+                    }}),
+
+                    prisma.rating.findMany(),
+                ])
+
+
+                const filterdSheet = seller.sheet.filter((sheet) => sheet.status_approve === true);
+
+                const sheetShowCustom = await Promise.all(filterdSheet.map((sheet)=>{
+                    const mapFavByUser= favorites.find(fav => fav.sheetId === sheet.id);
+                    const mapCartByUser= carts.find(cart => cart.sheetId === sheet.id);
+                    const mapOwnership= ownerships.find(ownership => ownership.sheetId === sheet.id);
+                    const sheetRatings = ratingAll.filter(rating => (rating.sheetId === sheet.id) && (rating.category === "sheet"));
+                    const sellerRatings= ratingAll.filter(rating => (rating.sid === sheet.sid) && (rating.category === "seller"));
+          
+                    const averageSheetRating = sheetRatings.reduce((acc, curr) => acc + curr.point, 0)/sheetRatings.length;
+                    const averageSellerRating = sellerRatings.reduce((acc, curr) => acc + curr.point, 0)/sellerRatings.length;
+          
+                    return {
+                      ...sheet,
+                      favorite:mapFavByUser?true:false,
+                      inCart:mapCartByUser?true:false,
+                      owner:mapOwnership?true:false,
+                      ratingSheet:averageSheetRating? averageSheetRating:0,
+                      ratingSeller:averageSellerRating? averageSellerRating:0,
+                      reviewserSheet:sheetRatings.length,
+                      reviewserSeller:sellerRatings.length,
+                    }
+                  }))
+
+            
+                const averageSellerRating = ratingSeller.reduce((acc, curr) => acc + curr.point, 0)/ratingSeller.length;
+
+                return {
+                    ...seller,
+                    sheet:sheetShowCustom,
+                    ratingSeller:averageSellerRating? averageSellerRating:0,
+                    reviewsers:ratingSeller.length
+                  }
+            })
 
             if (!seller) {
                 return NextResponse.json({ message: "Not Found" }, { status: 500 });

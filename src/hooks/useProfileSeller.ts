@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useDeleteSheet } from "./useDeleteSheet";
 import toast from "react-hot-toast";
 import { DeleteSellerByAdmin } from "@/services/client/admin/api";
-import { getBanks } from "@/services/server/seller/api";
+import { getBanks } from "@/services/server/user/api";
 type Banks = {
     id: string
     name: string

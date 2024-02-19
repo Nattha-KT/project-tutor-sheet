@@ -15,13 +15,12 @@ export default function EditFaq ({id}:{id:string}) {//{params}:{params:{id:strin
   const answerRef = useRef<HTMLTextAreaElement | null>(null);
 
     useEffect(()=>{
-        toast.loading("Fetching Sheets...👩🏾‍🚀",{id:"1"});
+      
         getFaqById(id).then((data)=>{
             titleRef.current!.value = data.title;
             answerRef.current!.value = data.answer;
-            toast.success("Fetching Complate 🚀",{id:"1"});
         }).catch((err)=>{
-            toast.error("Error fetching sheet👾👾",{id:"1"})
+            console.log("Error During Fetching FAQ")
         });
 
     },[]);

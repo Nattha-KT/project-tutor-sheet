@@ -76,31 +76,32 @@ export default function AreaChartCompo() {
   const [value, setValue] = useState(null);
 
   return (
-    <Card className=" pb-6 ">
+    <Card className=" pb-6 " placeholder={undefined}>
       <CardHeader
         floated={false}
         shadow={false}
         color="transparent"
         className="flex flex-col gap-4 rounded-none md:flex-row md:items-center"
+        placeholder={undefined}
       >
         <div className="w-max rounded-lg bg-gray-900 p-5 text-white">
           <Square3Stack3DIcon className="h-6 w-6" />
         </div>
         <div>
-          <Typography variant="h6" color="blue-gray">
-            Bar Chart
+          <Typography variant="h6" color="blue-gray" placeholder={undefined}>
+            Payment Chart
           </Typography>
           <Typography
+            placeholder={undefined}
             variant="small"
             color="gray"
             className="max-w-sm font-normal"
           >
-            Visualize your data in a simple way using the
-            @material-tailwind/react chart plugin.
+           Trading within the system The source is from the stripe platform. If you want more information, log in to stripe with the role of admin.
           </Typography>
         </div>
       </CardHeader>
-      <CardBody className="px-2 pb-0">
+      <CardBody className="px-2 pb-0" placeholder={undefined}>
         <AreaChart
           className="h-[19rem] mt-4 text-sm text-gray-500 font-normal"
           data={chartdata2}

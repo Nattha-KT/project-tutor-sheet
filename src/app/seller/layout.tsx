@@ -1,7 +1,7 @@
 
 import { Metadata } from "next"
 import Sidebar from '@/components/Sidebar'
-import ProviderWrapper from "@/context/ProviderWrapper"
+import ProviderWrapper from "@/context/NextAuthWrapper"
 import { SellerSpeedDial } from "./_components/SellerSpeedial";
 import { getAuthSession } from "@/lib/auth";
 

@@ -3,12 +3,14 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { v4 as uuidv4 } from "uuid";
 import Image from "next/image";
-import { ShoppingCartIcon } from "@heroicons/react/24/solid";
 import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/outline";
 import { Input } from "@material-tailwind/react";
-import { GetFavoriteSheet } from "@/services/client/user/api";
+import { getFavoriteSheet } from "@/services/client/user/api";
 import NotFound from "@/components/error-page/NotFound";
 import HeartBtn from "@/components/buttons/HeartBtn";
+import ButtonCartLoveSheet from "./_components/ButtonCartLoveSheet";
+import { useSession } from "next-auth/react";
+import Unauthorized from "@/components/error-page/Unauthorized";
 
 type SheetCardLove = {
   id: string;
@@ -23,12 +25,15 @@ type SheetCardLove = {
   sid: string;
   pen_name: string;
   favorite: boolean;
+  inCart: boolean;
+  owner: boolean;
 };
 export default function FavoritePage() {
+  const {data:session} = useSession();
   const [sheets, setSheets] = useState<SheetCardLove[]>([]);
   const [filteredSheets, setFilteredSheets] = useState<SheetCardLove[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [pending, setPending] = useState<boolean>(false);
+  const [pending, setPending] = useState<boolean>(true);
 
   const handleFilter = (dataSheets: SheetCardLove[]) => {
     const filter = dataSheets.filter((sheet) => {
@@ -41,22 +46,33 @@ export default function FavoritePage() {
     setFilteredSheets(filter);
     return filter;
   };
+  
+
+  const fetchSheetLove = async () => {
+    const res = await getFavoriteSheet();
+    if (!res) return;
+    setSheets(res);
+    setFilteredSheets(res);
+    setPending(false);
+  };
 
   useEffect(() => {
-    const fetchSheetLove = async () => {
-      const res = await GetFavoriteSheet();
-      if (!res) return;
-      setSheets(res);
-      setFilteredSheets(res);
-      setPending(false)
-    };
-    setPending(true)
+    setPending(true);
     fetchSheetLove();
   }, []);
 
   useEffect(() => {
     handleFilter(sheets);
   }, [searchTerm]);
+
+  
+  if (!session) {
+    return (
+      <div className=" container flex items-center justify-center w-full">
+        <Unauthorized />
+      </div>
+    );
+  }
 
   return (
     <div className=" container min-w-full">
@@ -70,7 +86,7 @@ export default function FavoritePage() {
                   whileInView={{
                     opacity: 1,
                     y: 0,
-                    transition: { delay: 0.1, duration: 0.5 },
+                    transition: { delay: 0.1, duration: 0.4 },
                   }}
                   viewport={{ once: true }}
                   className=" uppercase tracking-[3px] text-[25px] font-medium mb-1 inline-block text-gray-600"
@@ -82,7 +98,7 @@ export default function FavoritePage() {
                   whileInView={{
                     opacity: 1,
                     y: 0,
-                    transition: { delay: 0.2, duration: 0.5 },
+                    transition: { delay: 0, duration: 0.3 },
                   }}
                   viewport={{ once: true }}
                   className=" flex justify-center mb-3"
@@ -116,7 +132,7 @@ export default function FavoritePage() {
             whileInView={{
               opacity: 1,
               y: 0,
-              transition: { delay: 0.4, duration: 0.4 },
+              transition: { delay: 0, duration: 0.3 },
             }}
             viewport={{ once: true }}
             id="input-search"
@@ -132,81 +148,85 @@ export default function FavoritePage() {
               />
             </div>
           </motion.div>
-          {filteredSheets ? (
-            <div
-              id="show-more-sheet"
-              className="flex flex-col md:flex-row  min-w-full  justify-center gap-3 items-center mb-6"
-            >
-              {!pending?filteredSheets.map((sheet) => (
-                <div
-                  key={sheet.id}
-                  className="block  sm:flex hover:cursor-pointer overflow-y-visible 
-                bg-stone-100 rounded-lg  shadow-lg w-[70%] sm:w-[80%] hover:translate-y-[-0.5rem]  transition-all duration-300 ease-in-out"
-                >
-                  <div className="flex-[0.25] flex items-stretch p-0">
-                    <Image
-                      src={sheet.cover_page}
-                      alt="Covor Sheet"
-                      width={820}
-                      height={320}
-                      className=" object-cover object-center max-h-[5rem]  sm:max-h-[8rem] w-full 
-                      lg:max-w-[20rem] rounded-tl-lg sm:rounded-bl-lg  rounded-tr-lg sm:rounded-r-none "
-                    />
-                  </div>
-                  <div className="flex-1 w-full px-4 py-2 md:py-0 flex items-center">
-                    <div className=" w-full">
-                      <div className=" text-xs md:text-sm ">
-                        <div className="flex items-center justify-between leading-[0] relative text-stone-600">
-                          <span className=" text-lg font-semibold text-stone-800">
-                            {sheet.course_code}&nbsp;-&nbsp;
-                            <strong className=" text-sm font-semibold text-stone-500">
-                              {sheet.name}
-                            </strong>
-                          </span>
-                          <div className=" flex items-center rounded-full hover:bg-white p-2">
-                            {sheet.id && (
-                              <HeartBtn
-                                sheetId={sheet.id}
-                                favorite={
-                                  sheet.favorite ? sheet.favorite : false
-                                }
-                              />
-                            )}
+          <div
+            id="show-more-card"
+            className="grid grid-cols-1 lg:grid-cols-2  min-w-full  gap-3 mb-6 py-2  px-2 sm:px-14"
+          >
+            {!pending ? (
+              <>
+                {filteredSheets.length !== 0 ? (
+                  filteredSheets.map((sheet) => (
+                    <div id="love-card" className=" w-full flex justify-center ">
+                      <div
+                        key={sheet.id}
+                        className="block sm:flex hover:cursor-pointer overflow-y-visible 
+                    bg-stone-100 rounded-lg  shadow-lg w-[70%] sm:w-full hover:translate-y-[-0.5rem]  transition-all duration-300 ease-in-out"
+                      >
+                        <div className="flex-[0.25] flex items-stretch p-0">
+                          <Image
+                            src={sheet.cover_page}
+                            alt="Covor Sheet"
+                            width={820}
+                            height={320}
+                            className=" object-cover object-center max-h-[5rem]  sm:max-h-[8rem] w-full 
+                          lg:max-w-[20rem] rounded-tl-lg sm:rounded-bl-lg  rounded-tr-lg sm:rounded-r-none "
+                          />
+                        </div>
+                        <div className="flex-1 w-full px-4 py-2 md:py-0 flex items-center">
+                          <div className=" w-full">
+                            <div className=" text-xs md:text-sm ">
+                              <div className="flex items-center justify-between leading-[0] relative text-stone-600">
+                                <span className=" text-lg font-semibold text-stone-800">
+                                  {sheet.course_code}&nbsp;-&nbsp;
+                                  <strong className=" text-sm font-semibold text-stone-500">
+                                    {sheet.name}
+                                  </strong>
+                                </span>
+                                <div className=" flex items-center rounded-full hover:bg-white p-2">
+                                  {sheet.id && (
+                                    <HeartBtn
+                                      sheetId={sheet.id}
+                                      favorite={
+                                        sheet.favorite ? sheet.favorite : false
+                                      }
+                                    />
+                                  )}
+                                </div>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <span>
+                                  {`${sheet.type} ${sheet.semester}/${sheet.year}`}
+                                  &nbsp;&nbsp; &nbsp;&nbsp;
+                                  {`Total ${sheet.num_page} pages`}
+                                </span>
+                              </div>
+                            </div>
+                            <div
+                              id="footer-card"
+                              className=" flex justify-between items-center"
+                            >
+                              <div className="flex space-x-2 text-sm">
+                                <strong>{sheet.pen_name}</strong>
+                                <span>&mdash;</span>
+                                <span>{sheet.price} ฿</span>
+                              </div>
+                              <ButtonCartLoveSheet inCart={sheet.inCart} sheetId={sheet.id} owner={sheet.owner!}/>
+                            </div>
                           </div>
                         </div>
-                        <div className="flex items-center gap-1">
-                          <span>
-                            {`${sheet.type} ${sheet.semester}/${sheet.year}`}
-                            &nbsp;&nbsp; &nbsp;&nbsp;
-                            {`Total ${sheet.num_page} pages`}
-                          </span>
-                        </div>
-                      </div>
-                      <div
-                        id="footer-card"
-                        className=" flex justify-between items-center"
-                      >
-                        <div className="flex space-x-2 text-sm">
-                          <strong>{sheet.pen_name}</strong>
-                          <span>&mdash;</span>
-                          <span>{sheet.price} ฿</span>
-                        </div>
-                        <button className=" flex items-center rounded-full hover:bg-white p-2">
-                          <ShoppingCartIcon className=" h-5 w-5" />
-                        </button>
                       </div>
                     </div>
-                  </div>
-                </div>
-              )):
-              <div className="w-full flex items-center justify-center">
+                  ))
+                ) : (
+                  <NotFound />
+                )}
+              </>
+            ) : (
+              <div className=" col-span-2 w-full flex items-center justify-center">
                 <span className="loading loading-dots  h-[10rem] w-[6rem]"></span>
               </div>
-              }
-            </div>
-          ) : (
-            <NotFound />
-          )}
+            )}
+          </div>
         </div>
       </section>
     </div>

@@ -7,7 +7,7 @@ import { DialogDelete, DialogEditSeller } from '@/components/dialog'
 import { Textarea } from '@material-tailwind/react'
 import { Rate } from 'antd'
 import { Seller } from '../../../../types/type'
-import { getBanks } from '@/services/server/seller/api'
+import { getBanks } from '@/services/server/user/api'
 import toast from 'react-hot-toast'
 import { DeleteSeller, UpdateSeller } from '@/services/client/seller/api'
 
@@ -19,6 +19,8 @@ type User ={
 interface ProfileSellerProps extends Seller {
     user:User[]
     _count:number
+    ratingSeller:number
+    reviewser:number
 }
 
 
@@ -69,8 +71,6 @@ export default function Profile({seller}:{seller:ProfileSellerProps}) {
          setShowForm(false)
     }
    
-
-
     useEffect(() => {
         fetchBank()
         setDataSeller(seller) 
@@ -100,8 +100,8 @@ export default function Profile({seller}:{seller:ProfileSellerProps}) {
                         {dataSeller?.pen_name}
                     </p>
                     <div className=' flex flex-col md:flex-row justify-center gap-x-2 gap-1 items-center md:mt-[-1rem]'>
-                    <Rate allowHalf disabled defaultValue={4.5} /> 
-                    <span className='sm:pt-2 text-sm text-gray-500'>{`(4.5)  143 reviews`}</span>
+                    <Rate allowHalf disabled defaultValue={seller.ratingSeller} /> 
+                    <span className='sm:pt-2 text-sm text-gray-500'>{`(${seller.ratingSeller})  ${seller.reviewser} reviews`}</span>
                     </div>
                 </div>
                 <div id="button-edit-delete" className=' z-10  flex flex-col sm:flex-row gap-3 items-center justify-center md:justify-start'>

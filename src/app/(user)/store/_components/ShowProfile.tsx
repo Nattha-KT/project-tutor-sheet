@@ -9,8 +9,13 @@ import { Accordion, AccordionBody, AccordionHeader, Input } from '@material-tail
 import Link from 'next/link'
 import SheetCard from '@/components/store/SheetCard'
 
+interface CustomeSellerProps  extends Seller{
+    ratingSeller:number,
+    reviewsers:number,
+}
+
 type ProfileSellerProps = {
-    seller:Seller,
+    seller:CustomeSellerProps,
     totalSheets?:number
     approvedSheets?:number
 }
@@ -20,7 +25,7 @@ interface ExtendedSheet extends Sheet {
   }
 
 export default function ShowProfile({data}:{data: ProfileSellerProps}) {
-    
+    console.log(data)
     const [openAcc1, setOpenAcc1] = useState(true);
     const [filteredSheets, setFilteredSheets] = useState<ExtendedSheet[]>([]);
     const [searchTerm, setSearchTerm] = useState("");
@@ -52,7 +57,7 @@ export default function ShowProfile({data}:{data: ProfileSellerProps}) {
   return (
     <div className=' flex flex-col px-6 py-3'>
       <div id="profile-background" className=' min-w-full  z-0 p-0 flex justify-center md:justify-start md:pl-8'>
-          <Image src={data.seller?.image || "/images/bg1.jpg"} width={1000} height={1000} alt='Profile-seller' 
+          <Image src={data.seller?.image || "/images/bg1.jpg"} width={2000} height={2000} alt='Profile-seller' 
             className='w-44 h-44 rounded-full border-2 border-white p-2'/>
       </div>
       <div id="profile-header" className=' mt-[-5.6rem] md:ml-[7.5rem] bg-white rounded-2xl shadow-md p-4'>
@@ -62,8 +67,8 @@ export default function ShowProfile({data}:{data: ProfileSellerProps}) {
                       {data.seller.pen_name}
                   </p>
                   <div className=' flex flex-col md:flex-row justify-center gap-x-2 gap-1 items-center md:mt-[-1rem]'>
-                  <Rate allowHalf disabled defaultValue={4.5} /> 
-                  <span className='sm:pt-2 text-sm text-gray-500'>{`(4.5)  143 reviews`}</span>
+                  <Rate allowHalf disabled defaultValue={data.seller.ratingSeller} /> 
+                  <span className='sm:pt-2 text-sm text-gray-500'>{`(${data.seller.ratingSeller})  ${data.seller.reviewsers} reviews`}</span>
                   </div>
               </div>
               <div id="button-more-sheet" className=' z-10  flex items-center justify-center md:justify-start'>
@@ -101,7 +106,7 @@ export default function ShowProfile({data}:{data: ProfileSellerProps}) {
                 <div className="stats shadow-md bg-white flex-1 border border-gray-200  overflow-clip">
                     <div className="stat">
                         <div className="stat-title text-gray-500">Number of trades</div>
-                        <div className="stat-value flex items-center">{234}
+                        <div className="stat-value flex items-center">{3}
                             <CreditCardIcon className=' w-9 h-9 text-primary ml-5'/>
                         </div>
                         <div className="stat-desc h-auto">21% more than last month</div>
@@ -109,12 +114,12 @@ export default function ShowProfile({data}:{data: ProfileSellerProps}) {
                 </div>
                 <div className="stats shadow-md bg-white flex-1 border border-gray-200 overflow-clip">
                     <div className="stat">
-                        <div className="stat-title text-gray-500">Star rating</div>
+                        <div className="stat-title text-gray-500">Star from all sheet</div>
                         <div className="stat-value flex items-center gap-4">
                             <StarIcon className=' w-9 h-9 text-yellow-400'/>
-                            {234}
+                            {data.seller.ratingSeller*data.seller.reviewsers}
                         </div>
-                        <div className="stat-desc h-auto">from more than 100 reviewers</div>
+                        <div className="stat-desc h-auto">from more than {data.seller.reviewsers} reviewers</div>
                     </div>
                 </div>
             </div>
@@ -142,7 +147,7 @@ export default function ShowProfile({data}:{data: ProfileSellerProps}) {
       <section id='show-more' className=' bg-transparent'>
         <Accordion open={openAcc1}  placeholder={undefined}>
             <AccordionBody className={" overflow-x-auto"}>
-            <div className=" max-h-[19.5rem] sm:max-h-none  z-10 px-5 py-4  grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-2 sm:gap-x-5 gap-y-4 overflow-y-auto">
+            <div className=" max-h-[19.5rem] sm:max-h-none  z-10  px-5 md:px-[6.5rem] py-4  grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-2 sm:gap-x-5 gap-y-4 overflow-y-auto">
                 {filteredSheets && filteredSheets.slice(0, 4).map((sheet) =>(
                     <SheetCard key={sheet.id} sheet={sheet} />
                 ))}

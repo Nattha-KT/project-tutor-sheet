@@ -18,16 +18,20 @@ import {
   ArrowPathIcon,
   RocketLaunchIcon,
   UserCircleIcon,
+  BookOpenIcon,
 } from "@heroicons/react/24/outline";
 import { useSession, signIn, signOut } from "next-auth/react";
 
 import Image from "next/image";
 import LoginForm from "../Login/LoginForm";
 import Dialog from "../dialog/Dialog";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function ProfileMenu() {
   const { data: session } = useSession();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const router = useRouter();
 
   let admin = false;
   if (session?.user && session.user.role == "ADMIN") {
@@ -44,7 +48,9 @@ export default function ProfileMenu() {
             <Button
               variant="text"
               color="blue-gray"
-              className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"  placeholder={undefined}            >
+              className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
+              placeholder={undefined}
+            >
               <Image
                 width={50}
                 height={50}
@@ -61,11 +67,12 @@ export default function ProfileMenu() {
             </Button>
           </MenuHandler>
 
-          <MenuList className=" rounded-2xl"  placeholder={undefined}>
+          <MenuList className=" rounded-2xl" placeholder={undefined}>
             <div className="flex gap-1 items-center p-1 rounded-xl text-center text-sm font-normal text-gray-600 mb-2">
-              <UserCircleIcon className=" w-6 h-6"/>
+              <UserCircleIcon className=" w-6 h-6" />
               {session?.user.name}
             </div>
+
             <MenuItem
               placeholder={undefined}
               onClick={() => {
@@ -93,25 +100,58 @@ export default function ProfileMenu() {
             </MenuItem>
 
             <MenuItem
-             placeholder={undefined}
-             onClick={() => {
-              closeMenu;
-              window.location.href = `/favorite`;
-            }}
+              placeholder={undefined}
+              onClick={() => {
+                closeMenu;
+              }}
               className={`flex items-center gap-2 rounded hover:bg-gray-100 text-slate-500`}
             >
-              {React.createElement(HeartIcon, {
-                className: `h-4 w-4`,
-                strokeWidth: 2,
-              })}
-              <Typography
-                placeholder={undefined}
-                as="span"
-                variant="small"
-                className=" text-[16px] font-medium"
+              <Link
+                href={"/my-library"}
+                prefetch={true}
+                className=" flex items-center gap-2"
               >
-                favorite sheet
-              </Typography>
+                {React.createElement(BookOpenIcon, {
+                  className: `h-4 w-4`,
+                  strokeWidth: 2,
+                })}
+                <Typography
+                  placeholder={undefined}
+                  as="span"
+                  variant="small"
+                  className=" text-[16px] font-medium"
+                >
+                  my library
+                </Typography>
+              </Link>
+            </MenuItem>
+
+            <MenuItem
+              placeholder={undefined}
+              onClick={() => {
+                closeMenu;
+                window.location.href = `/favorite`;
+              }}
+              className={`flex items-center gap-2 rounded hover:bg-gray-100 text-slate-500`}
+            >
+              <Link
+                href={"/my-library"}
+                prefetch={true}
+                className=" flex items-center gap-2"
+              >
+                {React.createElement(HeartIcon, {
+                  className: `h-4 w-4`,
+                  strokeWidth: 2,
+                })}
+                <Typography
+                  placeholder={undefined}
+                  as="span"
+                  variant="small"
+                  className=" text-[16px] font-medium"
+                >
+                  favorite sheet
+                </Typography>
+              </Link>
             </MenuItem>
 
             {admin && (

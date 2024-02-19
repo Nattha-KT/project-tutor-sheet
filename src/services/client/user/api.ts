@@ -1,6 +1,8 @@
 "use client";
 
+import { SheetCartProps } from "@/hooks/useCart";
 import { Help } from "../../../../types/type";
+
 
 const toggleCommentLike = async (id: string) => {
     const res = fetch(`http://localhost:3000/api/comments/${id}`, {
@@ -57,7 +59,7 @@ const toggleCommentLike = async (id: string) => {
     return (await res).json();
   };
   
-  const FavoriteSheet = async ( SheetId: string) => {
+  const addFavoriteSheet = async ( SheetId: string) => {
     const res = fetch(`http://localhost:3000/api/favorite/${SheetId}`, {
       method: "POST",
       // @ts-ignore
@@ -67,7 +69,7 @@ const toggleCommentLike = async (id: string) => {
   };
 
     
-  const GetFavoriteSheet = async ( ) => {
+  const getFavoriteSheet = async ( ) => {
     const res = await fetch(`http://localhost:3000/api/favorite`, {
       cache: "no-store",
       next: {
@@ -78,14 +80,112 @@ const toggleCommentLike = async (id: string) => {
     return data.dataSheets;
   };
 
+  const getSheetsInCart = async ( ) => {
+    const res = await fetch(`http://localhost:3000/api/cart`, {
+      next: {
+        tags: ["cart"],
+      },
+    });
+    const data = await res.json();
+    return data.dataSheets;
+  };
+
+  const deleteSheetCart = async (id: string) => {
+    const res = fetch(`http://localhost:3000/api/cart/${id}`, {
+      method: "DELETE",
+      // @ts-ignore
+      "Content-Type": "application/json",
+    });
+    return (await res).json();
+  };
+
+    
+  const addSheetToCart = async ( SheetId: string) => {
+    const res = fetch(`http://localhost:3000/api/cart/${SheetId}`, {
+      method: "POST",
+      // @ts-ignore
+      "Content-Type": "application/json",
+    });
+    return (await res).json();
+  };
+
+  const checkout = async (checkList:SheetCartProps[]) => {
+    await fetch("http://localhost:3000/api/checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ products: checkList }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.url) {
+          window.location.href = response.url;
+          // console.log(response.url);
+        }
+      });
+  };
+
+  const getOrder = async ( ) => {
+    const res = await fetch('http://localhost:3000/api/order', {
+      next: {
+        tags: ["order"],
+      },
+    });
+    const data = await res.json();
+    return data.order;
+  };
+
+  const getOrderById = async (orderId:string ) => {
+    const res = await fetch(`http://localhost:3000/api/order/${orderId}`, {
+      cache: "no-store",
+      next: {
+        tags: ["order"],
+      },
+    });
+    const data = await res.json();
+    return data.order;
+  };
+
+  const deleteOrderStatusOpen = async (id: string) => {
+    const res = fetch(`http://localhost:3000/api/order/${id}`, {
+      method: "DELETE",
+      // @ts-ignore
+      "Content-Type": "application/json",
+    });
+    return (await res).json();
+  };
+
+  const giveRatingStar = async ( seller:any,products:any,orderId:string) => {
+    const res = fetch('http://localhost:3000/api/rating', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ sellerRating: seller, productsRating: products,orderId}),
+    });
+    return (await res).json();
+  };
+
   
 
 export {
     toggleCommentLike,
     UploadComplaint,
     deleteComment,
+    deleteOrderStatusOpen,
+    deleteSheetCart,
     updateComment,
     PostComment,
-    FavoriteSheet,
-    GetFavoriteSheet,
+    addFavoriteSheet,
+    getFavoriteSheet,
+    addSheetToCart,
+    getSheetsInCart,
+    checkout,
+    getOrder,
+    getOrderById,
+    giveRatingStar,
   };

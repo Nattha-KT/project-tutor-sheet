@@ -9,6 +9,8 @@ import { ViewColumnsIcon,BookOpenIcon,ShoppingCartIcon } from '@heroicons/react/
 import { Rate } from "antd";
 import SomethingWrong from "@/components/error-page/SomethingWrong";
 import HeartBtn from "@/components/buttons/HeartBtn";
+import ButtonInfoCart from "../../_components/BtnInfoCart";
+import { Seller } from "../../../../../../types/type";
 
 
 const dateFormatter = new Intl.DateTimeFormat(undefined, {
@@ -20,6 +22,7 @@ const dateFormatter = new Intl.DateTimeFormat(undefined, {
 export default async function InfoSheet({params}: {params: { id: string }}) {
 
   const sheet = await getSheetById(params.id as string);
+  
 
   if(!sheet) return (
     <><SomethingWrong/></>
@@ -45,7 +48,7 @@ export default async function InfoSheet({params}: {params: { id: string }}) {
             id="profile"
             className="w-[80%] lg:w-[100%] 2xl:w-[80%] bg-stone-50/30 rounded-2xl shadow-lg px-3"
           >
-            <CardProfile {...sheet.seller} {...sheet} />
+            <CardProfile seller={sheet.seller as Seller} ratingSeller={sheet.ratingSeller as number}/>
           </div>
         </div>
         <div
@@ -64,8 +67,8 @@ export default async function InfoSheet({params}: {params: { id: string }}) {
             </div>
             <div className=" text-sm text-gray-500 sm:ml-[2rem] flex flex-col-reverse sm:flex-row items-start sm:items-center gap-y-2 gap-x-6">
               <div className=" flex gap-1 items-center">
-                <Rate allowHalf disabled defaultValue={4.5} className=""/>
-                {`(4.5) reviews`}
+                <Rate allowHalf disabled defaultValue={sheet.ratingSheet ?sheet.ratingSheet:0} className=""/>
+                {`(${sheet.ratingSheet}) ${sheet.reviewserSheet} reviews`}
               </div>
               <div className=" flex items-center pt-0 px-2 text-sm text-gray-500 bg-gray-100 rounded-md shadow-sm border border-gray-200">
                 favorite
@@ -75,10 +78,7 @@ export default async function InfoSheet({params}: {params: { id: string }}) {
           </div>
           <div className="flex flex-col lg:items-start items-center mb-6  gap-y-5 md:gap-x-10 border-solid border-t-[1px] py-5 border-gray-200">
             <p className=" text-[1.2rem] md:text-[1.3rem] text-gray-600 font-semibold">{`Price: ${sheet.price}฿`}</p>
-            <button className="btn border-0 max-w-[60%] px-auto sm:px-16 text-white bg-amber-500 hover:bg-amber-400 rounded-xl shadow-xl">
-              <ShoppingCartIcon className=" w-6 h-6"/>
-              Cart
-            </button>
+            <ButtonInfoCart sheetId={sheet.id} inCart={sheet.inCart} owner={sheet.owner}/>
           </div>
           <AccordionCustomDetails
             data={[
@@ -99,9 +99,9 @@ export default async function InfoSheet({params}: {params: { id: string }}) {
         </span>
         <Swiper images={sheet.samples_page} />
       </section>
-      {(sheet.sheetShow && sheet.sheetShow.length !== 0 ) &&(
+      {(sheet.sheetShows && sheet.sheetShows.length !== 0 ) &&(
         <section className=" bg-slate-50 mb-10">
-          <ShowMoreSheet dataSheets={sheet.sheetShow} />
+          <ShowMoreSheet dataSheets={sheet.sheetShows} />
         </section>
       )}
       <section>

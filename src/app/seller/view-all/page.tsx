@@ -1,13 +1,11 @@
-"use server"
+
 import React from 'react'
 import ViewAllCard from '../_components/ViewAllCard';
 
 import { v4 as uuidv4 } from 'uuid';
-import { authOptions } from '@/lib/auth';
-import { getServerSession } from "next-auth/next"
+import { getAuthSession } from '@/lib/auth';
 import { Pagination } from '@/components/store/Pagination';
 import { fetchSheetBySearch } from '@/services/server/seller/api';
-
 
 
 export type PageProps = {
@@ -23,8 +21,7 @@ export default async function  ViewAllPage(props:PageProps){
   const take = PAGE_SIZE;
 	const skip = (pageNumber - 1) * take; // Calculate skip based on page number.
 
-  const session = await getServerSession(authOptions);
-  const results = await fetchSheetBySearch(session?.user.sid || '',take,skip,searchQuery as string) ;
+  const results = await fetchSheetBySearch(take,skip,searchQuery as string) ;
 
 
   return (

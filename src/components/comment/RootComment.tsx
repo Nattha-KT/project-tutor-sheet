@@ -23,62 +23,49 @@ const dateFormatter = new Intl.DateTimeFormat(undefined, {
 });
 
 type CommentProps = {
-  state:UseCommentType
-  rootComment:CommentType
+  state: UseCommentType;
+  rootComment: CommentType;
 };
 
-const testSession = async () => {
-  const res = fetch(`http://localhost:3000/api/test/`, {
-    method: "GET",
-    cache: "no-store",
-   // @ts-ignore
-   "Content-Type": "application/json",
-  });
-  return (await res).json();
-};
-
-
-export default function RootComment({state,rootComment}: CommentProps) {
-
-  const {getRepliesByParentId,handleDelete,toggleLocalCommentLike} = state
+export default function RootComment({ state, rootComment }: CommentProps) {
+  const { getRepliesByParentId, handleDelete, toggleLocalCommentLike } = state;
   const { data: session } = useSession();
   const [onShow, setOnShow] = useState<boolean>(false);
   const [toggleReply, setToggleReply] = useState<boolean>(false);
-  const [toggleEdit,setToggleEdit] = useState<boolean>(false);
-  const [deleteComment,setDeleteComment] = useState<boolean>(false);
+  const [toggleEdit, setToggleEdit] = useState<boolean>(false);
+  const [deleteComment, setDeleteComment] = useState<boolean>(false);
   const [childComment, setChildComment] = useState<CommentType[]>([]);
-
 
   const rootId = useMemo<string>(() => rootComment.id, [rootComment]);
   const userId = useMemo(() => {
     return session?.user.id as string;
   }, [session]);
 
-  const toggleFormLogic = useMemo<boolean>(() =>{
-    return !((toggleReply&&toggleEdit)||!(toggleEdit||toggleReply));
-  },[toggleEdit,toggleReply])
+  const toggleFormLogic = useMemo<boolean>(() => {
+    return !((toggleReply && toggleEdit) || !(toggleEdit || toggleReply));
+  }, [toggleEdit, toggleReply]);
 
-  const  handleToggleLike= async()=>{
-    const res = await toggleCommentLike(rootComment.id)
+  const handleToggleLike = async () => {
+    const res = await toggleCommentLike(rootComment.id);
     // console.log(res);
-    if(!res.like) return ;
-    toggleLocalCommentLike && toggleLocalCommentLike(rootComment.id,res.like.addLike)
-  }
+    if (!res.like) return;
+    toggleLocalCommentLike &&
+      toggleLocalCommentLike(rootComment.id, res.like.addLike);
+  };
 
-
-  useEffect(() => { 
+  useEffect(() => {
     const child = getRepliesByParentId(rootId);
     setChildComment(child);
   }, [getRepliesByParentId]);
 
   useEffect(() => {
-    if(!deleteComment) return
-    const deleteNow=async()=>{
-      handleDelete(rootComment.id)
-      setDeleteComment(false)
-    }
-    deleteNow()
-  },[deleteComment])
+    if (!deleteComment) return;
+    const deleteNow = async () => {
+      handleDelete(rootComment.id);
+      setDeleteComment(false);
+    };
+    deleteNow();
+  }, [deleteComment]);
 
   return (
     <div className="flex flex-col">
@@ -104,47 +91,87 @@ export default function RootComment({state,rootComment}: CommentProps) {
           <div className="bg-blue-50/70 whitespace-pre-line rounded-xl border-x border-blue-100  font-normal text-sm px-2 py-3  md:px-3 mr-auto  ">
             {rootComment.message}
           </div>
-          {userId&&(
-            <div className='flex gap-x-3 min-h-6 pl-2'>
+          {userId && (
+            <div className="flex gap-x-3 min-h-6 pl-2">
               <div className=" flex items-center gap-x-[0.2rem]">
                 <div className=" text-blue-300">{rootComment.likeCount}</div>
-                <IconButton Icon={rootComment.likedByMe ?Like:Unlike}  aria-label={`${rootComment.likedByMe ?"Like":"Unlike"}`} 
+                <IconButton
+                  Icon={rootComment.likedByMe ? Like : Unlike}
+                  aria-label={`${rootComment.likedByMe ? "Like" : "Unlike"}`}
                   onClick={handleToggleLike}
                 />
               </div>
-              { rootComment.user?.id === userId &&(
-              <>
-              <IconButton Icon={PencilSquareIcon}  aria-label='edit-button'  
-                customIcon= {` hover:text-amber-400  ${toggleEdit ? " scale-150  text-amber-400" : ""}`}
-                onClick={()=> {setToggleEdit((prev)=>!prev)}}
+              {rootComment.user?.id === userId && (
+                <>
+                  <IconButton
+                    Icon={PencilSquareIcon}
+                    aria-label="edit-button"
+                    customIcon={` hover:text-amber-400  ${
+                      toggleEdit ? " scale-150  text-amber-400" : ""
+                    }`}
+                    onClick={() => {
+                      setToggleEdit((prev) => !prev);
+                    }}
+                  />
+                  <IconButton
+                    Icon={TrashIcon}
+                    aria-label="delete-button"
+                    customIcon=" hover:text-red-300 "
+                    onClick={() =>
+                      (
+                        document.getElementById(
+                          `${rootComment.id}`
+                        ) as HTMLDialogElement
+                      ).showModal()
+                    }
+                  />
+                </>
+              )}
+              <IconButton
+                Icon={ArrowUturnRightIcon}
+                aria-label="reply-icon"
+                className={`  w-6 h-6 transform ${
+                  toggleReply ? " scale-x-[-1] ml-[-0.5rem] " : ""
+                }  duration-300 ease-in `}
+                customIcon={` transform ${
+                  toggleReply ? " text-green-900  duration-300 ease-in" : ""
+                }    `}
+                onClick={() => {
+                  setToggleReply((prev) => !prev);
+                }}
               />
-              <IconButton Icon={TrashIcon}  aria-label='delete-button' customIcon=" hover:text-red-300 "
-                onClick={() =>(document.getElementById(`${rootComment.id}`) as HTMLDialogElement).showModal()}
-              />
-              </>)}
-              <IconButton Icon={ArrowUturnRightIcon}  aria-label='reply-icon' 
-              className={`  w-6 h-6 transform ${toggleReply ? " scale-x-[-1] ml-[-0.5rem] " : ""}  duration-300 ease-in `}
-              customIcon={` transform ${toggleReply ? " text-green-900  duration-300 ease-in" : ""}    `}
-              onClick={()=> {setToggleReply((prev)=>!prev)}}
-              />
-              
             </div>
           )}
         </div>
         {toggleFormLogic && (
           <div className=" border-l pl-1 border-gray-100 ">
-            {toggleReply ?(
-            <CommentForm setToggle={setToggleReply} parentId={rootId} formSmall={true} state={state} />
-            ):
-            <CommentForm setToggle={setToggleEdit} initialMessage={rootComment.message} parentId={rootId} formSmall={true} state={state} />
-            }
+            {toggleReply ? (
+              <CommentForm
+                setToggle={setToggleReply}
+                parentId={rootId}
+                formSmall={true}
+                state={state}
+              />
+            ) : (
+              <CommentForm
+                setToggle={setToggleEdit}
+                initialMessage={rootComment.message}
+                parentId={rootId}
+                formSmall={true}
+                state={state}
+              />
+            )}
           </div>
         )}
         {onShow && (
           <div className="ml-4 mt-1 pt-2">
             {childComment &&
               childComment.map((comment, index) => (
-                <ChildComment key={comment.id} childComment={comment} state={state}/>
+                <ChildComment
+                  key={comment.id}
+                  childComment={comment}
+                  state={state}
+                />
               ))}
           </div>
         )}
@@ -163,7 +190,11 @@ export default function RootComment({state,rootComment}: CommentProps) {
           </div>
         )}
       </div>
-      <DialogDelete name_id={`${rootComment.id}`} title="Comment" setDeleted={setDeleteComment}/>
+      <DialogDelete
+        name_id={`${rootComment.id}`}
+        title="Comment"
+        setDeleted={setDeleteComment}
+      />
     </div>
   );
 }

@@ -1,23 +1,40 @@
-'use client'
-import React from 'react'
-import {Button,IconButton,} from "@material-tailwind/react";
-import {PencilSquareIcon} from "@heroicons/react/24/outline";
+"use client";
+import React from "react";
+import { Button, IconButton } from "@material-tailwind/react";
+import { PencilSquareIcon } from "@heroicons/react/24/outline";
+import { DialogEditSheet } from "../dialog";
+import { Sheet } from "../../../types/type";
 
-
-
-
-export default function ButtonEdit( {price}:{price: number}) {
+export default function ButtonEdit({sheet}:{sheet:Sheet}) {
   return (
-    <>
-        <div className='flex justify-between items-center'>
-            <div className="text-gray-500 leading-relaxed text-[13px] sm:text-[17px] font-semibold">{`${price} ฿`}</div>
-            <Button className=" sm:hidden py-[5px]  flex  text-[12px] rounded-full" >
-                <PencilSquareIcon className=' h-[15px] w-[12px] mt-[3px] mr-[2px]'/>
-            </Button>
-        </div>
-        <Button className="relative hidden px-0 sm:px-10 mt-3 sm:flex justify-center" size="sm" fullWidth={true}>
-        <PencilSquareIcon className='h-[12px] sm:h-[18px] w-[18px] mr-2 text-[12px] sm:text-md'/>Edit sheet
-        </Button>
-    </>
-  )
+    <div
+      id="edit-cart-button-phone"
+      className=" w-full flex sm:justify-normal  sm:mt-0"
+    >
+      <button
+        className=" flex items-center bg-amber-400 sm:hidden py-1 px-2 text-sm text-white rounded-lg"
+        onClick={() =>
+          (
+            document.getElementById(`${sheet.id}`) as HTMLDialogElement
+          ).showModal()
+        }
+      >
+        <PencilSquareIcon className="h-4 w-4" />
+        <span>Edit now</span>
+      </button>
+      <button
+        className="relative w-full rounded-lg shadow-md hidden px-2 py-1 mt-3 sm:flex justify-center bg-amber-400 text-white"
+        onClick={() =>
+          (
+            document.getElementById(`${sheet.id}`) as HTMLDialogElement
+          ).showModal()
+        }
+      >
+        <PencilSquareIcon className="h-[12px] sm:h-[18px] w-[18px] mr-2 text-[12px] sm:text-md" />
+        Edit sheet
+      </button>
+
+      <DialogEditSheet name_id={`${sheet.id}`} sheet={sheet} />
+    </div>
+  );
 }

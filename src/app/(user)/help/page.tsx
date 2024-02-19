@@ -20,6 +20,10 @@ export default function HelpComponent() {
   // const uid = useMemo(()=> session?.user.id,[session])
   const [userId, setUserId] = useState<string>("");
 
+  if(!session){
+    window.location.href="/login"
+  }
+
   useEffect(() => {
     setUserId(session?.user.id);
   }, [session]);
@@ -167,8 +171,8 @@ export default function HelpComponent() {
           <Button
             type="submit"
             color="green"
-            className="text-white hover:text-gray-200"
-            // onClick={handleSubmit}
+            className="text-white hover:text-gray-200" 
+            placeholder={undefined}            // onClick={handleSubmit}
           >
             Submit now
           </Button>

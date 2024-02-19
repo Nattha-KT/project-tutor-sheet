@@ -1,6 +1,6 @@
 
 import { Metadata } from "next"
-import ProviderWrapper from "@/context/ProviderWrapper"
+import ProviderWrapper from "@/context/NextAuthWrapper"
 import { getServerSession } from "next-auth";
 import { getAuthSession } from "@/lib/auth";
 

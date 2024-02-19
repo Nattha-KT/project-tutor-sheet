@@ -27,6 +27,7 @@ export const GET = async (req: Request) => {
       );
     }
     await dbConnect();
+
     const seller = await prisma.seller.findFirst({
       where: { id },
       include: {
@@ -40,7 +41,26 @@ export const GET = async (req: Request) => {
           select: { sheet: true },
         },
       },
-    });
+    }).then(async(seller)=>{
+      if(!seller) return;
+
+      const ratings  = await prisma.rating.findMany({where:{
+        sid:seller.id,
+        category:"seller"
+      }})
+
+      // const order = await prisma.order.find({where:{
+        
+      // }})
+      const averageSellerRating = ratings.reduce((acc, curr) => acc + curr.point, 0)/ratings.length;
+
+      return {
+        ...seller,
+        ratingSeller:averageSellerRating? averageSellerRating:0,
+        reviewser:ratings.length
+      }
+    })
+
 
     const sellerCustom = {
       ...seller,

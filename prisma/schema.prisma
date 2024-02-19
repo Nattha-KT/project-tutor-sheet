@@ -9,7 +9,7 @@ datasource db {
 }
 
 model Sheet {
-  id              String     @id @default(cuid())
+  id              String      @id @default(cuid())
   course_code     String
   name            String
   semester        String
@@ -17,28 +17,57 @@ model Sheet {
   year            String
   price           Int
   num_page        Int
-  status_approve  Boolean    @default(false)
+  status_approve  Boolean     @default(false)
   class_details   String
   content_details String
   cover_page      String?
   suggestion      String?
   samples_page    String[]
   file_path       String?
-  date            DateTime   @default(now())
+  date            DateTime    @default(now())
   sid             String
   favorite        Favorite[]
-  owner           Owner[]
+  cart            Cart[]
+  rating          Rating[]
+  Ownership       Ownership[]
   comment         Comment[]
-  seller          Seller     @relation(fields: [sid], references: [id], onDelete: Cascade)
+  seller          Seller      @relation(fields: [sid], references: [id], onDelete: Cascade)
 }
 
-model Owner {
+model Order {
+  id         String      @id
+  createdAt  DateTime    @default(now())
+  sheetId    String[]
+  session_id String      @unique
+  status     String
+  userId     String
+  Ownership  Ownership[]
+  rating     Rating[]
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Ownership {
+  id      String @id @default(cuid())
   userId  String
   sheetId String
+  orderId String
   sheet   Sheet  @relation(fields: [sheetId], references: [id], onDelete: Cascade)
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
   user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
 
-  @@id([userId, sheetId])
+model Rating {
+  id       String @id @default(cuid())
+  category String
+  point    Float
+  userId   String
+  orderId  String
+  sheetId  String? @db.VarChar(50) 
+  sid      String
+  order    Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  sheet    Sheet?  @relation(fields: [sheetId], references: [id], onDelete: Cascade)
+  seller   Seller @relation(fields: [sid], references: [id], onDelete: Cascade)
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
@@ -50,14 +79,17 @@ model User {
   password       String?
   hashedPassword String?
   role           Role        @default(USER)
-  sid            String?     
+  sid            String?
   accounts       Account[]
   complaint      Complaint[]
   favorite       Favorite[]
+  cart           Cart[]
   comment        Comment[]
   like           Like[]
-  owner          Owner[]
+  Ownership      Ownership[]
+  order          Order[]
   sessions       Session[]
+  rating         Rating[]
   seller         Seller?     @relation(fields: [sid], references: [id])
 }
 
@@ -88,7 +120,7 @@ model Session {
 }
 
 model Seller {
-  id        String  @id @default(cuid())
+  id        String   @id @default(cuid())
   pen_name  String
   full_name String
   phone     String
@@ -99,6 +131,7 @@ model Seller {
   image     String?
   sheet     Sheet[]
   user      User[]
+  rating    Rating[]
 }
 
 model Comment {
@@ -146,11 +179,13 @@ model Favorite {
   @@id([userId, sheetId])
 }
 
-model Post {
-  id          String   @id @default(cuid())
-  title       String
-  description String
-  date        DateTime @default(now())
+model Cart {
+  userId  String
+  sheetId String
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sheet   Sheet  @relation(fields: [sheetId], references: [id], onDelete: Cascade)
+
+  @@id([userId, sheetId])
 }
 
 model Faq {

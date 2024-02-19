@@ -28,6 +28,7 @@ import Image from "next/image";
 import { Sheet } from "../../../../types/type";
 import { v4 as uuidv4 } from "uuid";
 import { DialogEditSheet } from "@/components/dialog";
+import Link from "next/link";
 
 interface SellerDashboardProps {
   dataSheets: Sheet[];
@@ -100,8 +101,16 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) => {
   };
 
   return (
-    <Card className="h-full sm:p-5 shadow-md border border-gray-200">
-      <CardHeader floated={false} shadow={false} className="rounded-none">
+    <Card
+      className="h-full sm:p-5 shadow-md border border-gray-200"
+      placeholder={undefined}
+    >
+      <CardHeader
+        floated={false}
+        shadow={false}
+        className="rounded-none"
+        placeholder={undefined}
+      >
         <div className="mb-8 flex items-center flex-col sm:flex-row md:justify-between gap-2 sm:gap-8">
           <div>
             <div className=" flex gap-4 justify-center sm:justify-start items-center">
@@ -111,18 +120,21 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) => {
               <BookOpenIcon className=" h-8 w-8 text-amber-400" />
             </div>
             <Typography
+              placeholder={undefined}
               color="gray"
               className="mt-1 font-normal text-base text-center sm:text-left"
             >
-              See information about all sheets <br/>
-             <span className=" text-xs text-gray-500">
-              *When the sheet you uploaded is not approved The sheet will be removed and 
-                there is no need to be alarmed if the sheet is not found in waiting status.
-             </span>
+              See information about all sheets <br />
+              <span className=" text-xs text-gray-500">
+                *When the sheet you uploaded is not approved The sheet will be
+                removed and there is no need to be alarmed if the sheet is not
+                found in waiting status.
+              </span>
             </Typography>
           </div>
           <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
             <Button
+              placeholder={undefined}
               variant="outlined"
               size="md"
               onClick={() => {
@@ -131,20 +143,22 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) => {
             >
               view all
             </Button>
-            <a
+            <Link
+              prefetch={true}
               className="btn bg-slate-800 hover:bg-slate-700 text-white flex items-center gap-3"
               href="/seller/new-sheet"
             >
               <DocumentPlusIcon className="h-4 w-4" />
               Add Sheet
-            </a>
+            </Link>
           </div>
         </div>
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <Tabs value="all" className="w-full md:w-max">
-            <TabsHeader className=" bg-stone-200">
+            <TabsHeader className=" bg-stone-200" placeholder={undefined}>
               {TABS.map(({ label, value }) => (
                 <Tab
+                  placeholder={undefined}
                   key={uuidv4()}
                   value={value}
                   onClick={() => {
@@ -168,7 +182,7 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) => {
           </div>
         </div>
       </CardHeader>
-      <CardBody className="overflow-x-scroll px-0 ">
+      <CardBody className="overflow-x-scroll px-0 " placeholder={undefined}>
         <table className="mt-4 w-full min-w-max table-auto text-left bg-slate-100/60 ">
           <thead>
             <tr>
@@ -178,6 +192,7 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) => {
                   className="cursor-pointer border-y border-stone-100 bg-stone-200 p-4 transition-colors hover:bg-stone-300"
                 >
                   <Typography
+                    placeholder={undefined}
                     variant="small"
                     color="blue-gray"
                     className="flex items-center justify-between gap-2 font-semibold leading-none opacity-70 text-stone-900"
@@ -210,6 +225,7 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) => {
                         </div>
                         <div className="flex flex-col">
                           <Typography
+                            placeholder={undefined}
                             variant="small"
                             color="blue-gray"
                             className="font-normal"
@@ -222,6 +238,7 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) => {
                     <td className="p-4">
                       <div className="flex flex-col">
                         <Typography
+                          placeholder={undefined}
                           variant="small"
                           color="blue-gray"
                           className="font-normal"
@@ -242,6 +259,7 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) => {
                     </td>
                     <td className="p-4">
                       <Typography
+                        placeholder={undefined}
                         variant="small"
                         color="blue-gray"
                         className="font-normal"
@@ -252,6 +270,7 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) => {
                     <td className="p-4">
                       <Tooltip content="Edit Detail">
                         <IconButton
+                          placeholder={undefined}
                           variant="text"
                           onClick={() =>
                             (
@@ -272,12 +291,21 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) => {
           </tbody>
         </table>
       </CardBody>
-      <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-        <Typography variant="small" color="blue-gray" className="font-normal">
+      <CardFooter
+        className="flex items-center justify-between border-t border-blue-gray-50 p-4"
+        placeholder={undefined}
+      >
+        <Typography
+          variant="small"
+          color="blue-gray"
+          className="font-normal"
+          placeholder={undefined}
+        >
           {`Page ${currentPage} of ${totalPages}`}
         </Typography>
         <div className="flex gap-2">
           <Button
+            placeholder={undefined}
             variant="outlined"
             size="sm"
             onClick={handlePrevPage}
@@ -286,6 +314,7 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) => {
             Previous
           </Button>
           <Button
+            placeholder={undefined}
             variant="outlined"
             size="sm"
             onClick={handleNextPage}

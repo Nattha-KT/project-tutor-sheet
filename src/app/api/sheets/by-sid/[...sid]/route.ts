@@ -50,6 +50,7 @@ export const GET = async (req: NextRequest , res: NextApiResponse)=>{
                 include:{
                     seller:{
                         select:{
+                            id:true,
                             full_name:true,
                             pen_name:true,
                             image:true,
@@ -60,18 +61,36 @@ export const GET = async (req: NextRequest , res: NextApiResponse)=>{
               if (!sheets) return;
               if (!session) return sheets;
         
-              const favorite = await prisma.favorite.findMany({
-                where: {
-                  userId: session.user.id,
-                  sheetId: {in: sheets.map((sheet)=>sheet.id)},
-                },
-              });
+              const [favorites,ratings] = await Promise.all([
+                prisma.favorite.findMany({
+                  where: {
+                    userId: session.user.id,
+                    sheetId: {in: sheets.map((sheet)=>sheet.id)},
+                  },
+                }),
+
+                prisma.rating.findMany({where:{
+                  OR: [
+                    { sheetId: { in: sheets.map(sheet => sheet.id) } },
+                    { sheetId: null }
+                  ]
+                }})
+              ]);
         
               const sheetWithFavorite = await Promise.all(sheets.map(async sheet => {
-                const mapFavByMe = favorite.find(fav => fav.sheetId === sheet.id);
+                const mapFavByMe = favorites.find(fav => fav.sheetId === sheet.id);
+
+                const mapSheetRatings= ratings.filter(rating => (rating.sheetId === sheet.id)&&(rating.category === "sheet"));
+                const mapSellerRatings= ratings.filter(rating => (rating.sid === sheet.seller.id )&&(rating.category === "seller"));
+
+                const averageSheetRating = mapSheetRatings.reduce((acc, curr) => acc + curr.point, 0)/mapSheetRatings.length;
+                const averageSellerRating = mapSellerRatings.reduce((acc, curr) => acc + curr.point, 0)/mapSellerRatings.length;
+
                 return {
                   ...sheet,
                   favorite:mapFavByMe?true:false,
+                  ratingSheet:averageSheetRating? averageSheetRating:0,
+                  ratingSeller:averageSellerRating? averageSellerRating:0
                 };
               }));
             

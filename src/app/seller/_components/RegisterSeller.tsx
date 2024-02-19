@@ -4,6 +4,7 @@ import CheckBox from "@/components/CheckBox";
 import useRegisterSeller from "@/hooks/useRegisterSeller";
 import { AddSeller } from '@/services/client/seller/api';
 import { PencilSquareIcon,ArrowUturnLeftIcon } from '@heroicons/react/24/outline';
+import { useRouter } from 'next/navigation';
 
 
 type Banks = {
@@ -15,7 +16,8 @@ type Banks = {
 export default  function Register_Seller({ banks }: { banks: Banks[] }){
 
 
-    const {seller,handleInputChange,updateUser,setCheckbox,checkbox} = useRegisterSeller();
+  const {seller,handleInputChange,updateUser,setCheckbox,checkbox} = useRegisterSeller();
+  const router = useRouter();
 
 
   const handleSubmit = async (e:any) => {
@@ -29,11 +31,10 @@ export default  function Register_Seller({ banks }: { banks: Banks[] }){
         updateUser(res.seller.id);
         toast.success("Added successfully! 🚀✔️",{id:"1"})
         setTimeout(() => {
-            window.location.reload();
-        },2500);
+            window.location.href="/seller";
+        },3000);
       }
       }else toast.error("Error !!  🚀✖️",{id:"1"});
-
   };
 
   return (
@@ -185,10 +186,12 @@ export default  function Register_Seller({ banks }: { banks: Banks[] }){
                     <PencilSquareIcon className=' w-8 h-8'/>
                         ✨Start selling sheets!!✨
                 </button>
-                <a className=" btn  border border-white text-md p-2 px-4 rounded-lg mb-6 " href="/">
+                <button className=" btn  border border-white text-md p-2 px-4 rounded-lg mb-6 "
+                    onClick={()=>router.back()}
+                >
                 <ArrowUturnLeftIcon className=' w-8 h-8'/>
                         back
-                </a>
+                </button>
             </div>
         </div>
     </form>
