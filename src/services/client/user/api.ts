@@ -170,6 +170,17 @@ const toggleCommentLike = async (id: string) => {
     return (await res).json();
   };
 
+  const getMyLibrary = async () => {
+    const res = await fetch("http://localhost:3000/api/my-library/", {
+      cache: "no-store",
+      next: {
+        tags: ["library"],
+      },
+    });
+    const data = await res.json();
+    return data.orders;
+  };
+
   
 
 export {
@@ -188,4 +199,5 @@ export {
     getOrder,
     getOrderById,
     giveRatingStar,
+    getMyLibrary,
   };

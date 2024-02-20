@@ -29,7 +29,7 @@ export default function ButtonCartLoveSheet({
       placement="top"
     >
       <button
-        className=" flex items-center rounded-full hover:bg-white p-2"
+        className=" flex items-center rounded-full hover:bg-white p-2 px-[0.9rem]"
         onClick={()=> window.location.href = "/my-library"}
       >
           <BookOpenIcon className=" h-5 w-5"/>
@@ -44,7 +44,7 @@ export default function ButtonCartLoveSheet({
       placement="top"
     >
       <button
-        className=" flex items-center rounded-full hover:bg-white p-2"
+        className=" flex items-center rounded-full hover:bg-white p-2 px-[0.9rem]"
         onClick={() => handleClickAddCart()}
       >
         {addToCart ? (

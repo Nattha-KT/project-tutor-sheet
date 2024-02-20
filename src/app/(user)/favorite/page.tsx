@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import { v4 as uuidv4 } from "uuid";
 import Image from "next/image";
@@ -11,6 +11,8 @@ import HeartBtn from "@/components/buttons/HeartBtn";
 import ButtonCartLoveSheet from "./_components/ButtonCartLoveSheet";
 import { useSession } from "next-auth/react";
 import Unauthorized from "@/components/error-page/Unauthorized";
+import Link from "next/link";
+import SearchFailed from "@/components/error-page/SearchFailed";
 
 type SheetCardLove = {
   id: string;
@@ -29,7 +31,7 @@ type SheetCardLove = {
   owner: boolean;
 };
 export default function FavoritePage() {
-  const {data:session} = useSession();
+  const { data: session } = useSession();
   const [sheets, setSheets] = useState<SheetCardLove[]>([]);
   const [filteredSheets, setFilteredSheets] = useState<SheetCardLove[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -47,13 +49,13 @@ export default function FavoritePage() {
     return filter;
   };
 
-  const fetchSheetLove = async () => {
+  const fetchSheetLove = useCallback(async () => {
     const res = await getFavoriteSheet();
     if (!res) return;
     setSheets(res);
     setFilteredSheets(res);
     setPending(false);
-  };
+  }, []);
 
   useEffect(() => {
     setPending(true);
@@ -64,7 +66,6 @@ export default function FavoritePage() {
     handleFilter(sheets);
   }, [searchTerm]);
 
-  
   if (!session) {
     return (
       <div className=" container flex items-center justify-center w-full">
@@ -149,14 +150,19 @@ export default function FavoritePage() {
           </motion.div>
           <div
             id="show-more-card"
-            className="grid grid-cols-1 lg:grid-cols-2  min-w-full  gap-3 mb-6 py-2  px-2 sm:px-14"
+            className="grid grid-cols-1 lg:grid-cols-2  min-w-full  gap-3 mb-6 py-2  px-2 sm:px-14 gap-y-6"
           >
             {!pending ? (
               <>
                 {filteredSheets.length !== 0 ? (
                   filteredSheets.map((sheet) => (
-                    <div id="love-card" className=" w-full flex justify-center ">
-                      <div
+                    <div
+                      key={uuidv4()}
+                      id="love-card"
+                      className=" w-full flex justify-center "
+                    >
+                      <Link
+                        href={`/store/info-sheet/${sheet.id}`}
                         key={sheet.id}
                         className="block sm:flex hover:cursor-pointer overflow-y-visible 
                     bg-stone-100 rounded-lg  shadow-lg w-[70%] sm:w-full hover:translate-y-[-0.5rem]  transition-all duration-300 ease-in-out"
@@ -167,17 +173,17 @@ export default function FavoritePage() {
                             alt="Covor Sheet"
                             width={820}
                             height={320}
-                            className=" object-cover object-center max-h-[5rem]  sm:max-h-[8rem] w-full 
+                            className=" object-cover object-center max-h-[7rem]  sm:max-h-[8rem] w-full 
                           lg:max-w-[20rem] rounded-tl-lg sm:rounded-bl-lg  rounded-tr-lg sm:rounded-r-none "
                           />
                         </div>
                         <div className="flex-1 w-full px-4 py-2 md:py-0 flex items-center">
                           <div className=" w-full">
                             <div className=" text-xs md:text-sm ">
-                              <div className="flex items-center justify-between leading-[0] relative text-stone-600">
-                                <span className=" text-lg font-semibold text-stone-800">
+                              <div className="flex items-center justify-between leading-[0] relative text-stone-600 mb-[-0.3rem]">
+                                <span className=" font-sans text-base sm:text-lg font-semibold text-stone-800 truncate">
                                   {sheet.course_code}&nbsp;-&nbsp;
-                                  <strong className=" text-sm font-semibold text-stone-500">
+                                  <strong className=" text-sm font-semibold text-stone-500 ">
                                     {sheet.name}
                                   </strong>
                                 </span>
@@ -192,8 +198,8 @@ export default function FavoritePage() {
                                   )}
                                 </div>
                               </div>
-                              <div className="flex items-center gap-1">
-                                <span>
+                              <div className="flex items-center gap-1 font-sans text-xs ">
+                                <span className=" truncate">
                                   {`${sheet.type} ${sheet.semester}/${sheet.year}`}
                                   &nbsp;&nbsp; &nbsp;&nbsp;
                                   {`Total ${sheet.num_page} pages`}
@@ -204,20 +210,28 @@ export default function FavoritePage() {
                               id="footer-card"
                               className=" flex justify-between items-center"
                             >
-                              <div className="flex space-x-2 text-sm">
-                                <strong>{sheet.pen_name}</strong>
+                              <div className="flex font-sans space-x-2 text-xs truncate">
+                                <strong className=" text-gray-600">
+                                  {sheet.pen_name}
+                                </strong>
                                 <span>&mdash;</span>
                                 <span>{sheet.price} ฿</span>
                               </div>
-                              <ButtonCartLoveSheet inCart={sheet.inCart} sheetId={sheet.id} owner={sheet.owner!}/>
+                              <ButtonCartLoveSheet
+                                inCart={sheet.inCart}
+                                sheetId={sheet.id}
+                                owner={sheet.owner!}
+                              />
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </Link>
                     </div>
                   ))
                 ) : (
-                  <NotFound />
+                  <div className=" w-full col-span-2 ">
+                    <SearchFailed />
+                  </div>
                 )}
               </>
             ) : (

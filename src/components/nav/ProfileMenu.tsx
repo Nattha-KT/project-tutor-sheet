@@ -99,17 +99,17 @@ export default function ProfileMenu() {
               </Typography>
             </MenuItem>
 
-            <MenuItem
-              placeholder={undefined}
-              onClick={() => {
-                closeMenu;
-              }}
-              className={`flex items-center gap-2 rounded hover:bg-gray-100 text-slate-500`}
+            <Link
+              href={"/my-library"}
+              prefetch={true}
+              className=" flex items-center gap-2"
             >
-              <Link
-                href={"/my-library"}
-                prefetch={true}
-                className=" flex items-center gap-2"
+              <MenuItem
+                placeholder={undefined}
+                // onClick={() => {
+                //   closeMenu;
+                // }}
+                className={`flex items-center gap-2 rounded hover:bg-gray-100 text-slate-500`}
               >
                 {React.createElement(BookOpenIcon, {
                   className: `h-4 w-4`,
@@ -123,21 +123,16 @@ export default function ProfileMenu() {
                 >
                   my library
                 </Typography>
-              </Link>
-            </MenuItem>
-
-            <MenuItem
-              placeholder={undefined}
-              onClick={() => {
-                closeMenu;
-                window.location.href = `/favorite`;
-              }}
-              className={`flex items-center gap-2 rounded hover:bg-gray-100 text-slate-500`}
+              </MenuItem>
+            </Link>
+            <Link
+              href={"/favorite"}
+              prefetch={true}
+              className=" flex items-center gap-2"
             >
-              <Link
-                href={"/my-library"}
-                prefetch={true}
-                className=" flex items-center gap-2"
+              <MenuItem
+                placeholder={undefined}
+                className={`flex items-center gap-2 rounded hover:bg-gray-100 text-slate-500`}
               >
                 {React.createElement(HeartIcon, {
                   className: `h-4 w-4`,
@@ -151,8 +146,8 @@ export default function ProfileMenu() {
                 >
                   favorite sheet
                 </Typography>
-              </Link>
-            </MenuItem>
+              </MenuItem>
+            </Link>
 
             {admin && (
               <MenuItem
