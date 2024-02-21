@@ -10,6 +10,7 @@ import { useSession } from 'next-auth/react'
 import CommentForm from './CommentForm'
 import { DialogDelete } from '../dialog'
 import { toggleCommentLike } from '@/services/client/user/api'
+import { v4 as uuidV4 } from 'uuid'
 
 const dateFormatter = new Intl.DateTimeFormat(undefined, {
   dateStyle: "medium",
@@ -124,7 +125,7 @@ export default function ChildComment({childComment,state}: CommentProps) {
         {onShow && (
           <div className='pl-10  mb-2'>
           { childs && childs.map((child)=>(
-            <ChildComment  childComment={child} state={state}/>
+            <ChildComment key={uuidV4()}  childComment={child} state={state}/>
           ))}
           </div>
         )}

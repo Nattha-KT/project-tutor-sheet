@@ -37,8 +37,8 @@ export default function FavoritePage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [pending, setPending] = useState<boolean>(true);
 
-  const handleFilter = (dataSheets: SheetCardLove[]) => {
-    const filter = dataSheets.filter((sheet) => {
+  const handleFilter = () => {
+    const filter = sheets.filter((sheet) => {
       return (
         sheet.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         sheet.course_code.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -49,21 +49,20 @@ export default function FavoritePage() {
     return filter;
   };
 
-  const fetchSheetLove = useCallback(async () => {
-    const res = await getFavoriteSheet();
-    if (!res) return;
-    setSheets(res);
-    setFilteredSheets(res);
-    setPending(false);
-  }, []);
-
   useEffect(() => {
     setPending(true);
+    const fetchSheetLove = async () => {
+      const res = await getFavoriteSheet();
+      if (!res) return;
+      setSheets(res);
+      setFilteredSheets(res);
+      setPending(false);
+    };
     fetchSheetLove();
   }, []);
 
   useEffect(() => {
-    handleFilter(sheets);
+    handleFilter();
   }, [searchTerm]);
 
   if (!session) {
@@ -121,7 +120,7 @@ export default function FavoritePage() {
                   viewport={{ once: true }}
                   className=" uppercase tracking-[3px] text-xs mb-5 inline-block text-gray-500"
                 >
-                  Find and manage sheets you've liked and add the sheets you
+                  Find and manage sheets you&apos;ve liked and add the sheets you
                   love to your shopping cart.
                 </motion.span>
               </div>

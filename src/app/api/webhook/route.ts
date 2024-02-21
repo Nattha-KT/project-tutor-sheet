@@ -26,7 +26,7 @@ export async function POST(request: Request) {
       process.env.STRIPE_WEBHOOK_SECRET!
     );
   } catch (err: any) {
-    console.log(`Webhook signature verification failed.`, err.message);
+    console.error(`Webhook signature verification failed. ${err.message}`);
     return NextResponse.json({ error: err });
   }
 
@@ -42,41 +42,39 @@ export async function POST(request: Request) {
       const products = JSON.parse(paymentIntent.metadata.metaDataProducts);
       console.log(paymentIntent.id);
 
-      await prisma.order
-        .update({
-          data: { status: paymentIntent.status as string },
-          where: { session_id: paymentIntent.id },
-        })
-        .then(async (order) => {
-          if (order.status !== "complete") {
-            return;
-          } else {
-            await Promise.all(
-              products.map(async (metaProduct: any) => {
-                await prisma.cart.delete({
-                  where: {
-                    userId_sheetId: {
-                      userId: buyer.userId,
-                      sheetId: metaProduct.product.prodId,
-                    },
-                  },
-                });
-                const res = await prisma.ownership.create({
-                  data: {
-                    sheetId: metaProduct.product.prodId,
-                    userId: buyer.userId,
-                    orderId: order.id,
-                  },
-                });
-                if (!res) {
-                  console.log("Error Cannot Create Owner Product");
-                } else {
-                  console.log("Create Owner Product Success!!");
-                }
-              })
-            );
-          }
-        });
+      const order = await prisma.order.update({
+        data: { status: paymentIntent.status as string },
+        where: { session_id: paymentIntent.id },
+      });
+      
+      if (order.status !== "complete") {
+        return;
+      } else {
+        await Promise.all(
+          products.map(async (metaProduct: any) => {
+            await prisma.cart.delete({
+              where: {
+                userId_sheetId: {
+                  userId: buyer.userId,
+                  sheetId: metaProduct.product.prodId,
+                },
+              },
+            });
+            const res = await prisma.ownership.create({
+              data: {
+                sheetId: metaProduct.product.prodId,
+                userId: buyer.userId,
+                orderId: order.id,
+              },
+            });
+            if (!res) {
+              console.log("Error Cannot Create Owner Product");
+            } else {
+              console.log("Create Owner Product Success!!");
+            }
+          })
+        );
+      }
 
       break;
 

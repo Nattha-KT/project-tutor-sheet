@@ -1,5 +1,6 @@
 'use client'
 import { Button, Card, Input, List, message } from 'antd'
+import Image from 'next/image'
 import React from 'react'
 
 type UploadFileProps = {
@@ -59,7 +60,7 @@ const UploadFile = ({file,setFile,buttonDelete,setCheckFile}: UploadFileProps) =
                   />
                  </List.Item>
                 <div className=''>
-                  <img src={URL.createObjectURL(file)} alt="" className='md:w-auto md:h-auto md:max-w-[150px] md:max-h-[150px] md:block rounded-lg' />
+                  <Image width={1000} height={1000} src={URL.createObjectURL(file)} alt="" className='md:w-auto md:h-auto md:max-w-[150px] md:max-h-[150px] md:block rounded-lg' />
                   <div className="text-right mt-2">
                     <Button
                       type="primary"

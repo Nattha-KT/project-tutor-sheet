@@ -10,7 +10,7 @@ export default async function DisplaySeller() {
     const res = await getSeller()
   return (
     <main className=' container min-w-full'>
-        {res.data && <MonitorSeller sellers={res.data}/>}
+        {res.data && <MonitorSeller sellers={res.data} managementData={undefined} />}
     </main>
   )
 }

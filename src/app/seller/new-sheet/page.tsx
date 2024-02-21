@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import UploadSamplePage from "@/app/seller/new-sheet/_components/UploadSamplePage";
 import UploadCoverPage from "@/app/seller/new-sheet/_components/UploadCoverPage";
 import UploadFile from "@/app/seller/new-sheet/_components/UploadFile";
-import { message } from "antd";
+import { Image, message } from "antd";
 import { useUploadFileAll } from "@/hooks/useUploadFileAll";
 import { useSession } from "next-auth/react";
 import { v4 as uuidv4 } from "uuid";
@@ -105,7 +105,9 @@ export default function NewSheet() {
               <span className="text-red-600">*Please fill in all fields*</span>
             </p>
             <div className="flex justify-center ">
-              <img
+              <Image
+                width={1000}
+                height={1000}
                 src="/warning_new_sheet.png"
                 alt="img"
                 className="max-w-full h-auto  md:w-[750px] md:h-[250px]  md:block object-cover mt-8 rounded-lg"

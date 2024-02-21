@@ -1,17 +1,10 @@
-import prisma from "../../../db/prismaDb";
+import prisma, { dbConnect } from "../../../db/prismaDb";
 import { NextResponse } from "next/server";
 
-export async function main() {
-  try {
-    await prisma.$connect();
-  } catch (err) {
-    return Error("Database connection Unsuccessful");
-  }
-}
 
 export const GET = async (req: Request, res: Response) => {
   try {
-    await main();
+    await dbConnect();
     const faq = await prisma.faq.findMany();
     return NextResponse.json({ message: "success", faq }, { status: 200 });
   } catch (err) {
@@ -24,7 +17,7 @@ export const GET = async (req: Request, res: Response) => {
 export const POST = async (req: Request, res: Response) => {
   try {
     const { title, answer } = await req.json();
-    await main();
+    await dbConnect();
     const faq = await prisma.faq.create({ data: { title, answer } });
     return NextResponse.json({ message: "Success", faq }, { status: 200 });
   } catch (err) {
@@ -34,4 +27,3 @@ export const POST = async (req: Request, res: Response) => {
   }
 };
 
-export const DELEAT = async (req: Request, res: Response) => {};

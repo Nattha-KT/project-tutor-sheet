@@ -15,7 +15,6 @@ export default function EditFaq ({id}:{id:string}) {//{params}:{params:{id:strin
   const answerRef = useRef<HTMLTextAreaElement | null>(null);
 
     useEffect(()=>{
-      
         getFaqById(id).then((data)=>{
             titleRef.current!.value = data.title;
             answerRef.current!.value = data.answer;

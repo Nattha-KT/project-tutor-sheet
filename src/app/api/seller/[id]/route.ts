@@ -1,16 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import prisma from "../../../../db/prismaDb";
+import prisma, { dbConnect } from "../../../../db/prismaDb";
 import { NextResponse } from "next/server"
 import { Role } from '@prisma/client';
 import { getAuthSession } from '@/lib/auth';
-
-export async function main() {
-    try{
-        await prisma.$connect();
-    }catch(err){
-        return Error ("Database connection Unsuccessful");
-    }
-}
 
 type Seller={
     pen_name: string,
@@ -28,7 +20,7 @@ export const GET = async (req: Request)=>{
     const session = await getAuthSession();
         try{
             const id = req.url.split("/seller/")[1];
-            await main();
+            await dbConnect();
             const seller = await prisma.seller.findFirst({
                 where:{id},
                 include:{
@@ -133,7 +125,7 @@ export const PUT = async (req: Request,)=>{
     try{
         const id = req.url.split("/seller/")[1];
         const {pen_name,full_name,phone,bank_name,bank_id,address}:Seller = await req.json();
-        await main();
+        await dbConnect();
         const seller = await prisma.seller.update({
             data:{pen_name,full_name,phone,bank_name,bank_id,address},
             where :{id},
@@ -154,7 +146,7 @@ export const DELETE = async (req: Request) => {
 
     try {
       const id = req.url.split("/seller/")[1];
-      await main();
+      await dbConnect();
       const res = await prisma.user.updateMany({
           data: { role: "USER" as Role},
           where: { sid: id },

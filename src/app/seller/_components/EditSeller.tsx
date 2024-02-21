@@ -82,7 +82,7 @@ export default  function EditSeller({ banks, data_seller }: EditSellerProps){
                     Edit personal information 💵
                 </div>
                 <div className="mt-1 text-sm leading-10 text-stone-600">
-                    You can edit the information. And don't forget to check the accuracy.
+                    You can edit the information. And don&apos;t forget to check the accuracy.
                 </div>
 
                 <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">

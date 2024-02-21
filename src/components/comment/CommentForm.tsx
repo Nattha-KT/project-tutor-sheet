@@ -101,13 +101,7 @@ export default function CommentForm({state,formSmall,initialMessage,parentId,set
                       p-2  rounded-2xl bg-gray-100`}
         ></textarea>
         {loading ? (
-          <Image
-            width={50}
-            height={50}
-            src={"/icons/spiner-loader.svg"}
-            alt="loader"
-            className=" sm:h-auto max-h-[35px] max-w-[35px] sm:w-auto"
-          />
+          <span className="loading loading-spinner loading-xs max-h-[35px] max-w-[35px]"></span>
         ) : (
           <button
             className=" rounded-full  flex items-center justify-center  hover:bg-blue-50"

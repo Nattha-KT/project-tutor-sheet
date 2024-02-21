@@ -59,7 +59,7 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) => {
   const [approve, setApprove] = useState("all");
   const TABLE_HEAD = ["Course Name", "Price", "Status", "Date", ""];
 
-  const handleFilter = (approve: string, dataSheets: Sheet[]) => {
+  const handleFilter = () => {
     const filter = dataSheets.filter((sheet) => {
       if (approve === "all" || sheet.status_approve!.toString() === approve) {
         return sheet.name.toLowerCase().includes(searchTerm.toLowerCase());
@@ -72,8 +72,7 @@ const SellerDashboard: React.FC<SellerDashboardProps> = ({ dataSheets }) => {
   };
 
   useEffect(() => {
-    const filter = handleFilter(approve, dataSheets);
-
+    const filter = handleFilter();
     if (filter.length > 0) {
       // คำนวณจำนวนหน้าทั้งหมด
       const total = Math.ceil(filter.length / itemsPerPage);

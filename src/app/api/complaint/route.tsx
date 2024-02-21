@@ -1,18 +1,11 @@
-import prisma from "../../../db/prismaDb";
+import prisma, { dbConnect } from "../../../db/prismaDb";
 import { NextResponse } from "next/server"
 
-export async function main() {
-    try{
-        await prisma.$connect();
-    }catch(err){
-        return Error ("Database connection Unsuccessful");
-    }
-}
 
 export const GET = async (req: Request)=>{
 
     try{
-        await main();
+        await dbConnect();
         const data = await prisma.complaint.findMany({
             include:{
                 user:{
@@ -37,7 +30,7 @@ export const DELETE = async (req: Request)=>{
 
     try{
         const {ids} = await req.json();
-        await main();
+        await dbConnect();
         const complaint = await prisma.complaint.deleteMany({where:{ id: {
             in: ids,
           },}});

@@ -40,8 +40,8 @@ export default function ShowProfile({data}:{data: ProfileSellerProps}) {
     
     const handleOpenAcc1 = () => setOpenAcc1((cur) => !cur);
 
-    const handleFilter = (dataSheets: ExtendedSheet[]) => {
-        const filter = dataSheets.filter((sheet) => {
+    const handleFilter = () => {
+        const filter = sheets.filter((sheet) => {
             return sheet.name.toLowerCase().includes(searchTerm.toLowerCase())||
             sheet.course_code.toLowerCase().includes(searchTerm.toLowerCase());
         });
@@ -50,7 +50,7 @@ export default function ShowProfile({data}:{data: ProfileSellerProps}) {
       };
     
       useEffect(() => {
-        handleFilter(sheets)
+        handleFilter()
       }, [searchTerm]);
    
 

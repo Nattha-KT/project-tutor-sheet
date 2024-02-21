@@ -30,9 +30,10 @@ export function ComplexNavbar( {className}:{className:string}) {
  
   return (
    <div className={` ${className}`}>
-    <Navbar className="mx-auto max-w-screen-3xl p-2 lg:rounded-full lg:pl-6 lg:pr-6 bg-white text-slate-900 fixed z-50">
+    <Navbar className="mx-auto max-w-screen-3xl p-2 lg:rounded-full lg:pl-6 lg:pr-6 bg-white text-slate-900 fixed z-50"  placeholder={undefined}>
       <div className="relative mx-auto flex items-center text-blue-gray-900">
         <Typography
+         placeholder={undefined}
           as="a"
           href="/"
           className=" w-10 h-10 sm:w-auto sm:h-auto cursor-pointer py-1.5 font-medium hover:bg-gray-100 rounded-md "
@@ -54,6 +55,7 @@ export function ComplexNavbar( {className}:{className:string}) {
           <NavList />
         </div>
         <IconButton
+         placeholder={undefined}
           size="sm"
           color="blue-gray"
           variant="text"

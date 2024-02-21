@@ -37,7 +37,7 @@ export default function CheckBox({checkbox,setCheckbox}: PropsCheckBox) {
                 I agree with the
                 <a href="#"
                     className="block font-sans text-sm antialiased font-normal leading-relaxed text-amber-400 transition-colors hover:text-amber-600">
-                    &nbsp;organization's policy.
+                    &nbsp;organization&apos;s policy.
                 </a>
                 </p>
             </label>

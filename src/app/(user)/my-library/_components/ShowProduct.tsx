@@ -193,7 +193,7 @@ export default function ShowProduct({
               </button>
             </div>
             <span className=" text-gray-500 font-thin text-xs">
-              Note: Don't forget to rate the sheet before clicking finish.
+              Note: Don&apos;t forget to rate the sheet before clicking finish.
             </span>
           </div>
         </div>

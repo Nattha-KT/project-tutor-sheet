@@ -1,15 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../../../../db/prismaDb";
+import prisma, { dbConnect } from "../../../../../db/prismaDb";
 import { NextResponse } from "next/server";
 import { getAuthSession } from "@/lib/auth";
 
-export async function main() {
-  try {
-    await prisma.$connect();
-  } catch (err) {
-    return Error("Database connection Unsuccessful");
-  }
-}
 
 const COMMENT_SELECT_FIELDS = {
   id: true,
@@ -29,7 +22,7 @@ export const GET = async (req: Request, res: NextApiResponse) => {
   const session = await getAuthSession();
   const id = req.url.split("/by-id/")[1];
   try {
-    await main();
+    await dbConnect();
     const sheetsById = await prisma.sheet
       .findFirst({
         where: { id },
@@ -223,7 +216,7 @@ export const PUT = async (req: Request, res: NextApiResponse) => {
       class_details,
       content_details,
     } = await req.json();
-    await main();
+    await dbConnect();
     const sheetsById = await prisma.sheet.update({
       data: {
         course_code,
@@ -256,7 +249,7 @@ export const PUT = async (req: Request, res: NextApiResponse) => {
 export const DELETE = async (req: Request, res: NextApiResponse) => {
   try {
     const id = req.url.split("/by-id/")[1];
-    await main();
+    await dbConnect();
     const sheet = await prisma.sheet.delete({ where: { id } });
 
     return NextResponse.json({ message: "Success", sheet }, { status: 200 });

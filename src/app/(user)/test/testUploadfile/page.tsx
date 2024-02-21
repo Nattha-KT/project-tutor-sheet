@@ -1,10 +1,11 @@
 'use client'
-import { Button, Card, Input, List, message, Image, Progress } from 'antd'
+import { Button, Card, Input, List, message, Image as ImageD, Progress } from 'antd'
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import React, { useState ,useEffect} from 'react'
 import { storage } from '../../../../../firebaseConfig'
 import { number } from 'prop-types'
 import { v4 as uuidv4 } from 'uuid';
+import Image from 'next/image'
 
 
 const UploadImage = () => {
@@ -189,7 +190,7 @@ const UploadImage = () => {
                     description={`Size: ${image_File.size}`}
                   />
                  </List.Item>
-                 <img src={URL.createObjectURL(image_File)} alt="" className='md:w-auto md:h-auto md:max-w-[150px] md:max-h-[150px] md:block rounded-lg' />
+                 <Image height={1000} width={1000} src={URL.createObjectURL(image_File)} alt="" className='md:w-auto md:h-auto md:max-w-[150px] md:max-h-[150px] md:block rounded-lg' />
 
                 <div className="text-right mt-2">
                   <Button
@@ -207,7 +208,7 @@ const UploadImage = () => {
             ))}
             {downloadURL && (
               <>
-                <Image
+                <ImageD
                   src={downloadURL}
                   alt={downloadURL}
                   style={{ width: 200, height: 200, objectFit: 'cover' }}

@@ -5,6 +5,7 @@ import useRegisterSeller from "@/hooks/useRegisterSeller";
 import { AddSeller } from '@/services/client/seller/api';
 import { PencilSquareIcon,ArrowUturnLeftIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 
 type Banks = {
@@ -43,7 +44,7 @@ export default  function Register_Seller({ banks }: { banks: Banks[] }){
         <div className="space-y-6 px-10 py-4 rounded-s-md">
             <div className="border-b border-stone-900/10 pb-8">
                 <div className="flex items-center mb-10 gap-4 text-[1.6rem] font-[900] leading-7 text-stone-700">
-                    <img src="/images/tutor-logo.png" alt="img" className="w-16 h-16  hidden  md:block object-cover" />
+                    <Image width={1000} height={1000} src="/images/tutor-logo.png" alt="img" className="w-16 h-16  hidden  md:block object-cover" />
                     Apply to be a sheet seller
                 </div>
                 <h2 className="text-lg font-semibold leading-7 text-stone-700">Public Information💸</h2>

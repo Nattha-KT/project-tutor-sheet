@@ -13,6 +13,7 @@ import {
   MdOutlineLogout,
 } from "react-icons/md";
 import { useSession, signIn, signOut } from "next-auth/react";
+import Image from "next/image";
 
 
 function SideNavbar( {className}:{className:string}) {
@@ -49,7 +50,7 @@ function SideNavbar( {className}:{className:string}) {
          >
           <div className="flex flex-col justify-start item-center " >
             <div className='flex justify-center pb-6  border-gray-100 border-b'>
-                <img src="/images/tutor-logo.png" alt="img" className="w-[66px] h-[66px] object-cover" />
+                <Image width={1000} height={1000} src="/images/tutor-logo.png" alt="img" className="w-[66px] h-[66px] object-cover" />
             </div>
             <div className=" my-4 border-b border-gray-100 pb-4">
               <a className="flex mb-2 justify-start items-center gap-4 pl-5 hover:bg-gray-900 p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto"

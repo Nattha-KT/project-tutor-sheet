@@ -27,33 +27,33 @@ export function SellerSpeedDial() {
       <div className="fixed bottom-6 right-4 z-50">
         <SpeedDial>
           <SpeedDialHandler>
-            <IconButton size="lg" className="rounded-full">
+            <IconButton  placeholder={undefined} size="lg" className="rounded-full">
               <PlusIcon className="h-5 w-5 transition-transform group-hover:rotate-45" />
             </IconButton>
           </SpeedDialHandler>
-          <SpeedDialContent>
+          <SpeedDialContent  placeholder={undefined}>
             <Tooltip content="Seller Dashboard" placement="left" >
-              <SpeedDialAction onClick={() => router.push("/seller")}>
+              <SpeedDialAction  onClick={() => router.push("/seller")}  placeholder={undefined}>
                 <HomeIcon className="h-5 w-5" />
               </SpeedDialAction>
             </Tooltip>
             <Tooltip content={"Transation"} placement="left">
-              <SpeedDialAction onClick={() => router.push("#")}>
+              <SpeedDialAction onClick={() => router.push("#")}  placeholder={undefined}>
                 <PresentationChartBarIcon className="h-5 w-5" />
               </SpeedDialAction>
             </Tooltip>
             <Tooltip content={"Profile Seller"} placement="left">
-              <SpeedDialAction onClick={() => window.location.href =`/seller/profile`}>
+              <SpeedDialAction onClick={() => window.location.href =`/seller/profile`}  placeholder={undefined}>
                 <UserCircleIcon className="h-5 w-5" />
               </SpeedDialAction>
             </Tooltip>
             <Tooltip content={"Edit Prosile Seller"} placement="left">
-              <SpeedDialAction onClick={() => window.location.href =`/seller/edit-seller/${session!.user.sid}`}>
+              <SpeedDialAction onClick={() => window.location.href =`/seller/edit-seller/${session!.user.sid}`}  placeholder={undefined}>
                 <PencilSquareIcon className="h-5 w-5" />
               </SpeedDialAction>
             </Tooltip>
             <Tooltip content={"Add new sheet"} placement="left">
-              <SpeedDialAction onClick={() => window.location.href =`/seller/new-sheet`}>
+              <SpeedDialAction onClick={() => window.location.href =`/seller/new-sheet`}  placeholder={undefined}>
                 <DocumentPlusIcon className="h-5 w-5" />
               </SpeedDialAction>
             </Tooltip>

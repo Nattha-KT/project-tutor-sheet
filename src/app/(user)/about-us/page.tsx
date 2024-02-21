@@ -41,8 +41,8 @@ const content = {
 
 export default function Aboute() {
   const [slideIndex, setSlideIndex] = useState<number>(0);
-  const [isEnd, setIsEnd] = useState<boolean | null>(null);
-  const [isBeginning, setIsBeginning] = useState<boolean | null>(null);
+  const [isEnd, setIsEnd] = useState<boolean>();
+  const [isBeginning, setIsBeginning] = useState<boolean>();
   const sliderRef = useRef<any>(null); 
 
   useEffect(()=>{

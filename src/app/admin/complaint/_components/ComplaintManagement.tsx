@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { DialogDelete } from "@/components/dialog";
 import useComplaint from "@/hooks/useComplaint";
-
+import { v4 as uuidv4 } from "uuid";
 type UserProps = {
   name: string;
   image: string;
@@ -104,7 +104,7 @@ export default function ComplaintManagement({
         <tbody className=" ">
           {complaintList &&
             complaintList.map((data) => (
-              <tr>
+              <tr key={uuidv4()}>
                 <th>
                   <label>
                     <input

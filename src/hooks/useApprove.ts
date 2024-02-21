@@ -42,8 +42,8 @@ const useApprove = (sheets: Sheet[]) => {
 
   const isMainCheckboxChecked = listChoise.length === sheets.length;
 
-  const handleFilter = (tabControl: string, dataSheets: Sheet[]) => {
-    const filter = dataSheets.filter((sheet) => {
+  const handleFilter = () => {
+    const filter = sheets.filter((sheet) => {
       if (tabControl === "all" || sheet.status_approve!.toString() === tabControl) {
         return sheet.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         sheet.course_code.toLowerCase().includes(searchTerm.toLowerCase());
@@ -56,7 +56,7 @@ const useApprove = (sheets: Sheet[]) => {
   };
 
   useEffect(() => {
-    handleFilter(tabControl, sheets);
+    handleFilter();
 
   }, [searchTerm, tabControl, sheets]);
 

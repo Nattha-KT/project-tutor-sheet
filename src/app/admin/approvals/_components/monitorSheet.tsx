@@ -142,7 +142,7 @@ export default function Approve({ sheets }: { sheets: Sheet[] }) {
           <tbody className=" ">
             {filteredSheets &&
               filteredSheets.map((data) => (
-                <tr>
+                <tr key={uuidv4()}>
                   <th>
                     <label>
                       <input

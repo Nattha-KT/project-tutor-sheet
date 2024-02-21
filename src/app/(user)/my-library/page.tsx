@@ -48,17 +48,17 @@ export default function Mylibrary({}: Props) {
   const [pending, setPending] = useState<boolean>(true);
   const { DownloadFileSDK } = useFile();
 
-  const handleGetUrlFile = (path:string,name:string) => {
+  const handleGetUrlFile = (path: string, name: string) => {
     try {
-      DownloadFileSDK(path + "/file-pdf",name);
+      DownloadFileSDK(path + "/file-pdf", name);
     } catch (error) {
-      toast.error("Could not download file ")
+      toast.error("Could not download file ");
       console.error("Error while handling file download:", error);
     }
   };
 
-  const handleFilter = (orders: OrderProps[]) => {
-    const filterOrders = orders.map((order) => {
+  const handleFilter = () => {
+    const filterOrders = orderCategorized.map((order) => {
       const filterSheet = order.sheets.filter((sheet) => {
         return (
           sheet.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -77,21 +77,20 @@ export default function Mylibrary({}: Props) {
     return filterOrders;
   };
 
-  const fetchLibrary = useCallback(async () => {
-    const res = await getMyLibrary();
-    if (!res) return;
-    setorderCategorized(res);
-    setFilteredOrder(res);
-    setPending(false);
-  }, []);
-
   useEffect(() => {
     setPending(true);
+    const fetchLibrary = async () => {
+      const res = await getMyLibrary();
+      if (!res) return;
+      setorderCategorized(res);
+      setFilteredOrder(res);
+      setPending(false);
+    };
     fetchLibrary();
   }, []);
 
   useEffect(() => {
-    handleFilter(orderCategorized);
+    handleFilter();
   }, [searchTerm]);
 
   if (!session) {
@@ -270,10 +269,15 @@ export default function Mylibrary({}: Props) {
                               </div>
                               <div className=" flex-[0.18] flex bg-blue-100/40 sm:bg-transparent items-center justify-center rounded-b-lg">
                                 <Tooltip content={"download file"}>
-                                  <button className="gap-2 px-3 py-2 rounded-lg text-blue-500 hover:bg-stone-200"
-                                       onClick={() => {
-                                        handleGetUrlFile(sheet.file_path,sheet.name)
-                                      }}>
+                                  <button
+                                    className="gap-2 px-3 py-2 rounded-lg text-blue-500 hover:bg-stone-200"
+                                    onClick={() => {
+                                      handleGetUrlFile(
+                                        sheet.file_path,
+                                        sheet.name
+                                      );
+                                    }}
+                                  >
                                     <ArrowDownTrayIcon className=" w-8 h-8 " />
                                   </button>
                                 </Tooltip>

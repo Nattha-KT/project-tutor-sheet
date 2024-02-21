@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import Unauthorized from "@/components/error-page/Unauthorized";
 import {
   BanknotesIcon,
@@ -38,13 +38,6 @@ export default function Cart() {
     await checkout(checkList);
   };
 
-
-  // useEffect(() => {
-  //   // Prefetch a route with server-side rendering or server components
-  //   sheetList.map((sheet) =>{
-  //     router.prefetch(`/store/info-sheet/${sheet.id}`);
-  //   })
-  // }, []);
 
 
 
@@ -162,7 +155,7 @@ export default function Cart() {
             </strong>
             <div className="block p-4 rounded-lg mb-3 mt-1">
               {checkList.map((sheet) => (
-                <div className="flex p-1 justify-between border-b border-gray-100 mb-2 text-sm text-gray-600">
+                <div key={sheet.id} className="flex p-1 justify-between border-b border-gray-100 mb-2 text-sm text-gray-600">
                   <span>
                     {sheet.course_code} -{" "}
                     <span className=" text-xs text-stone-500">

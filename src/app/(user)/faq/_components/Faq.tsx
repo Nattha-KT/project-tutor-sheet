@@ -12,7 +12,7 @@ export default function Faq({ data }: { data: Faq[] }) {
       <div className=" text-base font-medium">
         Welcome to our FAQ section! Here, we aim to provide you with clear and
         concise answers to some of the most commonly asked questions about us.
-        Whether you're a new customer seeking information or a returning visitor
+        Whether you&apos;re a new customer seeking information or a returning visitor
         looking for quick solutions, our FAQ is designed to streamline your
         experience and provide you with the information you need.
       </div>

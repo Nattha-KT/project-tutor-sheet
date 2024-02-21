@@ -1,23 +1,17 @@
 import { NextApiResponse } from "next";
 // import prisma from "../../../../lib/prismaDb";
-import prisma from "@/db/prismaDb";
+import prisma, { dbConnect } from "@/db/prismaDb";
 import { NextResponse } from "next/server"
 import { Sheet } from "@prisma/client";
 
 
 
-export async function main() {
-    try{
-        await prisma.$connect();
-    }catch(err){
-        return Error ("Database connection Unsuccessful");
-    }
-}
+
 
 export const POST = async (req: Request, res: Response)=>{
     try{
         const {course_code,name,semester,type,year,price,num_page,class_details,content_details,suggestion,cover_page,samples_page,sid,file_path}:Sheet = await req.json();
-        await main();
+        await dbConnect();
         const sheet = await prisma.sheet.create({data:{course_code,name,semester,type,year,price,num_page,suggestion,class_details,content_details,sid,cover_page,samples_page,file_path}})
         return NextResponse.json({message:"Success",sheet},{status:200});
         }catch(err){
@@ -29,7 +23,7 @@ export const POST = async (req: Request, res: Response)=>{
 
     export const GET = async (req: Request, res: Response)=>{
         try{
-            await main();
+            await dbConnect();
             const sheets = await prisma.sheet.findMany({include:{
                 seller:{
                     select:{
@@ -55,7 +49,7 @@ export const POST = async (req: Request, res: Response)=>{
 
         try{
             const {ids} = await req.json();
-            await main();
+            await dbConnect();
             await prisma.sheet.deleteMany({
                 where: {
                     id: {
@@ -82,7 +76,7 @@ export const POST = async (req: Request, res: Response)=>{
     
         try{
             const {ids} = await req.json();
-            await main();
+            await dbConnect();
             await prisma.sheet.updateMany({
                 data:{status_approve :true, },
                 where :{id:{

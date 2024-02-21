@@ -151,7 +151,7 @@ export default function SuccessPage({ params }: { params: { id: string } }) {
         </h1>
         <p className=" sm:px-[6rem] text-sm font-sans font-light text-gray-500 text-center mb-6">
           When you have successfully purchased a sheet and are satisfied with
-          the store's service or the content of the sheet, you can rate it to
+          the store&apos;s service or the content of the sheet, you can rate it to
           indicate your satisfaction with the seller.
         </p>
         {order && order.sellers.map((seller) =>

@@ -1,15 +1,8 @@
 import { NextApiResponse } from "next";
-import prisma from "../../../../../db/prismaDb";
+import prisma, { dbConnect } from "../../../../../db/prismaDb";
 import { NextResponse,NextRequest  } from "next/server"
 import { getAuthSession } from "@/lib/auth";
 
-export async function main() {
-    try{
-        await prisma.$connect();
-    }catch(err){
-        return Error ("Database connection Unsuccessful");
-    }
-}
 
 
 export const GET = async (req: NextRequest , res: NextApiResponse)=>{
@@ -22,7 +15,7 @@ export const GET = async (req: NextRequest , res: NextApiResponse)=>{
             let take = parseInt(slug.split("/")[1],10);
             const skip = parseInt(slug.split("/")[2],10);
 
-            await main();
+            await dbConnect();
             const sheetsBySid = await prisma.sheet.findMany({ 
                 skip: skip||undefined,
                 take: take || undefined,

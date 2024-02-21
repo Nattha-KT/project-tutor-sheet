@@ -1,18 +1,11 @@
-import prisma from "../../../db/prismaDb";
+import prisma, { dbConnect } from "../../../db/prismaDb";
 import { NextResponse } from "next/server"
 
-export async function main() {
-    try{
-        await prisma.$connect();
-    }catch(err){
-        return Error ("Database connection Unsuccessful");
-    }
-}
 
 
 export const GET = async (req: Request, res: Response)=>{
     try{
-        await main();
+        await dbConnect();
         const faq = await prisma.complaint.findMany(); 
         return NextResponse.json({message:"success",faq},{status:200})
     }catch(err){
@@ -28,7 +21,7 @@ export const POST = async (req: Request, res: Response)=>{
 try{
     const {help,userId} = await req.json();
     const {head,content,level,role,category} = help ;
-    await main();
+    await dbConnect();
     const data = await prisma.complaint.create({data:{head,content,level,role,category,userId}})
     return NextResponse.json({message:"Success",data},{status:200});
     }catch(err){
@@ -39,7 +32,6 @@ try{
 
 }
 
-export const DELEAT = async (req: Request, res: Response)=>{}
 
 
 

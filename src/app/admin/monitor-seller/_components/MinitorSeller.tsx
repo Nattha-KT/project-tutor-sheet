@@ -4,7 +4,7 @@ import {
   MagnifyingGlassIcon,
   ChevronUpDownIcon,
 } from "@heroicons/react/24/outline";
-import {  UserGroupIcon,IdentificationIcon } from "@heroicons/react/24/solid";
+import { UserGroupIcon, IdentificationIcon } from "@heroicons/react/24/solid";
 import {
   Card,
   CardHeader,
@@ -29,11 +29,13 @@ interface MonitorProps extends Seller {
   sellers: Seller[];
 }
 
-export default function MonitorSeller({ sellers,managementData }: any) {
-
-  console.log(sellers)
-  console.log(managementData)
-
+export default function MonitorSeller({
+  sellers,
+  managementData,
+}: {
+  sellers: any[];
+  managementData: any;
+}) {
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredSheets, setFilteredSheets] = useState<any[]>([]);
   const [totalPages, setTotalPages] = useState(1);
@@ -41,7 +43,8 @@ export default function MonitorSeller({ sellers,managementData }: any) {
   const itemsPerPage = 5;
   const TABLE_HEAD = ["Name", "Pen name", "Tel", "Bank", `Total uplaod`, ""];
 
-  const handleFilter = (sellers: any[]) => {
+  const handleFilter = () => {
+    if (!sellers) return [];
     const filter = sellers.filter((seller) => {
       return (
         seller.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -53,7 +56,7 @@ export default function MonitorSeller({ sellers,managementData }: any) {
   };
 
   useEffect(() => {
-    const filter = handleFilter(sellers);
+    const filter = handleFilter();
     if (filter.length > 0) {
       // คำนวณจำนวนหน้าทั้งหมด
       const total = Math.ceil(filter.length / itemsPerPage);
@@ -81,8 +84,13 @@ export default function MonitorSeller({ sellers,managementData }: any) {
   };
 
   return (
-    <Card className="h-full sm:p-5 mb-10">
-      <CardHeader floated={false} shadow={false} className="rounded-none">
+    <Card className="h-full sm:p-5 mb-10" placeholder={undefined}>
+      <CardHeader
+        floated={false}
+        shadow={false}
+        className="rounded-none"
+        placeholder={undefined}
+      >
         <div className=" mb-5">
           <div className=" flex gap-4 items-center mb-3">
             <UserGroupIcon className=" w-12 h-12 text-amber-400" />
@@ -90,8 +98,13 @@ export default function MonitorSeller({ sellers,managementData }: any) {
               Seller Account
             </p>
           </div>
-          <Typography color="gray" className="mt-1 font-normal">
-             Information about the seller and access to basic information  needed to identify the seller <br/> and complete the transaction.
+          <Typography
+            color="gray"
+            className="mt-1 font-normal"
+            placeholder={undefined}
+          >
+            Information about the seller and access to basic information needed
+            to identify the seller <br /> and complete the transaction.
           </Typography>
         </div>
         <div className="flex justify-end">
@@ -107,7 +120,10 @@ export default function MonitorSeller({ sellers,managementData }: any) {
           </div>
         </div>
       </CardHeader>
-      <CardBody className="overflow-x-scroll px-0 py-0 sm:rounded-xl">
+      <CardBody
+        className="overflow-x-scroll px-0 py-0 sm:rounded-xl"
+        placeholder={undefined}
+      >
         <table className="w-full min-w-max table-auto text-left bg-slate-50 ">
           <thead>
             <tr>
@@ -117,6 +133,7 @@ export default function MonitorSeller({ sellers,managementData }: any) {
                   className="cursor-pointer border-y border-stone-100 bg-stone-200 p-4 transition-colors hover:bg-stone-300"
                 >
                   <Typography
+                    placeholder={undefined}
                     variant="small"
                     color="blue-gray"
                     className="flex items-center justify-between gap-2 font-semibold leading-none opacity-70 text-stone-900"
@@ -152,6 +169,7 @@ export default function MonitorSeller({ sellers,managementData }: any) {
                             variant="small"
                             color="blue-gray"
                             className="font-normal"
+                            placeholder={undefined}
                           >
                             {seller.full_name}
                           </Typography>
@@ -161,6 +179,7 @@ export default function MonitorSeller({ sellers,managementData }: any) {
                     <td className="p-4">
                       <div className="flex flex-col">
                         <Typography
+                          placeholder={undefined}
                           variant="small"
                           color="blue-gray"
                           className="font-normal"
@@ -172,6 +191,7 @@ export default function MonitorSeller({ sellers,managementData }: any) {
                     <td className="p-4">
                       <div className="flex flex-col">
                         <Typography
+                          placeholder={undefined}
                           variant="small"
                           color="blue-gray"
                           className="font-normal"
@@ -182,6 +202,7 @@ export default function MonitorSeller({ sellers,managementData }: any) {
                     </td>
                     <td className="p-4">
                       <Typography
+                        placeholder={undefined}
                         variant="small"
                         color="blue-gray"
                         className="font-normal"
@@ -191,6 +212,7 @@ export default function MonitorSeller({ sellers,managementData }: any) {
                     </td>
                     <td className="p-4">
                       <Typography
+                        placeholder={undefined}
                         variant="small"
                         color="blue-gray"
                         className="font-normal pl-7"
@@ -200,7 +222,10 @@ export default function MonitorSeller({ sellers,managementData }: any) {
                     </td>
                     <td className="p-4">
                       <Tooltip content="Seller Detail">
-                        <Link className=" w-8 h-8 rounded-lg p-2 flex items-center justify-center hover:bg-gray-200" href={`monitor-seller/${seller.id}`}>
+                        <Link
+                          className=" w-8 h-8 rounded-lg p-2 flex items-center justify-center hover:bg-gray-200"
+                          href={`monitor-seller/${seller.id}`}
+                        >
                           <IdentificationIcon className="h-4 w-4" />
                         </Link>
                       </Tooltip>
@@ -211,12 +236,21 @@ export default function MonitorSeller({ sellers,managementData }: any) {
           </tbody>
         </table>
       </CardBody>
-      <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-        <Typography variant="small" color="blue-gray" className="font-normal">
+      <CardFooter
+        className="flex items-center justify-between border-t border-blue-gray-50 p-4"
+        placeholder={undefined}
+      >
+        <Typography
+          variant="small"
+          color="blue-gray"
+          className="font-normal"
+          placeholder={undefined}
+        >
           {`Page ${currentPage} of ${totalPages}`}
         </Typography>
         <div className="flex gap-2">
           <Button
+            placeholder={undefined}
             variant="outlined"
             size="sm"
             onClick={handlePrevPage}
@@ -225,6 +259,7 @@ export default function MonitorSeller({ sellers,managementData }: any) {
             Previous
           </Button>
           <Button
+            placeholder={undefined}
             variant="outlined"
             size="sm"
             onClick={handleNextPage}
