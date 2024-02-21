@@ -25,9 +25,9 @@ export default function Hero() {
   const imageScroll2 = useTransform(scrollYProgress, [0, 1], ['100%', '-50%']);
 
   return (
-    <section id="Title" className={`pb-0 lg:pb-10`} ref={ref}>
+    <section id="Title" className={'mb-10'} ref={ref}>
     
-        <div className="2xl:flex justify-center w-11/12 mx-auto h-[450px] 2xl:min-h-[800px] pt-2">
+        <div className="flex xl:justify-around px-[1rem]  md:px-[4rem] xl:px-[9rem] w-full mx-auto  2xl:min-h-[800px] pt-2">
           <div className="lg:w-4/12 z-[3] relative">
             {content.intro.subTitle && (
               <motion.span 
@@ -44,7 +44,8 @@ export default function Hero() {
                   initial={{opacity:0,y:20}}
                   whileInView={{opacity:1,y:0,transition:{delay:0.2,duration:0.5, timeline: "incorrect-offset 50%",}}}
                   viewport={{once:true,}}
-                  className="text-gray-800 text-3xl sm:text-4xl md:text-5xl 2xl:shadow-xl 2xl:p-6 lg:text-6xl w-auto lg:w-screen max-w-xl mb-4 md:mb-8 sm:bg-gray-50 rounded-md"
+                  className="text-gray-800 text-3xl sm:text-4xl md:text-5xl 2xl:shadow-xl 2xl:p-6 lg:text-6xl 
+                  w-auto lg:w-screen max-w-xl mb-4 md:mb-8 sm:bg-gray-50 rounded-md border-t border-gray-100"
                   >
                     {content.intro.title}
               </motion.h1>
@@ -85,7 +86,6 @@ export default function Hero() {
                     >
                       {content.intro.btn.label}
                     </motion.a>
-         
               </motion.p>
             )}
 
@@ -111,7 +111,7 @@ export default function Hero() {
                 priority={true}
                 src={`/images/homewall2.jpg`}
                 alt="img"
-                className="w-full h-[650px] 2xl:h-[720px] hidden rounded-r-md shadow-md 2xl:block object-cover opacity-90"
+                className="w-full h-[650px] 2xl:h-[720px] hidden rounded-r-md shadow-md xl:block object-cover opacity-80"
                 /> 
             </motion.div>
             <motion.div 

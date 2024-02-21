@@ -35,6 +35,7 @@ export default function RootComment({ state, rootComment }: CommentProps) {
   const [toggleEdit, setToggleEdit] = useState<boolean>(false);
   const [deleteComment, setDeleteComment] = useState<boolean>(false);
   const [childComment, setChildComment] = useState<CommentType[]>([]);
+  const [likeByMe, setLikeByMe] = useState<boolean>(rootComment.likedByMe ? rootComment.likedByMe:false);
 
   const rootId = useMemo<string>(() => rootComment.id, [rootComment]);
   const userId = useMemo(() => {
@@ -46,11 +47,14 @@ export default function RootComment({ state, rootComment }: CommentProps) {
   }, [toggleEdit, toggleReply]);
 
   const handleToggleLike = async () => {
+    setLikeByMe((prev)=> !prev)
     const res = await toggleCommentLike(rootComment.id);
-    // console.log(res);
-    if (!res.like) return;
+    if (!res.like) {
+      setLikeByMe((prev)=> !prev)
+      return;
+    };
     toggleLocalCommentLike &&
-      toggleLocalCommentLike(rootComment.id, res.like.addLike);
+    toggleLocalCommentLike(rootComment.id, res.like.addLike);
   };
 
   useEffect(() => {
@@ -96,8 +100,8 @@ export default function RootComment({ state, rootComment }: CommentProps) {
               <div className=" flex items-center gap-x-[0.2rem]">
                 <div className=" text-blue-300">{rootComment.likeCount}</div>
                 <IconButton
-                  Icon={rootComment.likedByMe ? Like : Unlike}
-                  aria-label={`${rootComment.likedByMe ? "Like" : "Unlike"}`}
+                  Icon={likeByMe ? Like : Unlike}
+                  aria-label={`${likeByMe ? "Like" : "Unlike"}`}
                   onClick={handleToggleLike}
                 />
               </div>

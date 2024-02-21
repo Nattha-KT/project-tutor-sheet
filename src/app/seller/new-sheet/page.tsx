@@ -104,15 +104,14 @@ export default function NewSheet() {
               Add new sheets for sale which must be verified.&nbsp;&nbsp;&nbsp;
               <span className="text-red-600">*Please fill in all fields*</span>
             </p>
-            <div className="flex justify-center ">
-              <Image
-                width={1000}
-                height={1000}
-                src="/warning_new_sheet.png"
-                alt="img"
-                className="max-w-full h-auto  md:w-[750px] md:h-[250px]  md:block object-cover mt-8 rounded-lg"
-              />
-            </div>
+            {/* <Image
+              preview={false}
+              width={600}
+              height={200}
+              src="/warning_new_sheet.png"
+              alt="img"
+              className="md:max-w-full h-auto w-auto md:max-h-[250px] md:block object-cover rounded-lg hidden lg:block"
+            /> */}
           </div>
 
           <div className="border-b border-gray-900/10 pb-2">

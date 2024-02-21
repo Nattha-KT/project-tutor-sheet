@@ -49,9 +49,6 @@ export const GET = async (req: Request) => {
         category:"seller"
       }})
 
-      // const order = await prisma.order.find({where:{
-        
-      // }})
       const averageSellerRating = ratings.reduce((acc, curr) => acc + curr.point, 0)/ratings.length;
 
       return {

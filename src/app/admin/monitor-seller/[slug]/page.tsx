@@ -5,7 +5,6 @@ import getSellerById from '../../../../../actions/get-seller-id-action';
 import { useRouter } from 'next/router'
 
 export default async function ProfilePage({ params }: { params: { slug: string } }) {
-  console.log(params.slug)
   const res = await getSellerById(params?.slug)
 
   if(!res.success){

@@ -22,8 +22,6 @@ interface ExtendedSheet extends Sheet {
 
 export default function SheetCard({sheet}:{sheet:ExtendedSheet}) {
   const pathName = usePathname()
-
-  console.log(sheet)
   
 
   return (

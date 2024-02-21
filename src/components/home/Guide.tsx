@@ -9,6 +9,7 @@ import { CursorArrowRaysIcon } from "@heroicons/react/24/outline";
 import { useSession } from "next-auth/react";
 import content from "@/constant/home";
 import StoreButton from "../store/StoreButton";
+import Link from "next/link";
 
 export default function GuideTutorSheet() {
   const { data: session } = useSession();
@@ -132,14 +133,15 @@ export default function GuideTutorSheet() {
                             {step.description}
                           </p>
                           <p className="z-[20] absolute ">
-                            <a
+                            <Link
+                              prefetch={true}
                               href={step.btn.href}
                               className="Z-[30] text-[13px] tracking-[2px] uppercase border-b-2 pb-2
                         inline-block border-sky-800 duration-300 transition-all ease-in-out
                         group-hover:border-teal-600 group-hover:text-slate-700 group-hover:text-[17px]"
                             >
                               {step.btn.label}
-                            </a>
+                            </Link>
                           </p>
                         </div>
                       </motion.div>
@@ -167,10 +169,7 @@ export default function GuideTutorSheet() {
         >
           <div className=" text-center lg:w-7/12">
             <p className="leading-relaxed text-[15px] text-stone-700 duration-300 pb-5">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad
-              provident explicabo, ipsum consequatur obcaecati labore eius
-              voluptate impedit incidunt quibusdam alias nulla cum laboriosam
-              magnam iusto libero reprehenderit, ab odit.
+            "If you're ready, feel free to visit our store now. You'll encounter a seamless user experience, whether it's for making purchases or browsing content. It's easy, with minimal steps. Dive in and start exploring!"
             </p>
             {!session?.user ? (
               <LoginButton/>

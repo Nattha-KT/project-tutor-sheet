@@ -3,6 +3,7 @@ import { RatingStar } from '@/components/RatingStar';
 import { DialogDelete,DialogEditSeller } from '@/components/dialog';
 import useProfileSeller from '@/hooks/useProfileSeller';
 import { PencilSquareIcon, TrashIcon, BookOpenIcon,CreditCardIcon,BuildingLibraryIcon,IdentificationIcon} from '@heroicons/react/24/outline';
+import { Rate } from 'antd';
 import Image from 'next/image';
 
 
@@ -23,8 +24,9 @@ export default function ProfileSeller({seller}:{seller:any}) {
                   <p className='flex items-center justify-center md:mt-[-1rem] text-3xl font-extrabold text-center'>
                       {seller.pen_name}
                   </p>
-                   <div className=' flex justify-center items-center md:mt-[-1rem]'>
-                      <RatingStar/>
+                   <div className=' flex justify-center items-center md:mt-[-1rem] gap-2'>
+                    <Rate allowHalf value={seller.ratingSeller} className=' pb-1' disabled/>
+                    <span className=' text-sm text-gray-500 font-light'>{`(${seller.ratingSeller})  ${seller.reviewser} reviews`}</span>
                    </div>
               </div>
               <div id="button-edit-delete" className=' z-10  flex flex-col sm:flex-row gap-3 items-center justify-center md:justify-start'>

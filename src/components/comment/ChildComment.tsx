@@ -32,6 +32,7 @@ export default function ChildComment({childComment,state}: CommentProps) {
   const [toggleReply, setToggleReply] = useState<boolean>(false);
   const [toggleEdit,setToggleEdit] = useState<boolean>(false);
   const [deleteComment,setDeleteComment] = useState<boolean>(false);
+  const [likeByMe, setLikeByMe] = useState<boolean>(childComment.likedByMe ? childComment.likedByMe:false);
 
   const parentId = useMemo<string>(() => childComment.id, [childComment]);
   const userId = useMemo(() => {
@@ -44,8 +45,12 @@ export default function ChildComment({childComment,state}: CommentProps) {
 
   
   const  handleToggleLike= async()=>{
+    setLikeByMe((prev)=> !prev)
     const res = await toggleCommentLike(childComment.id)
-    if(!res.like) return ;
+    if(!res.like) {
+      setLikeByMe((prev)=> !prev)
+      return ;
+    }
     toggleLocalCommentLike&& toggleLocalCommentLike(childComment.id,res.like.addLike)
   }
 
@@ -91,7 +96,7 @@ export default function ChildComment({childComment,state}: CommentProps) {
               <div className='flex gap-x-3 min-h-6 pl-4'>
                 <div className=" flex items-center gap-x-[0.2rem]">
                   <div className=" text-blue-300">{childComment.likeCount}</div>
-                 <IconButton Icon={childComment.likedByMe ?Like:Unlike}  aria-label={`${childComment.likedByMe ?"Like":"Unlike"}`} 
+                 <IconButton Icon={likeByMe ?Like:Unlike}  aria-label={`${likeByMe ?"Like":"Unlike"}`} 
                   onClick={handleToggleLike}/>
                 </div>
                { childComment.user?.id === userId &&(

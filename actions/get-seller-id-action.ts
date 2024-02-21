@@ -19,10 +19,18 @@ async function getSellerById(id:string) {
         },
       },
     });
+    const ratings  = await prisma.rating.findMany({where:{
+      sid:id,
+      category:"seller"
+    }})
+
+    const averageSellerRating = ratings.reduce((acc, curr) => acc + curr.point, 0)/ratings.length;
 
     const seller = {
       ...sellersWithSheetCount,
       sheetCount: sellersWithSheetCount?.sheet.length || 0,
+      ratingSeller:averageSellerRating? averageSellerRating:0,
+      reviewser:ratings.length
     };
 
     return { error: null, success: true, seller };

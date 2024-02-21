@@ -112,13 +112,13 @@ export default function Aboute() {
               {content.testimonials.map((testimonial,idx)=>(
                 <SwiperSlide className='w-full  ' key={testimonial.name}>
                   <div className='block md:flex  overflow-y-visible mt-10 items-stretch bg-stone-100 h-full mx-3 my-5 rounded-lg  shadow-lg'>
-                    <div className=' md:w-4/12 rounded-l-lg'>
+                    <div className=' md:w-3/12 rounded-l-lg'>
                       <Image 
                         src={testimonial.img}
                         alt={testimonial.name}
                         width={320}
                         height={320}
-                        className=' object-cover object-center h-[360px] !w-full  rounded-l-lg  '
+                        className=' object-cover object-center h-[360px] w-[25rem]  rounded-l-lg  '
                       />
                     </div>
                     <div className=' md:w-8/12 p-7 md:p-16 flex items-center'>
