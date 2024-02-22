@@ -71,7 +71,27 @@ export const GET = async (req: NextRequest, res: NextApiResponse) => {
       
     ).then(async (sheets) => {
       if (!sheets) return;
-      if (!session) return sheets;
+
+
+      if (!session)  {
+          const ratingAll = await prisma.rating.findMany()
+          const sheetsCustom = await Promise.all(sheets.map(async sheet => {
+            const mapSheetRatings= ratingAll.filter(rating => (rating.sheetId === sheet.id)&&(rating.category === "sheet"));
+            const mapSellerRatings= ratingAll.filter(rating => (rating.sid === sheet.seller.id )&&(rating.category === "seller"));
+    
+            const averageSheetRating = mapSheetRatings.reduce((acc, curr) => acc + curr.point, 0)/mapSheetRatings.length;
+            const averageSellerRating = mapSellerRatings.reduce((acc, curr) => acc + curr.point, 0)/mapSellerRatings.length;
+            
+            return {
+              ...sheet,
+              ratingSheet:averageSheetRating? averageSheetRating:0,
+              ratingSeller:averageSellerRating? averageSellerRating:0,
+              reviewserSheet:mapSheetRatings.length,
+              reviewserSeller:mapSellerRatings.length,
+            };
+          }));
+          return sheetsCustom 
+      };
 
       const [favorites, carts, ownerships,ratingAll] = await Promise.all([
         prisma.favorite.findMany({

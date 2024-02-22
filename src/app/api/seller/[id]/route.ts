@@ -33,7 +33,42 @@ export const GET = async (req: Request)=>{
                 }
             }).then(async (seller)=>{
                 if(!seller) return null;
-                if (!session) return seller;
+                if (!session)  {
+                    const [ratingSeller,ratingAll] = await Promise.all([
+                      prisma.rating.findMany({where:{
+                        sid:seller.id,
+                        category:"seller"
+                        }}),
+    
+                        prisma.rating.findMany(),
+                    ])
+
+                    const filterdSheet = seller.sheet.filter((sheet) => sheet.status_approve === true);
+                    const averageSellerRating = ratingSeller.reduce((acc, curr) => acc + curr.point, 0)/ratingSeller.length;
+
+                    const sheetsShowCustom = await Promise.all(filterdSheet.map((sheet)=>{
+                        const sheetRatings = ratingAll.filter(rating => (rating.sheetId === sheet.id) && (rating.category === "sheet"));
+                        const sellerRatings= ratingAll.filter(rating => (rating.sid === sheet.sid) && (rating.category === "seller"));
+              
+                        const averageSheetRating = sheetRatings.reduce((acc, curr) => acc + curr.point, 0)/sheetRatings.length;
+                        const averageSellerRating = sellerRatings.reduce((acc, curr) => acc + curr.point, 0)/sellerRatings.length;
+              
+                        return {
+                          ...sheet,
+                          ratingSheet:averageSheetRating? averageSheetRating:0,
+                          ratingSeller:averageSellerRating? averageSellerRating:0,
+                          reviewserSheet:sheetRatings.length,
+                          reviewserSeller:sellerRatings.length,
+                        }
+                      }))
+
+                      return {
+                        ...seller,
+                        sheet:sheetsShowCustom,
+                        ratingSeller:averageSellerRating? averageSellerRating:0,
+                        reviewsers:ratingSeller.length
+                      }
+                };
 
                 const [favorites, carts, ownerships,ratingSeller,ratingAll] = await Promise.all([
 
@@ -67,7 +102,7 @@ export const GET = async (req: Request)=>{
 
                 const filterdSheet = seller.sheet.filter((sheet) => sheet.status_approve === true);
 
-                const sheetShowCustom = await Promise.all(filterdSheet.map((sheet)=>{
+                const sheetsShowCustom = await Promise.all(filterdSheet.map((sheet)=>{
                     const mapFavByUser= favorites.find(fav => fav.sheetId === sheet.id);
                     const mapCartByUser= carts.find(cart => cart.sheetId === sheet.id);
                     const mapOwnership= ownerships.find(ownership => ownership.sheetId === sheet.id);
@@ -94,7 +129,7 @@ export const GET = async (req: Request)=>{
 
                 return {
                     ...seller,
-                    sheet:sheetShowCustom,
+                    sheet:sheetsShowCustom,
                     ratingSeller:averageSellerRating? averageSellerRating:0,
                     reviewsers:ratingSeller.length
                   }

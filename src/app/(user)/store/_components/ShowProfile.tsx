@@ -25,7 +25,6 @@ interface ExtendedSheet extends Sheet {
   }
 
 export default function ShowProfile({data}:{data: ProfileSellerProps}) {
-    console.log(data)
     const [openAcc1, setOpenAcc1] = useState(true);
     const [filteredSheets, setFilteredSheets] = useState<ExtendedSheet[]>([]);
     const [searchTerm, setSearchTerm] = useState("");

@@ -48,7 +48,66 @@ export const GET = async (req: Request, res: NextApiResponse) => {
       })
       .then(async (sheet) => {
         if (!sheet) return;
-        if (!session?.user) return sheet;
+        if (!session)  {
+          const [ratingAll,sheetShows] = await Promise.all([
+            prisma.rating.findMany(),
+            prisma.sheet.findMany({
+              where: {
+                sid: sheet.sid,
+                id: {
+                  not: sheet.id,
+                },
+                status_approve: true,
+              },
+              include: {
+                seller: {
+                  select: {
+                    full_name: true,
+                    pen_name: true,
+                    image: true,
+                  },
+                },
+              },
+              orderBy: {
+                id: "asc", // 'desc' ถ้าต้องการสุ่มจากมากไปน้อย
+              },
+              take: 4,
+            })
+          ])
+
+        
+          const mapSheetRatings= ratingAll.filter(rating => (rating.sheetId === sheet.id)&&(rating.category === "sheet"));
+          const mapSellerRatings= ratingAll.filter(rating => (rating.sid === sheet.sid )&&(rating.category === "seller"));
+  
+          const averageSheetRating = mapSheetRatings.reduce((acc, curr) => acc + curr.point, 0)/mapSheetRatings.length;
+          const averageSellerRating = mapSellerRatings.reduce((acc, curr) => acc + curr.point, 0)/mapSellerRatings.length;
+          
+
+          const sheetsShowCustom = await Promise.all(sheetShows.map(async (sheetShow) => {
+            const mapSheetRatings= ratingAll.filter(rating => (rating.sheetId === sheetShow.id)&&(rating.category === "sheet"));
+            const mapSellerRatings= ratingAll.filter(rating => (rating.sid === sheetShow.sid )&&(rating.category === "seller"));
+    
+            const averageSheetRating = mapSheetRatings.reduce((acc, curr) => acc + curr.point, 0)/mapSheetRatings.length;
+            const averageSellerRating = mapSellerRatings.reduce((acc, curr) => acc + curr.point, 0)/mapSellerRatings.length;
+            
+            return {
+              ...sheetShow,
+              ratingSheet:averageSheetRating? averageSheetRating:0,
+              ratingSeller:averageSellerRating? averageSellerRating:0,
+              reviewserSheet:mapSheetRatings.length,
+              reviewserSeller:mapSellerRatings.length,
+            };
+          }));
+       
+          return {
+            ...sheet,
+            ratingSheet:averageSheetRating? averageSheetRating:0,
+            ratingSeller:averageSellerRating? averageSellerRating:0,
+            reviewserSheet:mapSheetRatings.length,
+            reviewserSeller:mapSellerRatings.length,
+            sheetShows:sheetsShowCustom
+          } 
+      };
 
         const [likes, sheetShows, favorite, cart, ownership, ratingAll] =
           await Promise.all([
