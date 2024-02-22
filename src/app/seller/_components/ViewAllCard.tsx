@@ -32,7 +32,7 @@ export default function ViewAllCard ({dataSheets}:SheetsProps) {
 
   return (
      <>
-       <SearchBar clasName=' relative z-[20]' useDropdown={useDropdown} pathSearch='view-all'/>
+       <SearchBar className=' relative z-[20]' useDropdown={useDropdown} pathSearch='view-all'/>
        {filteredSheets.length!==0 ? 
         <section className=' h-auto max-w-7xl z-10 mx-auto px-5  justify-center  grid grid-cols-2  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-2 sm:gap-x-5 gap-y-10'>
           { filteredSheets.map((sheet)=>(
