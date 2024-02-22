@@ -35,11 +35,11 @@ const priceOption = [
 ];
 
 export default function SearchBar({
-  clasName,
+  className,
   useDropdown,
   pathSearch,
 }: {
-  clasName: string;
+  className: string;
   useDropdown: TypeDropdownFilter;
   pathSearch: string;
 }) {
@@ -78,7 +78,7 @@ export default function SearchBar({
   }, []);
 
   return (
-    <form className={`${clasName} mb-10 z-[40]`} onSubmit={onSearch}>
+    <form className={`${className} mb-10 z-[40]`} onSubmit={onSearch}>
       <Navbar
         variant="gradient"
         className="mx-auto max-w-screen-xl bg-white border-0 px-4 py-3 z-[30]"

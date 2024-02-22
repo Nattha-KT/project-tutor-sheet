@@ -34,7 +34,7 @@ export default function StoreSheets({ dataSheets }: SheetsProps) {
   return (
     <>
       <SearchBar
-        clasName=" relative z-[20]"
+        className=" relative z-[20]"
         useDropdown={useDropdown}
         pathSearch={""}
       />

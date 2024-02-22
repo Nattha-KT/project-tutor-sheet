@@ -17,8 +17,6 @@ const PAGE_SIZE = 8;
 export default async function  Store(props:PageProps){
   const pageNumber = Number(props?.searchParams?.page || 1);
   const searchQuery = props.searchParams?.search || ""
-  // const filterMode = props.searchParams?.filter || ""
-  // console.log(filterMode);
   const take = PAGE_SIZE;
 	const skip = (pageNumber - 1) * take; // Calculate skip based on page number.
   

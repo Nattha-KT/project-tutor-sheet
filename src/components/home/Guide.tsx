@@ -169,7 +169,7 @@ export default function GuideTutorSheet() {
         >
           <div className=" text-center lg:w-7/12">
             <p className="leading-relaxed text-[15px] text-stone-700 duration-300 pb-5">
-            "If you're ready, feel free to visit our store now. You'll encounter a seamless user experience, whether it's for making purchases or browsing content. It's easy, with minimal steps. Dive in and start exploring!"
+            If you&apos;re ready, feel free to visit our store now. You&apos;ll encounter a seamless user experience, whether it&apos;s for making purchases or browsing content. It&apos;s easy, with minimal steps. Dive in and start exploring!
             </p>
             {!session?.user ? (
               <LoginButton/>

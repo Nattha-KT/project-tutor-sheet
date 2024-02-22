@@ -6,6 +6,7 @@ import {
   ShoppingCartIcon,
 } from "@heroicons/react/24/outline";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -30,15 +31,16 @@ export default function ButtonInfoCart({
   return (
     <>
       {owner ? (
-        <button
+        <Link
+          prefetch={true}
+          href="/my-library"
           className="  py-3 border-0 max-w-[60%] px-auto px-5 text-white  rounded-xl shadow-xl bg-sky-400 hover:scale-105"
-          onClick={() => (window.location.href = "/my-library")}
         >
           <span className="flex items-center gap-2">
             <CursorArrowRaysIcon className=" w-6 h-6" />
             In Library
           </span>
-        </button>
+        </Link>
       ) : (
         <button
           className={`btn border-0 max-w-[60%] px-auto sm:px-8 text-white  rounded-xl shadow-xl  ${
