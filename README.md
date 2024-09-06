@@ -48,6 +48,10 @@ This project is a web application built using **Next.js 14** with the purpose of
   <img width="20" />
   <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Railway_Logo.svg" height="50" alt="Railway logo"  />
   <img width="20" />
+</div>
+
+<div align="left">
+  <img width="20" />
   <img src="https://img.daisyui.com/images/daisyui-logo/daisyui-logotype.svg" height="50" alt="Stripe logo"  />
   <img width="20" />
 </div>
