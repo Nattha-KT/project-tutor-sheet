@@ -8,6 +8,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import HeartBtn from '../buttons/HeartBtn';
 import { v4 as uuidv4 } from "uuid";
 import { Rate } from 'antd';
+import Link from 'next/link';
 
 interface ExtendedSheet extends Sheet {
     id?: string;
@@ -35,8 +36,10 @@ export default function SheetCard({sheet}:{sheet:ExtendedSheet}) {
         </div>
       )}
       <div className='hover:cursor-pointer z-10'>
-        <Image onClick={()=> window.location.href=`/store/info-sheet/${sheet.id}`}  height={1000} width={1000} src={sheet.cover_page} alt="Abstract Design" 
+        <Link href={`/store/info-sheet/${sheet.id}`} prefetch={true}>
+          <Image   height={1000} width={1000} src={sheet.cover_page} alt="Abstract Design" 
         className="w-full h-[8.5rem] sm:h-60  object-cover "/>
+        </Link>
       </div>
       <div className=" px-3 py-3 sm:py-4 sm:px-4 flex flex-col ">
           <div id='card-content'>
