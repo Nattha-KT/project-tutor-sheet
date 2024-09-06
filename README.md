@@ -1,34 +1,97 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# University Study Sheet Marketplace (TUTOR-SHEET)
+
+This project is a web application built using **Next.js 14** with the purpose of creating a marketplace for university students to buy and sell study sheets. The application features a complete e-commerce system with both a buying and selling platform as well as admin management functionalities. This project was inspired by the website **Moresheet**.
+
+## Features
+
+- **User Registration & Authentication**
+  - Secure sign-up and login using **NextAuth.js**.
+  
+- **Marketplace Functionality**
+  - Students can upload and sell their study sheets.
+  - Buyers can search, browse, and purchase study sheets from different subjects.
+  
+- **Admin Dashboard**
+  - Manage users, transactions, and study sheet listings.
+
+- **Payment Integration**
+  - **Stripe** is used for processing secure payments.
+
+## Tech Stack
+
+- **Framework**: [Next.js 14](https://nextjs.org/)
+- **Database**: [Prisma](https://www.prisma.io/) + [PostgreSQL](https://www.postgresql.org/)
+- **Authentication**: [NextAuth.js](https://next-auth.js.org/)
+- **Storage**: [Firebase](https://firebase.google.com/) (DAS)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/), [Daisy UI](https://daisyui.com/), [Material Tailwind](https://www.material-tailwind.com/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Payment Processing**: [Stripe](https://stripe.com/)
+- **Deployment**: [Railway](https://railway.app/)
+
+  <br/>
+  <br/>
+
+  <div align="left">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" height="50" alt="typescript logo"  />
+  <img width="20" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" height="50" alt="react logo"  />
+  <img width="20" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" height="50" alt="nextjs logo"  />
+  <img width="20" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" height="50" alt="firebase logo"  />
+  <img width="20" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" height="50" alt="postgresql logo"  />
+  <img width="20" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original-wordmark.svg" height="50" alt="tailwindcss logo"  />
+  <img width="20" />
+  <img src="https://logos-world.net/wp-content/uploads/2022/12/Stripe-Emblem.png" height="50" alt="Stripe logo"  />
+  <img width="20" />
+  <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Railway_Logo.svg" height="50" alt="Railway logo"  />
+  <img width="20" />
+  <img src="https://img.daisyui.com/images/daisyui-logo/daisyui-logotype.svg" height="50" alt="Stripe logo"  />
+  <img width="20" />
+</div>
+
+
+  <br/>
+  <br/>
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+Make sure you have the following installed:
+- Node.js (v16.x or higher)
+- PostgreSQL
+- Firebase account for storage
+- Stripe account for payments
+- Railway account for deployment
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+    ```bash
+    git clone https://github.com/Nattha-KT/project-tutor-sheet.git
+    cd project-tutor-sheet
+    ```
 
-## Learn More
+2. Install dependencies:
 
-To learn more about Next.js, take a look at the following resources:
+    ```bash
+    npm install
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Set up the environment variables for **Prisma**, **PostgreSQL**, **NextAuth.js**, **Firebase**, and **Stripe**.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+4. Run the application locally:
 
-## Deploy on Vercel
+    ```bash
+    npm run dev
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+5. Access the app at `http://localhost:3000`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## License
+
+This project is licensed under the MIT License.
