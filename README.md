@@ -6,12 +6,11 @@ This project is a web application built using **Next.js 14** with the purpose of
 
 - **User Registration & Authentication**
   - Secure sign-up and login using **NextAuth.js**.
-  
 - **Marketplace Functionality**
   - Students can upload and sell their study sheets.
   - Buyers can search, browse, and purchase study sheets from different subjects.
-  
 - **Admin Dashboard**
+
   - Manage users, transactions, and study sheet listings.
 
 - **Payment Integration**
@@ -28,34 +27,33 @@ This project is a web application built using **Next.js 14** with the purpose of
 - **Payment Processing**: [Stripe](https://stripe.com/)
 - **Deployment**: [Railway](https://railway.app/)
 
-  <br/>
-  <br/>
+    <br/>
+    <br/>
 
   <div align="left">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" height="50" alt="typescript logo"  />
-  <img width="20" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" height="50" alt="react logo"  />
-  <img width="20" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" height="50" alt="nextjs logo"  />
-  <img width="20" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" height="50" alt="firebase logo"  />
-  <img width="20" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" height="50" alt="postgresql logo"  />
-  <img width="20" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original-wordmark.svg" height="50" alt="tailwindcss logo"  />
-  <img width="20" />
-  <img src="https://logos-world.net/wp-content/uploads/2022/12/Stripe-Emblem.png" height="50" alt="Stripe logo"  />
-  <img width="20" />
-  <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Railway_Logo.svg" height="50" alt="Railway logo"  />
-  <img width="20" />
-</div>
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" height="45" alt="typescript logo"  />
+    <img width="15" />
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" height="45" alt="react logo"  />
+    <img width="15" />
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" height="45" alt="nextjs logo"  />
+    <img width="15" />
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" height="45" alt="firebase logo"  />
+    <img width="15" />
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" height="45" alt="postgresql logo"  />
+    <img width="15" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg" height="45" alt="tailwindcss logo"  />
+    <img width="15" />
+    <img src="https://logos-world.net/wp-content/uploads/2022/12/Stripe-Emblem.png" height="45" alt="Stripe logo"  />
+    <img width="15" />
+    <img src="https://img.daisyui.com/images/daisyui-logo/daisyui-logotype.svg" height="40" alt="Stripe logo"  />
+    <img width="15" />
+  </div>
 
-<div align="left">
-  <img width="20" />
-  <img src="https://img.daisyui.com/images/daisyui-logo/daisyui-logotype.svg" height="50" alt="Stripe logo"  />
-  <img width="20" />
-</div>
-
+<!-- <div align="left">
+  <img width="25" />
+  <img src="https://img.daisyui.com/images/daisyui-logo/daisyui-logotype.svg" height="40" alt="Stripe logo"  />
+  <img width="15" />
+</div> -->
 
   <br/>
   <br/>
@@ -65,6 +63,7 @@ This project is a web application built using **Next.js 14** with the purpose of
 ### Prerequisites
 
 Make sure you have the following installed:
+
 - Node.js (v16.x or higher)
 - PostgreSQL
 - Firebase account for storage
@@ -75,26 +74,35 @@ Make sure you have the following installed:
 
 1. Clone the repository:
 
-    ```bash
-    git clone https://github.com/Nattha-KT/project-tutor-sheet.git
-    cd project-tutor-sheet
-    ```
+   ```bash
+   git clone https://github.com/Nattha-KT/project-tutor-sheet.git
+   cd project-tutor-sheet
+   ```
 
 2. Install dependencies:
 
-    ```bash
-    npm install
-    ```
+   ```bash
+   npm install
+   ```
 
 3. Set up the environment variables for **Prisma**, **PostgreSQL**, **NextAuth.js**, **Firebase**, and **Stripe**.
 
 4. Run the application locally:
 
-    ```bash
-    npm run dev
-    ```
+   ```bash
+   npm run dev
+   ```
 
 5. Access the app at `http://localhost:3000`.
+
+## View samples
+
+<br/>
+ <div align="center" style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+    <img src="./public/readme-show/readme-show1.png" height="300" width='660' alt="Image 1" />
+    <img src="./public/readme-show/readme-show2.png" height="300" width='660' alt="Image 2" />
+    <img src="./public/readme-show/readme-show3.png" height="300" width='660' alt="Image 3" />
+</div>
 
 ## License
 
