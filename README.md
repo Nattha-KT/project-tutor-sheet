@@ -95,7 +95,7 @@ Make sure you have the following installed:
 
 5. Access the app at `http://localhost:3000`.
 
-## View samples
+## View Samples
 
 <br/>
  <div align="center" style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
@@ -103,6 +103,10 @@ Make sure you have the following installed:
     <img src="./public/readme-show/readme-show2.png" height="300" width='660' alt="Image 2" />
     <img src="./public/readme-show/readme-show3.png" height="300" width='660' alt="Image 3" />
 </div>
+<br/>
+
+ 
+- [Here presentation detail](https://www.canva.com/design/DAF9hWqa1e4/uq1GuUFpKErjzRpiX1uASA/edit?utm_content=DAF9hWqa1e4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 ## License
 
