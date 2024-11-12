@@ -106,7 +106,7 @@ Make sure you have the following installed:
 <br/>
 
  
-- [Here presentation detail](https://www.canva.com/design/DAF9hWqa1e4/uq1GuUFpKErjzRpiX1uASA/edit?utm_content=DAF9hWqa1e4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+- [Here presentation detail](https://www.canva.com/design/DAF8wGmWVss/U01VXklxW8gabtddMOQ1wQ/edit?utm_content=DAF8wGmWVss&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 ## License
 
